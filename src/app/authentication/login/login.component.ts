@@ -1,17 +1,33 @@
 import { Component } from '@angular/core';
+import { Router} from '@angular/router';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
-  constructor() {}
+
+  constructor(private router:Router,private auth:AuthenticationService) {}
 
   loginform = true;
   recoverform = false;
+  email:any
+  pass:any
 
   showRecoverForm() {
   	this.loginform = !this.loginform;
   	this.recoverform = !this.recoverform;
   }
+
+  signIn(){
+      let user = this.auth.signIn(this.email,this.pass)
+      if(user){
+        this.router.navigate(['/',user])
+      }else{
+        this.router.navigate(['/authentication/login'])
+      }
+
+  }
+
 }
