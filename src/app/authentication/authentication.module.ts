@@ -15,7 +15,7 @@ import { AuthenticationRoutes } from './authentication.routing';
   imports: [
     CommonModule,
     RouterModule.forChild(AuthenticationRoutes),
-    NgbModule
+    NgbModule,
   ],
   declarations: [
     NotfoundComponent,

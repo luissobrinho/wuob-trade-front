@@ -9,7 +9,7 @@ export const Approutes: Routes = [
     path: '',
     component: FullComponent,
     children: [
-      { path: '', redirectTo: '/dashboard/classic', pathMatch: 'full' },
+      { path: '', redirectTo: '/authentication/login', pathMatch: 'full' },
       {
         path: 'dashboard',
         loadChildren: './dashboards/dashboard.module#DashboardModule'
