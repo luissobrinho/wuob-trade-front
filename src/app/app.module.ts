@@ -26,6 +26,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { environment } from './environments/environments';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
+import { NgxUiLoaderModule } from  'ngx-ui-loader';
 
 //Environment default, define api url and inicialize firebase
 //Enviroment default defined: localhost
@@ -62,6 +63,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AgmCoreModule.forRoot({ apiKey: 'AIzaSyBUb3jDWJQ28vDJhuQZxkC0NXr_zycm8D0' }),
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    NgxUiLoaderModule,
   ],
   providers: [
     {

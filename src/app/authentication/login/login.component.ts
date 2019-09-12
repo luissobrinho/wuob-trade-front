@@ -1,11 +1,8 @@
 import { Component, Injectable } from '@angular/core';
 import { Router} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { auth } from 'firebase/app';
-import { AngularFireAuth } from "@angular/fire/auth";
+import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 import { AuthenticationService } from '../../services/authentication/authentication.service';
-import { FullComponent } from 'src/app/layouts/full/full.component';
-
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +14,9 @@ import { FullComponent } from 'src/app/layouts/full/full.component';
 })
 export class LoginComponent {
 
-  constructor(private router:Router,private auth:AuthenticationService,private ofAuth:AngularFireAuth,private toastr:ToastrService) {
+  constructor(private router:Router,private auth:AuthenticationService,
+      private toastr:ToastrService,private ngxService: NgxUiLoaderService) 
+  {
    
   }
 
@@ -44,12 +43,8 @@ export class LoginComponent {
   }
 
   googleSignIn(){
-    this.googleAuth(new auth.GoogleAuthProvider());
-  }
-
-  googleAuth(provider){
-    this.ofAuth.auth.signInWithPopup(provider).then(result=>{
-      if(result){
+    this.ngxService.start()
+    this.auth.signInGoogle().then(result=>{
         let user = {
           name:result.user.displayName,
           email:result.user.email,
@@ -57,17 +52,19 @@ export class LoginComponent {
           phoneNumber:result.user.phoneNumber,
           provider:'google',
           username:(typeof result.additionalUserInfo.username === "undefined")?result.user.email:result.additionalUserInfo.username
-        }  
-        this.router.navigate(['dashboard/classic']);
-      }
+        } 
 
-    }).catch((err)=>{
-        this.toastr.error('Error','Ocorreu um erro inesperado ao tentar logar!',{
-          timeOut: 4000
+        this.router.navigate(['dashboard/classic']).then(()=>{
+          this.ngxService.stop()
+        },err=>{
+          this.toastr.error(err)
+          this.ngxService.stop()
         })
-    })
 
-    
+    },err=>{
+        this.ngxService.stop()
+        this.toastr.error('Erro','Erro inesperado ao tentar logar!')
+    })
   }
 
 }
