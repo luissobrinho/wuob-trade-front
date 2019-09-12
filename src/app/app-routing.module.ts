@@ -7,9 +7,20 @@ import { BlankComponent } from './layouts/blank/blank.component';
 export const Approutes: Routes = [
   {
     path: '',
-    component: FullComponent,
+    component: BlankComponent,
     children: [
       { path: '', redirectTo: '/authentication/login', pathMatch: 'full' },
+      {
+        path: 'authentication',
+        loadChildren:
+          './authentication/authentication.module#AuthenticationModule'
+      }
+    ]
+  },
+  {
+    path: '',
+    component: FullComponent,
+    children: [
       {
         path: 'dashboard',
         loadChildren: './dashboards/dashboard.module#DashboardModule'
@@ -18,17 +29,6 @@ export const Approutes: Routes = [
       {
         path: 'sample-pages',
         loadChildren: './sample-pages/sample-pages.module#SamplePagesModule'
-      }
-    ]
-  },
-  {
-    path: '',
-    component: BlankComponent,
-    children: [
-      {
-        path: 'authentication',
-        loadChildren:
-          './authentication/authentication.module#AuthenticationModule'
       }
     ]
   },

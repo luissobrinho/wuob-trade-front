@@ -4,20 +4,22 @@ import { User } from 'src/app/models/User';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService implements User {
-  
-  user: { login: string; email: string; name: string; pass: string; };
-  
+export class AuthenticationService implements User 
+{
+  login: string;
+  email: string;
+  name: string;
+  pass: string;
+
   constructor(){
-        this.user.name = 'admin'
-        this.user.email = 'admin@test'
-        this.user.login = 'admin'
-        this.user.pass = 'admin'
+        this.name = 'admin'
+        this.email = 'admin@test'
+        this.login = 'admin'
+        this.pass = 'admin'
    }
 
   signIn(email,pass){
-
-      if(this.user.email === email && this.user.pass === pass)return this.user;
+      if(this.email === email && this.pass === pass)return true;
 
       return false;
   }

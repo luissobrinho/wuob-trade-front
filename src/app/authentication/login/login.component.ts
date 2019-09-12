@@ -1,9 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { Router} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { FullComponent } from 'src/app/layouts/full/full.component';
+
+
+@Injectable({
+  providedIn: 'root'
+})
 
 @Component({
   selector: 'app-login',
@@ -23,16 +29,17 @@ export class LoginComponent {
   showRecoverForm() {
   	this.loginform = !this.loginform;
     this.recoverform = !this.recoverform;
-    
   }
 
   signIn(){
-      let user = this.auth.signIn(this.email,this.pass)
-      if(user){
-        this.router.navigate(['/',user])
-      }else{
-        this.router.navigate(['/authentication/login'])
-      }
+    this.router.navigate(['/dashboard/classic'])
+      // if(this.auth.signIn(this.email,this.pass)){
+      //   console.log('oi')
+      //   this.router.navigate(['/dashboard/classic'])
+      // }else{
+      //   console.log("oi2")
+      //   this.router.navigate(['/'])
+      // }
 
   }
 
@@ -40,8 +47,8 @@ export class LoginComponent {
     this.googleAuth(new auth.GoogleAuthProvider());
   }
 
- async googleAuth(provider){
-    this.ofAuth.auth.signInWithPopup(provider).then((result)=>{
+  googleAuth(provider){
+    this.ofAuth.auth.signInWithPopup(provider).then(result=>{
       if(result){
         let user = {
           name:result.user.displayName,
@@ -51,12 +58,16 @@ export class LoginComponent {
           provider:'google',
           username:(typeof result.additionalUserInfo.username === "undefined")?result.user.email:result.additionalUserInfo.username
         }  
+        this.router.navigate(['dashboard/classic']);
       }
+
     }).catch((err)=>{
         this.toastr.error('Error','Ocorreu um erro inesperado ao tentar logar!',{
           timeOut: 4000
         })
     })
+
+    
   }
 
 }
