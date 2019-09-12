@@ -3,13 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { FullComponent } from './layouts/full/full.component';
 import { BlankComponent } from './layouts/blank/blank.component';
+import { GuardService } from './services/guard/guard.service'
 
 export const Approutes: Routes = [
   {
     path: '',
     component: BlankComponent,
     children: [
-      { path: '', redirectTo: '/authentication/login', pathMatch: 'full' },
+      { path: '', redirectTo: '/authentication/login', pathMatch: 'full'},
       {
         path: 'authentication',
         loadChildren:
@@ -23,7 +24,8 @@ export const Approutes: Routes = [
     children: [
       {
         path: 'dashboard',
-        loadChildren: './dashboards/dashboard.module#DashboardModule'
+        loadChildren: './dashboards/dashboard.module#DashboardModule',
+        canActivate:[GuardService]
       },
       { path: 'icons', loadChildren: './icons/icons.module#IconsModule' },
       {

@@ -1,9 +1,12 @@
 
-export interface User{
+export class User{
     
     login:string
     email:string
     name:string
-    pass:string  
+    photo:string
+    phoneNumber:string
+    provider:string
+    private pass:string  
         
 }

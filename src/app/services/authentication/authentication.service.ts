@@ -2,28 +2,30 @@ import { Injectable } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService implements User 
+export class AuthenticationService  
 {
-  login: string;
-  email: string;
-  name: string;
-  pass: string;
-
+  private currentUserSubject:BehaviorSubject<User>;
+  public currentUser:Observable<User>;
+  private user:User;
+  
   constructor(private ofAuth:AngularFireAuth){
-        this.name = 'admin'
-        this.email = 'admin@test'
-        this.login = 'admin'
-        this.pass = 'admin'
-   }
+        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+        this.currentUser = this.currentUserSubject.asObservable();
+        this.user = new User();
+  }
+
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
 
   signIn(email,pass){
-      if(this.email === email && this.pass === pass)return true;
-
-      return false;
+      return true;
   }
 
   signInGoogle(){
@@ -34,11 +36,32 @@ export class AuthenticationService implements User
         this.ofAuth.auth
         .signInWithPopup(provider)
         .then(result => {
-
-           resolve(result);
+          
+          //Storing user in Local Storage
+          localStorage.setItem('currentUser', JSON.stringify(this.mapUser(result)));
+          //Added as user current
+          this.currentUserSubject.next(this.user);
+          //User resolved
+          resolve(this.user);
 
         },err=>reject(err))
     })
+  }
+
+  signOut(){
+      // remove user from local storage and set current user to null
+      localStorage.removeItem('currentUser');
+      this.currentUserSubject.next(null);
+  }
+
+  mapUser(result):User{
+    this.user.email = result.user.email
+    this.user.name = result.user.displayName
+    this.user.login = (typeof result.additionalUserInfo.username === "undefined")?result.user.email:result.additionalUserInfo.username
+    this.user.photo = result.user.photoURL
+    this.user.provider = 'google'
+
+    return this.user;
   }
 
 }

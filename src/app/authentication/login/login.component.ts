@@ -45,15 +45,7 @@ export class LoginComponent {
   googleSignIn(){
     this.ngxService.start()
     this.auth.signInGoogle().then(result=>{
-        let user = {
-          name:result.user.displayName,
-          email:result.user.email,
-          photo:result.user.photoURL,
-          phoneNumber:result.user.phoneNumber,
-          provider:'google',
-          username:(typeof result.additionalUserInfo.username === "undefined")?result.user.email:result.additionalUserInfo.username
-        } 
-
+      
         this.router.navigate(['dashboard/classic']).then(()=>{
           this.ngxService.stop()
         },err=>{
