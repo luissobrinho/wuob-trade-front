@@ -29,6 +29,7 @@ import { environment } from './environments/environments';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { NgxUiLoaderModule } from  'ngx-ui-loader';
+import { IonicStorageModule } from '@ionic/storage';
 
 //Environment default, define api url and inicialize firebase
 //Enviroment default defined: localhost
@@ -66,6 +67,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     NgxUiLoaderModule,
+    IonicStorageModule.forRoot()
   ],
   providers: [
     {

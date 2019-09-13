@@ -28,7 +28,11 @@ export class LoginComponent implements OnInit {
   constructor(private router:Router,private auth:AuthenticationService,private routeactive:ActivatedRoute,
       private toastr:ToastrService,private ngxService: NgxUiLoaderService,private formBuilder:FormBuilder) 
   {
-     
+ 
+    //redirect to home if already logged in
+    if (this.auth.currentUserValue) {
+        this.router.navigate(['/dashboard/classic']);
+    }
   }
 
   ngOnInit() {

@@ -20,7 +20,7 @@ export class AuthenticationService
         this.user = new User();
   }
 
-  public get currentUserValue(): User {
+  public get currentUserValue():User {
     return this.currentUserSubject.value;
   }
 

@@ -17,6 +17,10 @@ export class AppComponent {
         private authenticationService: AuthenticationService
     ) {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+        //redirect to home if already logged in
+        if (this.authenticationService.currentUserValue) {
+          this.router.navigate(['/dashboard/classic']);
+         }
     }
 
     logout() {
