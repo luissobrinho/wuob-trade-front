@@ -1,8 +1,9 @@
-import { Component, Injectable } from '@angular/core';
-import { Router} from '@angular/router';
+import { Component, Injectable, OnInit } from '@angular/core';
+import { Router, ActivatedRoute} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -12,25 +13,57 @@ import { AuthenticationService } from '../../services/authentication/authenticat
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-  constructor(private router:Router,private auth:AuthenticationService,
-      private toastr:ToastrService,private ngxService: NgxUiLoaderService) 
-  {
-   
-  }
-
+  authenticationService: any;
   loginform = true;
   recoverform = false;
-  email:any
-  pass:any
+  email:any;
+  pass:any;
+  loginForm: FormGroup;
+  loading = false;
+  submitted = false;
+  returnUrl: string;
+
+  constructor(private router:Router,private auth:AuthenticationService,private routeactive:ActivatedRoute,
+      private toastr:ToastrService,private ngxService: NgxUiLoaderService,private formBuilder:FormBuilder) 
+  {
+      if (this.authenticationService.currentUserValue) {
+        this.router.navigate(['/dashboard/classic']);
+      }
+  }
+
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+        email: ['', Validators.required],
+        password: ['', Validators.required]
+    });
+
+    //get return url from route parameters or default to '/'
+    this.returnUrl = this.routeactive.snapshot.queryParams['returnUrl'] || '/';
+  }
 
   showRecoverForm() {
   	this.loginform = !this.loginform;
     this.recoverform = !this.recoverform;
   }
 
-  signIn(){
+  // convenience getter for easy access to form fields
+  get f() { return this.loginForm.controls; }
+
+  SubmitSignIn(){
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+        return;
+    }
+
+    this.signIn(this.f.email.value,this.f.password.value)
+  }
+
+  signIn(email,pass){
+
     this.router.navigate(['/dashboard/classic'])
       // if(this.auth.signIn(this.email,this.pass)){
       //   console.log('oi')

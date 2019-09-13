@@ -7,6 +7,15 @@ export class User{
     photo:string
     phoneNumber:string
     provider:string
-    private pass:string  
+    private pass:string 
+    private token:string 
+
+    public setToken(token:string){
+        this.token
+    }
+
+    public getToken(){
+        return this.token
+    }
         
 }
