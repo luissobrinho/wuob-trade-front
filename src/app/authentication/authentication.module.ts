@@ -10,12 +10,15 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 
 import { AuthenticationRoutes } from './authentication.routing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AuthenticationRoutes),
     NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     NotfoundComponent,

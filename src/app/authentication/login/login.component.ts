@@ -28,15 +28,13 @@ export class LoginComponent implements OnInit {
   constructor(private router:Router,private auth:AuthenticationService,private routeactive:ActivatedRoute,
       private toastr:ToastrService,private ngxService: NgxUiLoaderService,private formBuilder:FormBuilder) 
   {
-      if (this.authenticationService.currentUserValue) {
-        this.router.navigate(['/dashboard/classic']);
-      }
+     
   }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-        email: ['', Validators.required],
-        password: ['', Validators.required]
+        email: ['', Validators.required,Validators.email],
+        password: ['', Validators.required,Validators.minLength(8)]
     });
 
     //get return url from route parameters or default to '/'
