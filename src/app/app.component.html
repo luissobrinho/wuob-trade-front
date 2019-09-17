@@ -1,11 +1,11 @@
-<div class="float-right">
+<!-- <div class="float-right">
 <label for=''>
     {{'DASHBOARD.OPTIONLANG' | translate }}
 <select #langselect (change)='translate.use(langselect.value)' >
     <option *ngFor="let lang of translate.getLangs()" [value]='lang' >{{lang}}</option>
 </select>
 </label>
-</div>
+</div> -->
 
 <router-outlet>
     <app-spinner></app-spinner>
