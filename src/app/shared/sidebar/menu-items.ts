@@ -4,40 +4,15 @@ export const ROUTES: RouteInfo[] = [
   
   {
     path: '',
-    title: 'Dashboards',
+    title: 'MENU.DASHBOARD',
     icon: 'mdi mdi-view-dashboard',
-    class: 'has-arrow',
+    class: '',
     extralink: false,
-    submenu: [
-      {
-        path: '/dashboard/classic',
-        title: 'Classic',
-        icon: 'mdi mdi-adjust',
-        class: '',
-        extralink: false,
-        submenu: []
-      },
-      {
-        path: '/dashboard/analytical',
-        title: 'Analytical',
-        icon: 'mdi mdi-adjust',
-        class: '',
-        extralink: false,
-        submenu: []
-      },
-      {
-        path: '/dashboard/modern',
-        title: 'Modern',
-        icon: 'mdi mdi-adjust',
-        class: '',
-        extralink: false,
-        submenu: []
-      }
-    ]
+    submenu: []
   },
   {
     path: '/apps/email',
-    title: 'Investimentos',
+    title: 'MENU.INVESTMENTS',
     icon: 'mdi mdi-cash-usd',
     class: '',
     extralink: false,
@@ -45,7 +20,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '',
-    title: 'Saques',
+    title: 'MENU.WITHDRAWALS',
     icon: 'mdi mdi-cash',
     class: 'has-arrow',
     extralink: false,
@@ -70,7 +45,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '',
-    title: 'Rede',
+    title: 'MENU.NETWORK',
     icon: 'mdi mdi-account-network',
     class: 'has-arrow',
     extralink: false,

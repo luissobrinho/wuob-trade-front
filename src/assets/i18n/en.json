@@ -1,8 +1,12 @@
 {   
     "DASHBOARD": {
         "FILTER": "Search",
-        "TITLE": "Classic Dashboard",
-        "OPTIONLANG":"Select language",
-        "ITEMSID1": "Investiment"
+        "OPTIONLANG":"Select language"
+    },
+    "MENU": {
+        "DASHBOARD": "Dahsboard",
+        "INVESTMENTS": "Investments",
+        "WITHDRAWALS": "Withdrawals",
+        "NETWORK":"Network"
     }
 }
