@@ -36,10 +36,12 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-        email: ['', Validators.required,Validators.email],
-        password: ['', Validators.required,Validators.minLength(8)]
-    });
+
+  this.loginForm = this.formBuilder.group({
+      email: ['',Validators.compose([Validators.required,Validators.email])],
+      password: ['',Validators.compose([Validators.required,Validators.minLength(8)])]
+      
+  });
 
     //get return url from route parameters or default to '/'
     this.returnUrl = this.routeactive.snapshot.queryParams['returnUrl'] || '/';
@@ -58,22 +60,21 @@ export class LoginComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
-        return;
+        return false;
     }
 
     this.signIn(this.f.email.value,this.f.password.value)
   }
 
   signIn(email,pass){
-
-    this.router.navigate(['/dashboard/classic'])
-      // if(this.auth.signIn(this.email,this.pass)){
-      //   console.log('oi')
-      //   this.router.navigate(['/dashboard/classic'])
-      // }else{
-      //   console.log("oi2")
-      //   this.router.navigate(['/'])
-      // }
+     this.ngxService.start()
+      if(this.auth.signIn(email,pass)){
+        this.ngxService.stop()
+        this.router.navigate(['/dashboard/classic'])
+      }else{
+        this.ngxService.stop()
+        this.router.navigate(['/'])
+      }
 
   }
 

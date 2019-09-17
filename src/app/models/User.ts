@@ -17,5 +17,13 @@ export class User{
     public getToken(){
         return this.token
     }
+
+    public setPass(pass:string){
+        this.pass
+    }
+
+    public getPass(){
+        return this.pass;
+    }
         
 }

@@ -25,7 +25,16 @@ export class AuthenticationService
   }
 
   signIn(email,pass){
-      return true;
+      if(email === 'admin@admin' && pass === 'admin12345'){
+          this.user.name = 'admin'
+          this.user.email = 'admin@admin'
+          this.user.login = 'admin'
+          localStorage.setItem('currentUser',JSON.stringify(this.user))
+          this.currentUserSubject.next(this.user);
+          return true
+      }else{
+          return false
+      }
   }
 
   signInGoogle(){
@@ -46,6 +55,10 @@ export class AuthenticationService
 
         },err=>reject(err))
     })
+  }
+
+  signUp(user:User){
+      localStorage.setItem('users',JSON.stringify(user))
   }
 
   logOut(){

@@ -1,3 +1,12 @@
+<div class="float-right">
+<label for=''>
+    {{'DASHBOARD.OPTIONLANG' | translate }}
+<select #langselect (change)='translate.use(langselect.value)' >
+    <option *ngFor="let lang of translate.getLangs()" [value]='lang' >{{lang}}</option>
+</select>
+</label>
+</div>
+
 <router-outlet>
     <app-spinner></app-spinner>
     <div style="position: relative"> <!-- the position of the parent container must be set to relative -->

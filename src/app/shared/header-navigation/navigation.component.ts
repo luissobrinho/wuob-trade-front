@@ -6,6 +6,10 @@ import {
   NgbCarouselConfig
 } from '@ng-bootstrap/ng-bootstrap';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { User } from 'src/app/models/User';
+import { Router } from '@angular/router';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 declare var $: any;
 
 @Component({
@@ -15,10 +19,21 @@ declare var $: any;
 export class NavigationComponent implements AfterViewInit {
 
   public config: PerfectScrollbarConfigInterface = {};
-
   public showSearch = false;
+  user:User;
 
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal,private auth:AuthenticationService,private router:Router,
+    private ngxService: NgxUiLoaderService) {
+      this.user = new User()
+  }
+
+  ngOnInit(){
+      let User = JSON.parse(localStorage.getItem('currentUser'))
+      this.user.name = User.name
+      this.user.email = User.email
+      this.user.photo = (typeof User.photo !== 'undefined')?User.photo:'/assets/images/users/1.jpg'
+      console.log(this.user.photo)
+  }
 
   // This is for Notifications
   notifications: Object[] = [
@@ -85,4 +100,13 @@ export class NavigationComponent implements AfterViewInit {
   ];
 
   ngAfterViewInit() {}
+
+  logOut(){
+    this.auth.logOut()
+    this.ngxService.start()
+    this.router.navigate(['/']).then(()=>{
+      this.ngxService.stop()
+    })
+  }
+
 }

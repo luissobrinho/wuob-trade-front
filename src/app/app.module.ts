@@ -7,6 +7,8 @@ import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common
 import { Routes, RouterModule } from '@angular/router';
 import { ErrInterceptService } from './services/errIntercept/err-intercept.service'
 import { JwtInterceptService } from './services/jwtIntercept/jwt-intercept.service'
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgmCoreModule } from '@agm/core';
@@ -35,6 +37,10 @@ import { IonicStorageModule } from '@ionic/storage';
 //Enviroment default defined: localhost
 environment.urlApi()
 
+export function HttpLoaderFactory(http:HttpClient){
+    return new TranslateHttpLoader(http)
+}
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelSpeed: 1,
@@ -57,7 +63,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-	ReactiveFormsModule,
+  	ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
     NgbModule,
@@ -67,7 +73,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     NgxUiLoaderModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   providers: [
     {
