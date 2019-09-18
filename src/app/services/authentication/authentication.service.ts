@@ -4,6 +4,8 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environments'
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +15,9 @@ export class AuthenticationService
   private currentUserSubject:BehaviorSubject<User>;
   public currentUser:Observable<User>;
   private user:User;
+  private urlAPI = environment.urlApi();
   
-  constructor(private ofAuth:AngularFireAuth){
+  constructor(private ofAuth: AngularFireAuth, private http: HttpClient){
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
         this.user = new User();
@@ -25,16 +28,30 @@ export class AuthenticationService
   }
 
   signIn(email,pass){
-      if(email === 'admin@admin' && pass === 'admin12345'){
-          this.user.name = 'admin'
-          this.user.email = 'admin@admin'
-          this.user.login = 'admin'
-          localStorage.setItem('currentUser',JSON.stringify(this.user))
-          this.currentUserSubject.next(this.user);
-          return true
-      }else{
-          return false
-      }
+
+    console.log(this.urlAPI + '/api/v1/login');
+    
+    this.http.post(this.urlAPI +'/api/v1/login',{
+      email: email,
+      password:pass
+    }).subscribe(user=>{
+      console.log(user);
+      
+    },err=>{
+      console.log(err);
+      
+    });
+      // if(email === 'admin@admin' && pass === 'admin12345'){
+      //     this.user.name = 'admin'
+      //     this.user.email = 'admin@admin'
+      //     this.user.login = 'admin'
+      //     localStorage.setItem('currentUser',JSON.stringify(this.user))
+      //     this.currentUserSubject.next(this.user);
+      //     return true
+      // }else{
+      //     return false
+      // }
+      return true;
   }
 
   signInGoogle(){
