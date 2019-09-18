@@ -11,7 +11,7 @@ export class GuardService implements CanActivate {
   constructor(private router:Router,private authservice:AuthenticationService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
-      console.log(this.authservice.currentUserValue)
+    
       let userCurrent = this.authservice.currentUserValue
 
       if(userCurrent){

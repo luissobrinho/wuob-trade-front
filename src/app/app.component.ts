@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { User } from './models/User';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './services/authentication/authentication.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslationService } from './services/translation/translation.service';
 
 @Component({
   selector: 'app-root',
@@ -16,12 +16,11 @@ export class AppComponent {
     constructor(
         private router: Router,
         private authenticationService: AuthenticationService,
-        public translate:TranslateService,
-    ) {
-        this.translate.addLangs(['en','fr'])
-        this.translate.setDefaultLang('en')
-        const browserlang = this.translate.getBrowserLang()
-        this.translate.use(browserlang.match(/en|fr/)? browserlang:'en') 
+        public translation:TranslationService,
+    ) { 
+        //added config of the language. default:en
+        translation.configLang()
+        //Subscribe user 
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
         //redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {

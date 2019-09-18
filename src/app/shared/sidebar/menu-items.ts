@@ -4,7 +4,7 @@ export const ROUTES: RouteInfo[] = [
   
   {
     path: '',
-    title: 'MENU.DASHBOARD',
+    title: 'MENU.DASHBOARD.TITLE',
     icon: 'mdi mdi-view-dashboard',
     class: '',
     extralink: false,
@@ -12,31 +12,56 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '/apps/email',
-    title: 'MENU.INVESTMENTS',
+    title: 'MENU.INVESTMENTS.TITLE',
     icon: 'mdi mdi-cash-usd',
-    class: '',
+    class: 'has-arrow',
     extralink: false,
-    submenu: []
+    submenu: [
+      {
+        path: '/apps/investiments/create',
+        title: 'MENU.INVESTMENTS.SUBMENU.CREATE',
+        icon: 'mdi mdi-library-plus',
+        class: '',
+        extralink: false,
+        submenu: []
+      },
+      {
+        path: '/apps/ticketlist',
+        title: 'MENU.INVESTMENTS.SUBMENU.HISTORIC',
+        icon: 'mdi mdi-history',
+        class: '',
+        extralink: false,
+        submenu: []
+      }
+    ]
   },
   {
     path: '',
-    title: 'MENU.WITHDRAWALS',
+    title: 'MENU.WITHDRAWALS.TITLE',
     icon: 'mdi mdi-cash',
     class: 'has-arrow',
     extralink: false,
     submenu: [
       {
         path: '/apps/ticketlist',
-        title: 'Ticket List',
-        icon: 'mdi mdi-book-multiple',
+        title: 'MENU.WITHDRAWALS.SUBMENU.WITHDRAW',
+        icon: 'mdi mdi-clipboard-arrow-left',
         class: '',
         extralink: false,
         submenu: []
       },
       {
         path: '/apps/ticketdetails',
-        title: 'Ticket Details',
-        icon: 'mdi mdi-book-plus',
+        title: 'MENU.WITHDRAWALS.SUBMENU.WITHDRAWALREPORT',
+        icon: 'mdi mdi-receipt',
+        class: '',
+        extralink: false,
+        submenu: []
+      },
+      {
+        path: '/apps/ticketdetails',
+        title: 'MENU.WITHDRAWALS.SUBMENU.WALLET',
+        icon: 'mdi mdi-wallet',
         class: '',
         extralink: false,
         submenu: []
@@ -45,64 +70,31 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: '',
-    title: 'MENU.NETWORK',
+    title: 'MENU.NETWORK.TITLE',
     icon: 'mdi mdi-account-network',
     class: 'has-arrow',
     extralink: false,
     submenu: [
       {
         path: '/apps/chat',
-        title: 'Chat App',
-        icon: 'mdi mdi-comment-processing-outline',
+        title: 'MENU.NETWORK.SUBMENU.TEAM',
+        icon: 'mdi mdi-account-multiple',
         class: '',
         extralink: false,
         submenu: []
       },
       {
         path: '/apps/fullcalendar',
-        title: 'Calendar',
-        icon: 'mdi mdi-calendar',
+        title: 'MENU.NETWORK.SUBMENU.RESIDUAL',
+        icon: 'mdi mdi-clock-in',
         class: '',
         extralink: false,
         submenu: []
       },
       {
         path: '/apps/taskboard',
-        title: 'Taskboard',
-        icon: 'mdi mdi-bulletin-board',
-        class: '',
-        extralink: false,
-        submenu: []
-      }
-    ]
-  },
-  {
-    path: '',
-    title: 'Configurações',
-    icon: 'mdi mdi-settings',
-    class: 'has-arrow',
-    extralink: false,
-    submenu: [
-      {
-        path: '/apps/chat',
-        title: 'Chat App',
-        icon: 'mdi mdi-comment-processing-outline',
-        class: '',
-        extralink: false,
-        submenu: []
-      },
-      {
-        path: '/apps/fullcalendar',
-        title: 'Calendar',
-        icon: 'mdi mdi-calendar',
-        class: '',
-        extralink: false,
-        submenu: []
-      },
-      {
-        path: '/apps/taskboard',
-        title: 'Taskboard',
-        icon: 'mdi mdi-bulletin-board',
+        title: 'MENU.NETWORK.SUBMENU.BONUS',
+        icon: 'mdi mdi-wallet-giftcard',
         class: '',
         extralink: false,
         submenu: []

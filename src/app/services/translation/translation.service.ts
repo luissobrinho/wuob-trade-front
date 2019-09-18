@@ -6,15 +6,13 @@ import { TranslateService } from '@ngx-translate/core'
 })
 export class TranslationService {
 
-  constructor(public translate:TranslateService) { 
-       
-  }
+  constructor(public translate:TranslateService) {}
 
   configLang(langDefault:string = 'en'){
-      this.translate.addLangs(['en','fr'])
-      this.translate.setDefaultLang(langDefault)
-      const browserlang = this.translate.getBrowserLang()
-      this.translate.use(browserlang.match(/en|fr/)? browserlang: langDefault) 
+    this.translate.addLangs(['en','fr'])
+    this.translate.setDefaultLang(langDefault)
+    const browserlang = this.translate.getBrowserLang()
+    this.translate.use(browserlang.match(/en|fr/)? browserlang:langDefault)  
   }
 
 }

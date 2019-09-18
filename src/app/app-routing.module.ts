@@ -31,7 +31,12 @@ export const Approutes: Routes = [
       {
         path: 'sample-pages',
         loadChildren: './sample-pages/sample-pages.module#SamplePagesModule'
-      }
+      },
+      {
+        path: 'investiments',
+        loadChildren: './investiments/investiments.module#InvestimentsModule',
+        canActivate:[GuardService]
+      },
     ]
   },
   {

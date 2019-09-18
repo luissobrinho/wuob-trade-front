@@ -4,9 +4,35 @@
         "OPTIONLANG":"Select language"
     },
     "MENU": {
-        "DASHBOARD": "Dahsboard",
-        "INVESTMENTS": "Investments",
-        "WITHDRAWALS": "Withdrawals",
-        "NETWORK":"Network"
+        "DASHBOARD": {
+           "TITLE": "Dahsboard"
+        },
+        "INVESTMENTS":{
+            "TITLE": "Investments",
+            "SUBMENU":{
+                "CREATE": "Create",
+                "HISTORIC": "Historic"
+            }
+        },
+        "WITHDRAWALS":{
+            "TITLE":"Withdrawals",
+            "SUBMENU":{
+                "WITHDRAW": "Withdraw",
+                "WITHDRAWALREPORT": "Withdrawal Report",
+                "WALLET": "Wallet"
+            }
+        },
+        "NETWORK":{
+            "TITLE":"Network",
+            "SUBMENU":{
+                "TEAM": "Team",
+                "RESIDUAL": "Residual",
+                "BONUS": "Bonus"
+            }
+        },
+        "CONFIG":{
+            "TITLE":"Configuration"
+        }
     }
+    
 }
