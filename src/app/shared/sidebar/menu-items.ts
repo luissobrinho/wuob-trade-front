@@ -11,14 +11,14 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/apps/email',
+    path: '',
     title: 'MENU.INVESTMENTS.TITLE',
     icon: 'mdi mdi-cash-usd',
     class: 'has-arrow',
     extralink: false,
     submenu: [
       {
-        path: '/apps/investiments/create',
+        path: '/investiments/create',
         title: 'MENU.INVESTMENTS.SUBMENU.CREATE',
         icon: 'mdi mdi-library-plus',
         class: '',
