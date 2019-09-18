@@ -4,22 +4,21 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CreateComponent } from './create/create.component';
-import { InvestimentsRoutes } from './investiments-routing.module';
-import { HistoricComponent } from './historic/historic.component';
-
-
+import { TeamComponent } from './team/team.component';
+import { ResidualComponent } from './residual/residual.component';
+import { BonusComponent } from './bonus/bonus.component';
+import { NetworkRoutes } from './network-routing.module';
 
 
 
 @NgModule({
-  declarations: [CreateComponent, HistoricComponent],
+  declarations: [TeamComponent, ResidualComponent, BonusComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(InvestimentsRoutes),
+    RouterModule.forChild(NetworkRoutes),
     FormsModule,
     ReactiveFormsModule,
     NgbModule
   ]
 })
-export class InvestimentsModule { }
+export class NetworkModule { }

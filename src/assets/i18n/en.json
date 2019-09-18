@@ -15,7 +15,7 @@
             }
         },
         "WITHDRAWALS":{
-            "TITLE":"Withdrawals",
+            "TITLE":"Loot",
             "SUBMENU":{
                 "WITHDRAW": "Withdraw",
                 "WITHDRAWALREPORT": "Withdrawal Report",

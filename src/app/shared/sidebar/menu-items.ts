@@ -26,7 +26,7 @@ export const ROUTES: RouteInfo[] = [
         submenu: []
       },
       {
-        path: '/apps/ticketlist',
+        path: '/investiments/historic',
         title: 'MENU.INVESTMENTS.SUBMENU.HISTORIC',
         icon: 'mdi mdi-history',
         class: '',
@@ -43,7 +43,7 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     submenu: [
       {
-        path: '/apps/ticketlist',
+        path: '/loot/withdraw',
         title: 'MENU.WITHDRAWALS.SUBMENU.WITHDRAW',
         icon: 'mdi mdi-clipboard-arrow-left',
         class: '',
@@ -51,7 +51,7 @@ export const ROUTES: RouteInfo[] = [
         submenu: []
       },
       {
-        path: '/apps/ticketdetails',
+        path: '/loot/report',
         title: 'MENU.WITHDRAWALS.SUBMENU.WITHDRAWALREPORT',
         icon: 'mdi mdi-receipt',
         class: '',
@@ -59,7 +59,7 @@ export const ROUTES: RouteInfo[] = [
         submenu: []
       },
       {
-        path: '/apps/ticketdetails',
+        path: '/loot/wallet',
         title: 'MENU.WITHDRAWALS.SUBMENU.WALLET',
         icon: 'mdi mdi-wallet',
         class: '',
@@ -76,7 +76,7 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     submenu: [
       {
-        path: '/apps/chat',
+        path: '/network/team',
         title: 'MENU.NETWORK.SUBMENU.TEAM',
         icon: 'mdi mdi-account-multiple',
         class: '',
@@ -84,7 +84,7 @@ export const ROUTES: RouteInfo[] = [
         submenu: []
       },
       {
-        path: '/apps/fullcalendar',
+        path: '/network/residual',
         title: 'MENU.NETWORK.SUBMENU.RESIDUAL',
         icon: 'mdi mdi-clock-in',
         class: '',
@@ -92,7 +92,7 @@ export const ROUTES: RouteInfo[] = [
         submenu: []
       },
       {
-        path: '/apps/taskboard',
+        path: '/network/bonus',
         title: 'MENU.NETWORK.SUBMENU.BONUS',
         icon: 'mdi mdi-wallet-giftcard',
         class: '',

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { CreateComponent } from './create/create.component';
+import { HistoricComponent } from './historic/historic.component';
 
 
 
@@ -15,6 +16,17 @@ export const InvestimentsRoutes: Routes = [
           urls: [
             { title: 'Create', url: '/create' },
             { title: 'Create Investiments' }
+          ]
+        }
+      },
+      {
+        path: 'historic',
+        component: HistoricComponent,
+        data: {
+          title: 'Historic Investiments',
+          urls: [
+            { title: 'Historic', url: '/historic' },
+            { title: 'Historic Investiments' }
           ]
         }
       },

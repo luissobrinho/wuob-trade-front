@@ -37,6 +37,16 @@ export const Approutes: Routes = [
         loadChildren: './investiments/investiments.module#InvestimentsModule',
         canActivate:[GuardService]
       },
+      {
+        path: 'loot',
+        loadChildren: './loot/loot.module#LootModule',
+        canActivate:[GuardService]
+      },
+      {
+        path: 'network',
+        loadChildren: './network/network.module#NetworkModule',
+        canActivate:[GuardService]
+      },
     ]
   },
   {
