@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MustMatch } from 'src/app/functions/MustMatch';
-import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-signup',
@@ -15,10 +12,7 @@ export class SignupComponent {
   submitted = false;
   registerForm:FormGroup;
 
-  constructor(private auth:AuthenticationService,private toastr:ToastrService,private ngxService: NgxUiLoaderService
-    ,private formBuilder:FormBuilder) {
-     
-    }
+  constructor(private auth:AuthenticationService,private formBuilder:FormBuilder) {}
 
   ngOnInit() {
       this.registerForm = this.formBuilder.group({
@@ -42,7 +36,7 @@ export class SignupComponent {
         return;
       }
 
-      this.toastr.success('Success','User created with success!')
+      this.auth.signUp(this.registerForm.value)
   }
 
 

@@ -3,6 +3,10 @@ import { User } from './models/User';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { TranslationService } from './services/translation/translation.service';
+import {Events} from '@ionic/angular';
+import { ToastrService, IndividualConfig } from 'ngx-toastr';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+
 
 @Component({
   selector: 'app-root',
@@ -17,9 +21,16 @@ export class AppComponent {
         private router: Router,
         private authenticationService: AuthenticationService,
         public translation:TranslationService,
+        public events:Events,
+        private toastr:ToastrService
     ) { 
+
+        events.subscribe('toast',(message?: string, title?: string, override?: any, type?: string)=>{
+            this.toastr.show(message, title, override, type)
+        });
+
         //added config of the language. default:en
-        translation.configLang()
+        this.translation.configLang()
         //Subscribe user 
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
         //redirect to home if already logged in

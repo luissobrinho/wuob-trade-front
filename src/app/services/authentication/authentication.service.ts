@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { ApiService } from '../api/api.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Events } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ export class AuthenticationService
   public currentUser:Observable<User>;
   private user:User;
   
-  constructor(private ofAuth:AngularFireAuth){
+  constructor(private ofAuth:AngularFireAuth,private api:ApiService,private ngxService: NgxUiLoaderService, public events:Events){
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
         this.user = new User();
@@ -57,8 +59,17 @@ export class AuthenticationService
     })
   }
 
-  signUp(user:User){
-      localStorage.setItem('users',JSON.stringify(user))
+  signUp(user:User):Subscription{
+      this.ngxService.start()
+      return this.api.post('register',user).subscribe((token:string)=>{
+         this.ngxService.stop()
+         localStorage.setItem('Authorization',`Bearer ${token}`)
+         sessionStorage.setItem('Authorization',`Bearer ${token}`)
+         this.events.publish('toast','Registrado com sucesso','Sucesso',null,'toast-success')
+      },err=>{
+          this.events.publish('toast','Ocorreu um erro','Erro',null,'toast-error')
+          this.ngxService.stop()
+      })
   }
 
   logOut(){
