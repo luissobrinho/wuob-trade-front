@@ -7,6 +7,7 @@ import { ApiService } from '../api/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Events } from '@ionic/angular';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,27 +17,38 @@ export class AuthenticationService
   public currentUser:Observable<User>;
   private user:User;
   
-  constructor(private ofAuth:AngularFireAuth,private api:ApiService,private ngxService: NgxUiLoaderService, public events:Events){
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-        this.currentUser = this.currentUserSubject.asObservable();
-        this.user = new User();
-  }
+  constructor(private ofAuth:AngularFireAuth,private api:ApiService,private ngxService: NgxUiLoaderService, public events:Events){}
+
 
   public get currentUserValue():User {
     return this.currentUserSubject.value;
   }
 
   signIn(email,pass){
-      if(email === 'admin@admin' && pass === 'admin12345'){
-          this.user.name = 'admin'
-          this.user.email = 'admin@admin'
-          this.user.login = 'admin'
-          localStorage.setItem('currentUser',JSON.stringify(this.user))
-          this.currentUserSubject.next(this.user);
-          return true
-      }else{
-          return false
-      }
+
+    // console.log(this.urlAPI + '/api/v1/login');
+    
+    // this.http.post(this.urlAPI +'/api/v1/login',{
+    //   email: email,
+    //   password:pass
+    // }).subscribe(user=>{
+    //   console.log(user);
+      
+    // },err=>{
+    //   console.log(err);
+      
+    // });
+      // if(email === 'admin@admin' && pass === 'admin12345'){
+      //     this.user.name = 'admin'
+      //     this.user.email = 'admin@admin'
+      //     this.user.login = 'admin'
+      //     localStorage.setItem('currentUser',JSON.stringify(this.user))
+      //     this.currentUserSubject.next(this.user);
+      //     return true
+      // }else{
+      //     return false
+      // }
+      return true;
   }
 
   signInGoogle(){
