@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { TranslationService } from './services/translation/translation.service';
 import {Events} from '@ionic/angular';
-import { ToastrService, IndividualConfig } from 'ngx-toastr';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ToastrService} from 'ngx-toastr';
 
 
 @Component({

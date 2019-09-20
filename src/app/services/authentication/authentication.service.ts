@@ -17,7 +17,10 @@ export class AuthenticationService
   public currentUser:Observable<User>;
   private user:User;
   
-  constructor(private ofAuth:AngularFireAuth,private api:ApiService,private ngxService: NgxUiLoaderService, public events:Events){}
+  constructor(private ofAuth:AngularFireAuth,private api:ApiService,private ngxService: NgxUiLoaderService, public events:Events){
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
+}
 
 
   public get currentUserValue():User {
