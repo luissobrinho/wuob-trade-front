@@ -11,6 +11,7 @@ import { SignupComponent } from './signup/signup.component';
 
 import { AuthenticationRoutes } from './authentication.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegistercountComponent } from './registercount/registercount.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     SignupComponent,
     LockComponent,
+    RegistercountComponent,
   ]
 })
 export class AuthenticationModule {}
