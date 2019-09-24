@@ -32,14 +32,14 @@ export class AuthenticationService
 
     this.ngxService.start()
     return this.api.post('login', user).subscribe((response: { token: string }) => {
-      let header = { 'Authorization': `Bearer ${response.token}`, 'Content-Type': 'application/json', 'Accept': 'application/json' }
+      let header = {Authorization: `Bearer ${response.token}`, 'Content-Type': 'application/json', 'Accept': 'application/json' }
       this.api.get('user/profile', {}, header).subscribe((User: {}) => {
 
         localStorage.setItem('Authorization', `Bearer ${response.token}`)
         sessionStorage.setItem('Authorization', `Bearer ${response.token}`)
         console.log(User)
-        localStorage.setItem('user', JSON.stringify(User))
-        sessionStorage.setItem('user', JSON.stringify(User))
+        localStorage.setItem('currentUser', JSON.stringify(User))
+        sessionStorage.setItem('currentUser', JSON.stringify(User))
         this.currentUserSubject.next(User);
         this.router.navigate(['dashboard/classic']).then(() => {
           this.ngxService.stop()
