@@ -137,9 +137,9 @@ export class Dashboard1Component implements AfterViewInit {
     };
 
     ngAfterViewInit() {
-        // ============================================================== 
+        // ==============================================================
         // campaign
-        // ============================================================== 
+        // ==============================================================
         const chart1 = c3.generate({
             bindto: '#campaign',
             data: {
@@ -167,45 +167,45 @@ export class Dashboard1Component implements AfterViewInit {
             }
         });
 
-        // ============================================================== 
+        // ==============================================================
         // weather
-        // ============================================================== 
-        const chart2 = c3.generate({
-            bindto: '.weather-report',
-            data: {
-                columns: [
-                    ['Day 1', 21, 15, 30, 45, 15]
-                ],
-                type: 'area-spline'
-            },
-            axis: {
-                y: {
-                    show: false,
-                    tick: {
-                        count: 0,
-                        outer: false
-                    }
-                },
-                x: {
-                    show: false,
-                }
-            },
-            padding: {
-                top: 0,
-                right: -8,
-                bottom: -28,
-                left: -8,
-            },
-            point: {
-                r: 2,
-            },
-            legend: {
-                hide: true
-            },
-            color: {
-                pattern: ['#5ac146']
-            }
+        // ==============================================================
+        // const chart2 = c3.generate({
+        //     bindto: '.weather-report',
+        //     data: {
+        //         columns: [
+        //             ['Day 1', 21, 15, 30, 45, 15]
+        //         ],
+        //         type: 'area-spline'
+        //     },
+        //     axis: {
+        //         y: {
+        //             show: false,
+        //             tick: {
+        //                 count: 0,
+        //                 outer: false
+        //             }
+        //         },
+        //         x: {
+        //             show: false,
+        //         }
+        //     },
+        //     padding: {
+        //         top: 0,
+        //         right: -8,
+        //         bottom: -28,
+        //         left: -8,
+        //     },
+        //     point: {
+        //         r: 2,
+        //     },
+        //     legend: {
+        //         hide: true
+        //     },
+        //     color: {
+        //         pattern: ['#5ac146']
+        //     }
 
-        });
+        // });
     }
 }

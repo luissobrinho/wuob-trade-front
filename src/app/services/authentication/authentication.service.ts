@@ -6,52 +6,57 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ApiService } from '../api/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Events } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService  
+export class AuthenticationService
 {
-  private currentUserSubject:BehaviorSubject<User>;
-  public currentUser:Observable<User>;
+  private currentUserSubject:BehaviorSubject<User|any>;
+  public currentUser:Observable<User|any>;
   private user:User;
-  
-  constructor(private ofAuth:AngularFireAuth,private api:ApiService,private ngxService: NgxUiLoaderService, public events:Events){
+
+  constructor(private ofAuth:AngularFireAuth,private api:ApiService,private ngxService: NgxUiLoaderService, public events:Events, public router:Router){
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
 }
 
 
-  public get currentUserValue():User {
+  public get currentUserValue():User|any {
     return this.currentUserSubject.value;
   }
 
-  signIn(email,pass){
+  signIn(user) {
 
-    // console.log(this.urlAPI + '/api/v1/login');
-    
-    // this.http.post(this.urlAPI +'/api/v1/login',{
-    //   email: email,
-    //   password:pass
-    // }).subscribe(user=>{
-    //   console.log(user);
-      
-    // },err=>{
-    //   console.log(err);
-      
-    // });
-      // if(email === 'admin@admin' && pass === 'admin12345'){
-      //     this.user.name = 'admin'
-      //     this.user.email = 'admin@admin'
-      //     this.user.login = 'admin'
-      //     localStorage.setItem('currentUser',JSON.stringify(this.user))
-      //     this.currentUserSubject.next(this.user);
-      //     return true
-      // }else{
-      //     return false
-      // }
-      return true;
+    this.ngxService.start()
+    return this.api.post('login', user).subscribe((response: { token: string }) => {
+      let header = { 'Authorization': `Bearer ${response.token}`, 'Content-Type': 'application/json', 'Accept': 'application/json' }
+      this.api.get('user/profile', {}, header).subscribe((User: {}) => {
+
+        localStorage.setItem('Authorization', `Bearer ${response.token}`)
+        sessionStorage.setItem('Authorization', `Bearer ${response.token}`)
+        console.log(User)
+        localStorage.setItem('user', JSON.stringify(User))
+        sessionStorage.setItem('user', JSON.stringify(User))
+        this.currentUserSubject.next(User);
+        this.router.navigate(['dashboard/classic']).then(() => {
+          this.ngxService.stop()
+        }, err => {
+          this.events.publish('toast', err, 'Erro', null, 'toast-error')
+          this.ngxService.stop()
+        })
+
+      }, err => {
+        this.events.publish('toast', err, 'Erro', null, 'toast-error')
+        this.ngxService.stop()
+      })
+
+    }, err => {
+      this.events.publish('toast', 'Ocorreu um erro inesperado.', 'Erro', null, 'toast-error')
+      this.ngxService.stop()
+    })
   }
 
   signInGoogle(){
@@ -62,7 +67,7 @@ export class AuthenticationService
         this.ofAuth.auth
         .signInWithPopup(provider)
         .then(result => {
-          
+
           //Storing user in Local Storage
           localStorage.setItem('currentUser', JSON.stringify(this.mapUser(result)));
           //Added as user current
@@ -93,7 +98,7 @@ export class AuthenticationService
       this.currentUserSubject.next(null);
   }
 
-  mapUser(result):User{
+  mapUser(result):User|any{
     this.user.email = result.user.email
     this.user.name = result.user.displayName
     this.user.login = (typeof result.additionalUserInfo.username === "undefined")?result.user.email:result.additionalUserInfo.username

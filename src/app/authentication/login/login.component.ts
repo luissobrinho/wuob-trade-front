@@ -26,9 +26,9 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
 
   constructor(private router:Router,private auth:AuthenticationService,private routeactive:ActivatedRoute,
-      private toastr:ToastrService,private ngxService: NgxUiLoaderService,private formBuilder:FormBuilder) 
+      private toastr:ToastrService,private ngxService: NgxUiLoaderService,private formBuilder:FormBuilder)
   {
- 
+
     //redirect to home if already logged in
     if (this.auth.currentUserValue) {
         this.router.navigate(['/dashboard/classic']);
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
   this.loginForm = this.formBuilder.group({
       email: ['',Validators.compose([Validators.required,Validators.email])],
       password: ['',Validators.compose([Validators.required,Validators.minLength(6)])]
-      
+
   });
 
     //get return url from route parameters or default to '/'
@@ -63,25 +63,17 @@ export class LoginComponent implements OnInit {
         return false;
     }
 
-    this.signIn(this.f.email.value,this.f.password.value)
+    this.signIn(this.loginForm.value);
   }
 
-  signIn(email,pass){
-     this.ngxService.start()
-      if(this.auth.signIn(email,pass)){
-        this.ngxService.stop()
-        this.router.navigate(['/dashboard/classic'])
-      }else{
-        this.ngxService.stop()
-        this.router.navigate(['/'])
-      }
-
+  signIn(user){
+      this.auth.signIn(user);
   }
 
   googleSignIn(){
     this.ngxService.start()
     this.auth.signInGoogle().then(result=>{
-      
+
         this.router.navigate(['dashboard/classic']).then(()=>{
           this.ngxService.stop()
         },err=>{
