@@ -1,8 +1,10 @@
-<div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url(assets/images/big/auth-bg.jpg) no-repeat center center;">
 
+   
+
+<div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url(assets/images/big/auth-bg.jpg) no-repeat center center;">
     <div class="auth-box">
-            <div class="d-flex no-block justify-content-center align-items-center m-b-3">
-                {{clock}}
+            <div class="d-flex no-block justify-content-center align-items-center m-b-3 clock">
+                {{ days }} <small>Dias</small> {{ time }}
             </div>
         <div>
             <div class="logo">
@@ -57,16 +59,6 @@
                                         <div *ngIf="f.confirmpassword.errors.required">Terms is required</div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group text-center ">
-                            <div class="col-xs-12 p-b-20 ">
-                                <button class="btn btn-block btn-lg btn-info " type="submit ">SIGN UP</button>
-                            </div>
-                        </div>
-                        <div class="form-group m-b-0 m-t-10 ">
-                            <div class="col-sm-12 text-center ">
-                                Already have an account? <a href="/authentication/login " class="text-info m-l-5 "><b>Sign In</b></a>
                             </div>
                         </div>
                     </form>

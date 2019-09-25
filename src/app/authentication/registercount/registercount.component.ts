@@ -14,55 +14,48 @@ const MINIUES = 1000 * 60;
   templateUrl: './registercount.component.html',
   styleUrls: ['./registercount.component.css']
 })
-export class RegistercountComponent implements OnInit{
+export class RegistercountComponent implements OnInit {
   @ViewChild('countdown', { static: false }) private counter: CountdownComponent;
   stopConfig: CountdownConfig = { stopTime: new Date().getTime() + 1000 * 30 };
   submitted = false;
-  registerForm:FormGroup;
+  registerForm: FormGroup;
   notify: string;
   config: CountdownConfig = { leftTime: 10, notify: [2, 5] };
-  clock: string;
- 
+  time: string = '00:00:00';
+  days: number = 0;
 
-  constructor(private auth:AuthenticationService,private formBuilder:FormBuilder,@Inject(LOCALE_ID) private locale: string) {
-    let eventTime = moment('27-09-2019 00:00:00', 'DD-MM-YYYY HH:mm:ss').unix(),
-    currentTime = moment().unix(),
-    diffTime = eventTime - currentTime,
-    duration = moment.duration(diffTime * 1000, 'milliseconds'),
-    interval = 1000;
 
-    // if time to countdown
-    if(diffTime > 0) {
+  constructor(private auth: AuthenticationService, private formBuilder: FormBuilder, @Inject(LOCALE_ID) private locale: string) {
+    let eventTime = moment('03-11-2019 00:00:00', 'DD-MM-YYYY HH:mm:ss'),
+      currentTime = moment(),
+      interval = 1000;
 
-        setInterval(() => {
+    setInterval(() => {
+      let currentTime = moment(),
+        milliseconds = eventTime.diff(currentTime, 'milliseconds');
 
-            duration = moment.duration(duration.asMilliseconds() - interval, 'milliseconds');
-            let dtime:any = moment.duration(duration);
-            console.log();
-            this.clock = moment(dtime, 'x').format('DDDD [Mês], DD [Dias] [e] HH:mm:ss[hs]');
-            
-        }, interval); 
-
-    } else {
-      this.clock = ('0000-00-00 00:00:00');
-    }
+      if (this.days >= 0) {
+        this.days = eventTime.diff(currentTime, 'days')
+        this.time = moment(milliseconds).format('HH:mm:ss');
+      }
+    }, interval);
 
   }
 
   ngOnInit() {
-        
+
     this.registerForm = this.formBuilder.group({
-        name: ['',Validators.compose([Validators.required])],
-        email: ['',Validators.compose([Validators.required,Validators.email])],
-        password: ['',Validators.compose([Validators.required,Validators.minLength(8)])],
-        confirmpassword: ['',Validators.compose([Validators.required])],
-        term: ['',Validators.compose([Validators.required])]
-    },{
+      name: ['', Validators.compose([Validators.required])],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
+      confirmpassword: ['', Validators.compose([Validators.required])],
+      term: ['', Validators.compose([Validators.required])]
+    }, {
       validator: MustMatch('password', 'confirmpassword')
     });
-}
+  }
 
- 
+
   customFormat: CountdownConfig = {
     leftTime: 65,
     formatDate: ({ date, formatStr, timezone }) => {
@@ -77,16 +70,16 @@ export class RegistercountComponent implements OnInit{
       return formatDate(date, f, this.locale, timezone || '+0000');
     },
   };
-    
+
   dateFnsConfig: CountdownConfig = {
     // leftTime: 60 * 60 * 24 * 365 * (2020 - 1970),
     // format: 'DD/MM/YYYY HH:mm:ss',
     // formatDate: ({ date, formatStr }) => format(date, 'DD/MM/YYYY HH:mm:ss'),
-    leftTime: (60 * 60 * 24 * 365)  * (2020 - 1970) - (60 * 60 * 24 * 46),
+    leftTime: (60 * 60 * 24 * 365) * (2020 - 1970) - (60 * 60 * 24 * 46),
     format: 'YYYY-MM-DD HH:mm:ss',
     formatDate: ({ date, formatStr }) => format(date, formatStr),
   };
-  
+
   prettyConfig: CountdownConfig = {
     leftTime: 60,
     format: 'HH:mm:ss',
@@ -121,14 +114,14 @@ export class RegistercountComponent implements OnInit{
   // convenience getter for easy access to form fields
   get f() { return this.registerForm.controls; }
 
-  register(){
-      this.submitted = true
+  register() {
+    this.submitted = true
 
-      if(this.registerForm.invalid){
-        return;
-      }
+    if (this.registerForm.invalid) {
+      return;
+    }
 
-      this.auth.signUp(this.registerForm.value)
+    this.auth.signUp(this.registerForm.value)
   }
 
 
