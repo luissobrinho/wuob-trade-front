@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CountdownModule } from 'ngx-countdown';
 
 import { NotfoundComponent } from './404/not-found.component';
 import { LockComponent } from './lock/lock.component';
@@ -20,6 +21,7 @@ import { RegistercountComponent } from './registercount/registercount.component'
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+    CountdownModule
   ],
   declarations: [
     NotfoundComponent,

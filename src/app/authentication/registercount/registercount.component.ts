@@ -1,60 +1,56 @@
-import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, LOCALE_ID } from '@angular/core';
+import { formatDate } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { MustMatch } from 'src/app/functions/MustMatch';
-import { Observable, Subscription } from 'rxjs';
-import {  map ,flatMap } from 'rxjs/operators';
+import { CountdownConfig, CountdownComponent, CountdownEvent } from 'ngx-countdown';
+import { format } from 'date-fns';
+import * as moment from 'moment';
 
+const MINIUES = 1000 * 60;
 
 @Component({
   selector: 'app-registercount',
   templateUrl: './registercount.component.html',
   styleUrls: ['./registercount.component.css']
 })
-export class RegistercountComponent implements OnInit, OnDestroy {
-
+export class RegistercountComponent implements OnInit{
+  @ViewChild('countdown', { static: false }) private counter: CountdownComponent;
+  stopConfig: CountdownConfig = { stopTime: new Date().getTime() + 1000 * 30 };
   submitted = false;
   registerForm:FormGroup;
-  private future:Date;
-  private futureString:string;
-  private counter$:Observable<number>;
-  private subscription:Subscription;
-  private message:string;
+  notify: string;
+  config: CountdownConfig = { leftTime: 10, notify: [2, 5] };
+  clock: string;
+ 
 
-  constructor(private auth:AuthenticationService,private formBuilder:FormBuilder,public elm:ElementRef) {
-       this.futureString = elm.nativeElement.getAttribute('inputDate');
+  constructor(private auth:AuthenticationService,private formBuilder:FormBuilder,@Inject(LOCALE_ID) private locale: string) {
+    let eventTime = moment('27-09-2019 00:00:00', 'DD-MM-YYYY HH:mm:ss').unix(),
+    currentTime = moment().unix(),
+    diffTime = eventTime - currentTime,
+    duration = moment.duration(diffTime * 1000, 'milliseconds'),
+    interval = 1000;
+
+    // if time to countdown
+    if(diffTime > 0) {
+
+        setInterval(() => {
+
+            duration = moment.duration(duration.asMilliseconds() - interval, 'milliseconds');
+            let dtime:any = moment.duration(duration);
+            console.log();
+            this.clock = moment(dtime, 'x').format('DDDD [Mês], DD [Dias] [e] HH:mm:ss[hs]');
+            
+        }, interval); 
+
+    } else {
+      this.clock = ('0000-00-00 00:00:00');
+    }
+
   }
 
-  dhms(t) {
-    var days, hours, minutes, seconds;
-    days = Math.floor(t / 86400);
-    t -= days * 86400;
-    hours = Math.floor(t / 3600) % 24;
-    t -= hours * 3600;
-    minutes = Math.floor(t / 60) % 60;
-    t -= minutes * 60;
-    seconds = t % 60;
-
-    return [
-        days + 'd',
-        hours + 'h',
-        minutes + 'm',
-        seconds + 's'
-    ].join(' ');
-}
-
-ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-}
-
-ngOnInit() {
-
-  this.future = new Date(this.futureString);
-  this.counter$ = interval(1000).flatMap((x) => {
-     return Math.floor((this.future.getTime() - new Date().getTime()) / 1000);
-  });
-
-  this.subscription = this.counter$.subscribe((x) => this.message = this.dhms(x));
+  ngOnInit() {
+        
     this.registerForm = this.formBuilder.group({
         name: ['',Validators.compose([Validators.required])],
         email: ['',Validators.compose([Validators.required,Validators.email])],
@@ -65,6 +61,62 @@ ngOnInit() {
       validator: MustMatch('password', 'confirmpassword')
     });
 }
+
+ 
+  customFormat: CountdownConfig = {
+    leftTime: 65,
+    formatDate: ({ date, formatStr, timezone }) => {
+      let f = formatStr;
+      if (date > MINIUES) {
+        f = 'm分s秒';
+      } else if (date === MINIUES) {
+        f = 'm分';
+      } else {
+        f = 's秒';
+      }
+      return formatDate(date, f, this.locale, timezone || '+0000');
+    },
+  };
+    
+  dateFnsConfig: CountdownConfig = {
+    // leftTime: 60 * 60 * 24 * 365 * (2020 - 1970),
+    // format: 'DD/MM/YYYY HH:mm:ss',
+    // formatDate: ({ date, formatStr }) => format(date, 'DD/MM/YYYY HH:mm:ss'),
+    leftTime: (60 * 60 * 24 * 365)  * (2020 - 1970) - (60 * 60 * 24 * 46),
+    format: 'YYYY-MM-DD HH:mm:ss',
+    formatDate: ({ date, formatStr }) => format(date, formatStr),
+  };
+  
+  prettyConfig: CountdownConfig = {
+    leftTime: 60,
+    format: 'HH:mm:ss',
+    prettyText: text => {
+      return text
+        .split(':')
+        .map(v => `<span class="item">${v}</span>`)
+        .join('');
+    },
+  };
+
+  resetStop() {
+    this.stopConfig = { stopTime: new Date().getTime() + 1000 * 30 };
+  }
+
+  resetTimer() {
+    this.counter.restart();
+  }
+
+  handleEvent(e: CountdownEvent) {
+    console.log(e);
+  }
+
+  handleEvent2(e: CountdownEvent) {
+    this.notify = e.action.toUpperCase();
+    if (e.action === 'notify') {
+      this.notify += ` - ${e.left} ms`;
+    }
+    console.log(e);
+  }
 
   // convenience getter for easy access to form fields
   get f() { return this.registerForm.controls; }

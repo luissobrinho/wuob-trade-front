@@ -33,6 +33,7 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { NgxUiLoaderModule } from  'ngx-ui-loader';
 import { IonicStorageModule } from '@ionic/storage';
 
+
 //Environment default, define api url and inicialize firebase
 //Enviroment default defined: localhost
 environment.urlApi()
@@ -56,7 +57,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BlankComponent,
     NavigationComponent,
     BreadcrumbComponent,
-    SidebarComponent
+    SidebarComponent,
   ],
   imports: [
     CommonModule,
@@ -79,8 +80,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         provide:TranslateLoader,
         useFactory:HttpLoaderFactory,
         deps:[HttpClient]
-      }
-    })
+      },
+    }),
   ],
   providers: [
     {
