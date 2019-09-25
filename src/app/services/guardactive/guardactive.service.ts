@@ -1,0 +1,25 @@
+import { Injectable } from '@angular/core';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { AuthenticationService } from '../authentication/authentication.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class GuardactiveService {
+
+  constructor(private router:Router,private authservice:AuthenticationService) { }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
+    
+      let userCurrent = this.authservice.currentUserValue
+      
+      if(userCurrent.meta.is_active){
+        return true
+      }
+      console.log('Confirme o seu e-mail!!!')
+      this.router.navigate(['/authentication/login'],{queryParams:{returnUrl:state.url}})
+      return false
+  }
+  
+
+}

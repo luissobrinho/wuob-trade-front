@@ -70,21 +70,21 @@ export class LoginComponent implements OnInit {
       this.auth.signIn(user);
   }
 
-  googleSignIn(){
-    this.ngxService.start()
-    this.auth.signInGoogle().then(result=>{
+  // googleSignIn(){
+  //   this.ngxService.start()
+  //   this.auth.signInGoogle().then(result=>{
 
-        this.router.navigate(['dashboard/classic']).then(()=>{
-          this.ngxService.stop()
-        },err=>{
-          this.toastr.error(err)
-          this.ngxService.stop()
-        })
+  //       this.router.navigate(['dashboard/classic']).then(()=>{
+  //         this.ngxService.stop()
+  //       },err=>{
+  //         this.toastr.error(err)
+  //         this.ngxService.stop()
+  //       })
 
-    },err=>{
-        this.ngxService.stop()
-        this.toastr.error('Erro','Erro inesperado ao tentar logar!')
-    })
-  }
+  //   },err=>{
+  //       this.ngxService.stop()
+  //       this.toastr.error('Erro','Erro inesperado ao tentar logar!')
+  //   })
+  // }
 
 }

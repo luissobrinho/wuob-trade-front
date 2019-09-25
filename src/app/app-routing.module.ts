@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { FullComponent } from './layouts/full/full.component';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { GuardService } from './services/guard/guard.service'
+import { GuardactiveService } from './services/guardactive/guardactive.service'
 
 export const Approutes: Routes = [
   {
@@ -25,7 +26,7 @@ export const Approutes: Routes = [
       {
         path: 'dashboard',
         loadChildren: './dashboards/dashboard.module#DashboardModule',
-        canActivate:[GuardService]
+        canActivate:[GuardService,GuardactiveService]
       },
       { path: 'icons', loadChildren: './icons/icons.module#IconsModule' },
       {

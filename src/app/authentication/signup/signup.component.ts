@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MustMatch } from 'src/app/functions/MustMatch';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +13,10 @@ export class SignupComponent {
   submitted = false;
   registerForm:FormGroup;
 
-  constructor(private auth:AuthenticationService,private formBuilder:FormBuilder) {}
+  constructor(private auth:AuthenticationService,private formBuilder:FormBuilder,router:Router) {
+
+        router.navigate(['/authentication/register'])
+  }
 
   ngOnInit() {
       this.registerForm = this.formBuilder.group({
