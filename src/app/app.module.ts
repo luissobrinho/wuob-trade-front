@@ -32,6 +32,7 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { NgxUiLoaderModule } from  'ngx-ui-loader';
 import { IonicStorageModule } from '@ionic/storage';
+import { ConfirmemailComponent } from './confirmemail/confirmemail.component';
 
 
 //Environment default, define api url and inicialize firebase
@@ -58,6 +59,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NavigationComponent,
     BreadcrumbComponent,
     SidebarComponent,
+    ConfirmemailComponent,
   ],
   imports: [
     CommonModule,

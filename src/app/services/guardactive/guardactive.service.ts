@@ -17,7 +17,7 @@ export class GuardactiveService {
         return true
       }
       console.log('Confirme o seu e-mail!!!')
-      this.router.navigate(['/authentication/login'],{queryParams:{returnUrl:state.url}})
+      this.router.navigate(['/confirmemail'],{queryParams:{returnUrl:state.url}})
       return false
   }
   

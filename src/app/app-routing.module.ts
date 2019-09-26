@@ -5,6 +5,7 @@ import { FullComponent } from './layouts/full/full.component';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { GuardService } from './services/guard/guard.service'
 import { GuardactiveService } from './services/guardactive/guardactive.service'
+import { ConfirmemailComponent } from './confirmemail/confirmemail.component';
 
 export const Approutes: Routes = [
   {
@@ -46,6 +47,11 @@ export const Approutes: Routes = [
       {
         path: 'network',
         loadChildren: './network/network.module#NetworkModule',
+        canActivate:[GuardService]
+      },
+      {
+        path: 'confirmemail',
+        component:ConfirmemailComponent,
         canActivate:[GuardService]
       },
     ]
