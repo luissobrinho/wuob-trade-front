@@ -25,22 +25,25 @@ export class AppComponent {
     ) { 
 
         let token = sessionStorage.getItem('Authorization');
-        if(token){
-          this.authenticationService.getProfile(token)
-        }
-
         events.subscribe('toast',(message?: string, title?: string, override?: any, type?: string)=>{
-            this.toastr.show(message, title, override, type)
+          this.toastr.show(message, title, override, type)
         });
-
         //added config of the language. default:en
         this.translation.configLang()
-        //Subscribe user 
-        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-        //redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) {
-          this.router.navigate(['/dashboard/classic']);
+        if(token){
+              this.authenticationService.getProfile(token).then(()=>{
+                
+              //Subscribe user 
+              this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+              //redirect to home if already logged in
+              if (this.authenticationService.currentUserValue) {
+                this.router.navigate(['/dashboard/classic']);
+              }
+          })
+        }else{
+             this.router.navigate(['/authentication/login']);
         }
+
     }
 
     logout() {

@@ -105,19 +105,24 @@ logOut(){
   this.currentUserSubject.next(null);
 }
 
-getProfile(token){
-      //get user credentials 
-      let header = {Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', 'Accept': 'application/json' }
-      this.api.get('user/profile', {}, header).subscribe((User: {}) => {
-        
-           //update user localstorage,sessionstorage and set as current use
-           localStorage.setItem('currentUser', JSON.stringify(User))
-           sessionStorage.setItem('currentUser', JSON.stringify(User))
-           this.currentUserSubject.next(User);
+getProfile(token):Promise<boolean>{
 
-         }, err => {
-           this.events.publish('toast', err, 'Erro', 5000, 'toast-error')
+      return new Promise<boolean>((resolve,reject)=>{
+          //get user credentials 
+          let header = {Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', 'Accept': 'application/json' }
+          this.api.get('user/profile', {}, header).subscribe((User: {}) => {
+              console.log(User)
+              //update user localstorage,sessionstorage and set as current use
+              localStorage.setItem('currentUser', JSON.stringify(User))
+              sessionStorage.setItem('currentUser', JSON.stringify(User))
+              this.currentUserSubject.next(User);
+              resolve(true)
+            }, err => {
+              reject(false)
+              this.events.publish('toast', err, 'Erro', 5000, 'toast-error')
+          })
       })
+      
 }
 
   // signInGoogle(){

@@ -16,7 +16,7 @@ export class GuardactiveService {
       if(userCurrent.meta.is_active){
         return true
       }
-      console.log('Confirme o seu e-mail!!!')
+     
       this.router.navigate(['/confirmemail'],{queryParams:{returnUrl:state.url}})
       return false
   }
