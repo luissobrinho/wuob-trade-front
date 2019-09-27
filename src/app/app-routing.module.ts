@@ -17,7 +17,12 @@ export const Approutes: Routes = [
         path: 'authentication',
         loadChildren:
           './authentication/authentication.module#AuthenticationModule'
-      }
+      },
+      {
+        path: 'confirmemail',
+        component:ConfirmemailComponent,
+        canActivate:[GuardService]
+      },
     ]
   },
   {
@@ -47,11 +52,6 @@ export const Approutes: Routes = [
       {
         path: 'network',
         loadChildren: './network/network.module#NetworkModule',
-        canActivate:[GuardService]
-      },
-      {
-        path: 'confirmemail',
-        component:ConfirmemailComponent,
         canActivate:[GuardService]
       },
     ]
