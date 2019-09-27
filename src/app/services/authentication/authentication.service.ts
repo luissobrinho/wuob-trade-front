@@ -7,7 +7,7 @@ import { ApiService } from '../api/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Events } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { Uuid } from 'src/app/functions/Uuid';
+
 
 
 @Injectable({
@@ -33,14 +33,14 @@ export class AuthenticationService
     //Init loading
     this.ngxService.start()
     //sign in web service
-    return this.api.post('login', user).subscribe((response: { token: string }) => {
+    let header = {  
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+       Authorization:'Bearer'
+    }
+    return this.api.post('login',user,header).subscribe((response: { token: string }) => {
       //get user credentials 
-      let header = {  
-        Authorization: `Bearer ${response.token}`, 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'HashAppSecurytWeb':Uuid.getUuid
-      }
+      header.Authorization = `Bearer ${response.token}`;
 
       this.api.get('user/profile', {}, header).subscribe((User: {}) => {
         //store user and token in localstorage,sessionstorage and set as current use  
@@ -79,7 +79,6 @@ export class AuthenticationService
           Authorization: `Bearer ${response.token}`, 
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'HashAppSecurytWeb':Uuid.getUuid
       }
 
       this.api.get('user/profile', {}, header).subscribe((User: {}) => {
@@ -126,11 +125,9 @@ getProfile(token):Promise<boolean>{
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json', 
             'Accept': 'application/json',
-            'HashAppSecurytWeb':Uuid.getUuid 
           }
           
           this.api.get('user/profile', {}, header).subscribe((User: {}) => {
-              console.log(User)
               //update user localstorage,sessionstorage and set as current use
               localStorage.setItem('currentUser', JSON.stringify(User))
               sessionStorage.setItem('currentUser', JSON.stringify(User))

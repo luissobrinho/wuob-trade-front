@@ -39,7 +39,6 @@ export class AppComponent {
         this.translation.configLang()
         if(token){
               this.authenticationService.getProfile(token).then(()=>{
-                
               //Subscribe user 
               this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
               //redirect to home if already logged in
