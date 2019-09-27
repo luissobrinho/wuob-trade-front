@@ -1,4 +1,10 @@
 #msg{
     text-align: justify;
-    color: #366593  !important;
+    color: #153822   !important;
+    font-weight: bold
+}
+
+#title{
+    color: #153822   !important;
+    font-weight: bold
 }
