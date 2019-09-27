@@ -7,6 +7,7 @@ import { ApiService } from '../api/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Events } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Uuid } from 'src/app/functions/Uuid';
 
 
 @Injectable({
@@ -34,7 +35,13 @@ export class AuthenticationService
     //sign in web service
     return this.api.post('login', user).subscribe((response: { token: string }) => {
       //get user credentials 
-      let header = {Authorization: `Bearer ${response.token}`, 'Content-Type': 'application/json', 'Accept': 'application/json' }
+      let header = {  
+        Authorization: `Bearer ${response.token}`, 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'HashAppSecurytWeb':Uuid.getUuid
+      }
+
       this.api.get('user/profile', {}, header).subscribe((User: {}) => {
         //store user and token in localstorage,sessionstorage and set as current use  
         localStorage.setItem('Authorization', `Bearer ${response.token}`)
@@ -68,7 +75,13 @@ export class AuthenticationService
     return this.api.post('register',user).subscribe((response:{token:string})=>{
 
       //get user credentials 
-      let header = {Authorization: `Bearer ${response.token}`, 'Content-Type': 'application/json', 'Accept': 'application/json' }
+      let header = {  
+          Authorization: `Bearer ${response.token}`, 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'HashAppSecurytWeb':Uuid.getUuid
+      }
+
       this.api.get('user/profile', {}, header).subscribe((User: {}) => {
            
         //store user and token in localstorage,sessionstorage and set as current use  
@@ -109,7 +122,13 @@ getProfile(token):Promise<boolean>{
 
       return new Promise<boolean>((resolve,reject)=>{
           //get user credentials 
-          let header = {Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', 'Accept': 'application/json' }
+          let header = {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json', 
+            'Accept': 'application/json',
+            'HashAppSecurytWeb':Uuid.getUuid 
+          }
+          
           this.api.get('user/profile', {}, header).subscribe((User: {}) => {
               console.log(User)
               //update user localstorage,sessionstorage and set as current use
