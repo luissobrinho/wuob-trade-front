@@ -3,23 +3,23 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/c
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthenticationService } from '../authentication/authentication.service'
+import { Events } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrInterceptService implements HttpInterceptor{
 
-  constructor(private authenticationService:AuthenticationService) { }
+  constructor(private authenticationService:AuthenticationService,public events:Events) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       return next.handle(request).pipe(catchError(err => {
-      
+        
           if (err.status === 401) {
               // auto logout if 401 response returned from api
               this.authenticationService.logOut();
-              location.reload(true);
-          }
-          
+              //location.reload(true);
+          }          
           const error = err.error.message || err.statusText;
           return throwError(error);
       }))

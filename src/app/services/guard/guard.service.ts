@@ -17,7 +17,7 @@ export class GuardService implements CanActivate {
       if(userCurrent){
         return true
       }
-
+      console.log('oiii')
       this.router.navigate(['/authentication/login'],{queryParams:{returnUrl:state.url}})
       return false
   }

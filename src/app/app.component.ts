@@ -46,8 +46,6 @@ export class AppComponent {
                 this.router.navigate(['/dashboard/classic']);
               }
           })
-        }else{
-             this.router.navigate(['/authentication/login']);
         }
 
     }

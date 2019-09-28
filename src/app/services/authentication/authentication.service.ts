@@ -63,7 +63,8 @@ export class AuthenticationService
       })
 
     }, err => {
-      this.events.publish('toast', 'Ocorreu um erro inesperado.', 'Erro', null, 'toast-error')
+      console.log(err); 
+      this.events.publish('toast',err, 'Erro', null, 'toast-error')
       this.ngxService.stop()
     })
   }
@@ -104,16 +105,19 @@ export class AuthenticationService
           })
 
     },err=>{
+     
         //Display error register
-        this.events.publish('toast','Ocorreu um erro','Erro',10000,'toast-error')
+        this.events.publish('toast',"The given data was invalid.",'Erro',10000,'toast-error')
         this.ngxService.stop()
     })
 }
 
 logOut(){
   // remove user from local storage and set current user to null
-  localStorage.clear();
-  sessionStorage.clear();
+  localStorage.removeItem('currentUser');
+  sessionStorage.removeItem('currentUser');
+  localStorage.removeItem('Authorization');
+  sessionStorage.removeItem('Authorization');
   this.currentUserSubject.next(null);
 }
 

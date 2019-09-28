@@ -25,13 +25,15 @@ export class RegistercountComponent implements OnInit {
 
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.compose([Validators.required])],
+      username: ['',Validators.compose([Validators.required,Validators.minLength(6)])],
       email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
-      confirmpassword: ['', Validators.compose([Validators.required])],
+      password_confirmation: ['', Validators.compose([Validators.required])],
       term: ['', Validators.compose([Validators.required])]
     }, {
-      validator: MustMatch('password', 'confirmpassword')
+      validator: MustMatch('password', 'password_confirmation')
     });
+    
   }
 
   // convenience getter for easy access to form fields

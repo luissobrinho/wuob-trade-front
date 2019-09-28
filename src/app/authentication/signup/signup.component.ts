@@ -13,20 +13,20 @@ export class SignupComponent {
   submitted = false;
   registerForm:FormGroup;
 
-  constructor(private auth:AuthenticationService,private formBuilder:FormBuilder,router:Router) {
-
-        router.navigate(['/authentication/register'])
+  constructor(private auth:AuthenticationService,private formBuilder:FormBuilder,public router:Router) {
+       router.navigate(['authentication/register'])
   }
 
   ngOnInit() {
       this.registerForm = this.formBuilder.group({
           name: ['',Validators.compose([Validators.required])],
+          username: ['',Validators.compose([Validators.required,Validators.minLength(6)])],
           email: ['',Validators.compose([Validators.required,Validators.email])],
           password: ['',Validators.compose([Validators.required,Validators.minLength(8)])],
-          confirmpassword: ['',Validators.compose([Validators.required])],
+          password_confirmation: ['',Validators.compose([Validators.required])],
           term: ['',Validators.compose([Validators.required])]
       },{
-        validator: MustMatch('password', 'confirmpassword')
+        validator: MustMatch('password', 'password_confirmation')
       });
   }
 
