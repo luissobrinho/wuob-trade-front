@@ -1,1 +1,56 @@
-<p>create works!</p>
+<app-cryptocard></app-cryptocard>
+
+<!-- Row -->
+<div class="row">
+    
+        <div class="col-lg-12">
+
+            <div class="card">
+
+                <form action="#">
+
+                    <div class="form-body">
+
+                        <div class="card-body">
+                            <div class="row p-t-20">
+
+                                <!--/span-->
+                                <div class="col-md-6">
+                                        <div class="form-group has-success">
+                                                <label class="control-label">Investment Type</label>
+                                                <select class="form-control custom-select">
+                                                    <option value="" ></option>
+                                                    <option  *ngFor="let type of investimenttypes" [value]="type.id" >{{type.nome}}</option>
+                                                </select>
+                                        </div>
+                                </div>
+                                <!--/span-->
+
+                                <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Value Investiment</label>
+                                            <input type="text" id="firstName" class="form-control" placeholder="0.00">
+                                            <small class="form-control-feedback"> Value minimium 0,005 </small>
+                                        </div>
+                                </div>
+                            </div>
+                    
+                            <div class="form-actions col-12">
+                                <div class="card-body float-right col-4">
+                                    <button type="submit" class="btn btn-rounded btn-block btn-outline-success float-right">
+                                        <i class="fa fa-check"></i> Create</button>
+                                </div>
+                            </div>
+
+                        </div>   
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+</div>
+<!-- Row -->

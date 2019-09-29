@@ -11,7 +11,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
   constructor(private router:Router,private auth:AuthenticationService,private routeactive:ActivatedRoute,
       private toastr:ToastrService,private ngxService: NgxUiLoaderService,private formBuilder:FormBuilder)
   {
-
+    window.document.getElementsByTagName('body').item(0).classList.remove('overflow')
     //redirect to home if already logged in
     if (this.auth.currentUserValue) {
         this.router.navigate(['/dashboard/classic']);

@@ -56,6 +56,7 @@ export class Dashboard1Component implements AfterViewInit {
     doughnut = false;
     arcWidth = 0.25;
     rangeFillOpacity = 0.15;
+    user:any
 
     colorScheme = {
         domain: ['#4fc3f7', '#fb8c00', '#7460ee', '#fa5838', '#5ac146', '#137eff']
@@ -63,9 +64,17 @@ export class Dashboard1Component implements AfterViewInit {
     schemeType = 'ordinal';
 
     constructor() {
+        window.document.getElementsByTagName('body').item(0).classList.add('overflow');
         Object.assign(this, {
             single
         });
+        
+        this.initValuesDashboard()
+        
+    }
+
+    public initValuesDashboard(){
+        this.user = JSON.parse(sessionStorage.getItem('currentUser'));
     }
 
     // bar chart
@@ -124,7 +133,7 @@ export class Dashboard1Component implements AfterViewInit {
             high: 48,
             showArea: true,
             fullWidth: true,
-            height: 270,
+            height: 300,
             axisY: {
                 onlyInteger: true,
                 scaleMinSpace: 40,
