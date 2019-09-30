@@ -63,7 +63,6 @@ export class AuthenticationService
       })
 
     }, err => {
-      console.log(err); 
       this.events.publish('toast',err, 'Erro', null, 'toast-error')
       this.ngxService.stop()
     })
