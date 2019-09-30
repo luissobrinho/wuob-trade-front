@@ -17,7 +17,7 @@ export const LootRoutes: Routes = [
         data: {
           title: 'Withdraw',
           urls: [
-            { title: 'Withdraw', url: '/withdraw' },
+            { title: 'Loot', url: '/withdraw' },
             { title: 'Withdraw' }
           ]
         }
@@ -28,7 +28,7 @@ export const LootRoutes: Routes = [
         data: {
           title: 'Withdrawal Report',
           urls: [
-            { title: 'Report', url: '/report' },
+            { title: 'Loot', url: '/report' },
             { title: 'Withdrawal Report' }
           ]
         }
@@ -37,10 +37,10 @@ export const LootRoutes: Routes = [
         path: 'wallet',
         component: WalletComponent,
         data: {
-          title: 'Wallet',
+          title: 'My Wallet',
           urls: [
-            { title: 'Wallet', url: '/wallet' },
-            { title: 'Wallet' }
+            { title: 'Loot', url: '/My Wallet' },
+            { title: 'My Wallet' }
           ]
         }
       },

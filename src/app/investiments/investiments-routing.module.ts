@@ -14,7 +14,7 @@ export const InvestimentsRoutes: Routes = [
         data: {
           title: 'Create Investiments',
           urls: [
-            { title: 'Create', url: '/create' },
+            { title: 'Investiments', url: '/create' },
             { title: 'Create Investiments' }
           ]
         }
@@ -25,7 +25,7 @@ export const InvestimentsRoutes: Routes = [
         data: {
           title: 'Historic Investiments',
           urls: [
-            { title: 'Historic', url: '/historic' },
+            { title: 'Investiments', url: '/historic' },
             { title: 'Historic Investiments' }
           ]
         }
