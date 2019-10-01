@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CreateComponent } from './create/create.component';
+import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { CreateComponent, ModalContent } from './create/create.component';
 import { InvestimentsRoutes } from './investiments-routing.module';
 import { HistoricComponent } from './historic/historic.component';
 import { ComponentModule } from './component/component.module';
+import { BrMaskerModule } from 'br-mask';
 
 @NgModule({
   declarations: [CreateComponent, HistoricComponent],
@@ -17,7 +18,9 @@ import { ComponentModule } from './component/component.module';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    ComponentModule
+    ComponentModule,
+    BrMaskerModule,
+    NgbModalModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

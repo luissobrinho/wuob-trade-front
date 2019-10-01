@@ -2,7 +2,7 @@
 export const environment = {
     urlApi:function(production=false){
         if(production){
-            return ''
+            return 'http://wuob.trade/'
         }else{
             return 'http://127.0.0.1:8000/api/v1/'
         }

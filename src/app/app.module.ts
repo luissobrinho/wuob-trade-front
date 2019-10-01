@@ -37,7 +37,7 @@ import { ConfirmemailComponent } from './confirmemail/confirmemail.component';
 
 //Environment default, define api url and inicialize firebase
 //Enviroment default defined: localhost
-environment.urlApi()
+environment.urlApi(true)
 
 export function HttpLoaderFactory(http:HttpClient){
     return new TranslateHttpLoader(http)
@@ -93,6 +93,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrInterceptService, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

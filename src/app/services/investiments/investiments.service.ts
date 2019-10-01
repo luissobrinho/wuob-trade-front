@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ApiService } from '../api/api.service';
 import { Events } from '@ionic/angular';
-import { resolve } from 'dns';
-
+import { InvestmentResponse } from 'src/app/models/InvestmentResponse';
 @Injectable({
   providedIn: 'root'
 })
-export class InvestimentsService {
+export class InvestimentsService{
 
   private _TOKEN:string;
 
@@ -34,5 +33,27 @@ export class InvestimentsService {
 
   }
 
+  Invest(investiment):Promise<InvestmentResponse>{
+
+      let Investiment = this.mapValue(investiment)
+
+      let header = {
+        Authorization: `Bearer ${this._TOKEN}`,
+        'Content-Type': 'application/json', 
+        'Accept': 'application/json',
+      }
+
+      return new Promise<InvestmentResponse>((resolve,reject)=>{
+          this.api.post('investimento_usuarios',Investiment, header).subscribe((response: InvestmentResponse)=>{
+              resolve(response)
+          },err=>{
+              reject(err)
+          })
+      })
+  }
+
+  private mapValue(investiment){
+      return {tipo_investimento_id:investiment.investimenttype,valor:investiment.valueinvestiment}
+  }
 
 }
