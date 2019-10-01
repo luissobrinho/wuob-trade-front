@@ -31,6 +31,7 @@
     "angular-calendar": "^0.27.18",
     "angular-datatables": "^8.0.0",
     "angular-file-uploader": "^5.0.2",
+    "angular-input-masks": "^4.4.1",
     "angular-notifier": "^4.1.1",
     "bootstrap": "^4.3.1",
     "br-mask": "0.0.8",

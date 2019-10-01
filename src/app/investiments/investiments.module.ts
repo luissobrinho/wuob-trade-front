@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { CreateComponent, ModalContent } from './create/create.component';
+import { CreateComponent} from './create/create.component';
 import { InvestimentsRoutes } from './investiments-routing.module';
 import { HistoricComponent } from './historic/historic.component';
 import { ComponentModule } from './component/component.module';
