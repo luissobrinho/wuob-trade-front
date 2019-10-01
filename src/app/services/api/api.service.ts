@@ -9,7 +9,7 @@ import { Uuid } from 'src/app/functions/Uuid';
 })
 export class ApiService {
 
-  url: string = environment.urlApi()
+  url: string = environment.urlApi(true)
 
   constructor(public http: HttpClient) { }
 
