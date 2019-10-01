@@ -18,7 +18,7 @@ export const NetworkRoutes: Routes = [
         data: {
           title: 'Team',
           urls: [
-            { title: 'Team', url: '/team' },
+            { title: 'Network', url: '/team' },
             { title: 'Team' }
           ]
         }
@@ -29,7 +29,7 @@ export const NetworkRoutes: Routes = [
         data: {
           title: 'Residual',
           urls: [
-            { title: 'Residual', url: '/residual' },
+            { title: 'Network', url: '/residual' },
             { title: 'Residual' }
           ]
         }
@@ -40,7 +40,7 @@ export const NetworkRoutes: Routes = [
         data: {
           title: 'Bonus',
           urls: [
-            { title: 'Bonus', url: '/bonus' },
+            { title: 'Network', url: '/bonus' },
             { title: 'Bonus' }
           ]
         }
