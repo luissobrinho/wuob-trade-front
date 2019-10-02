@@ -14,4 +14,5 @@ export interface InvestmentResponse {
   updated_at: string;
   created_at: string;
   id: number;
+  coin:string;
 }

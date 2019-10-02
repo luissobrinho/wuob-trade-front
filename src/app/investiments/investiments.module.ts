@@ -9,6 +9,8 @@ import { InvestimentsRoutes } from './investiments-routing.module';
 import { HistoricComponent } from './historic/historic.component';
 import { ComponentModule } from './component/component.module';
 import { BrMaskerModule } from 'br-mask';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 @NgModule({
   declarations: [CreateComponent, HistoricComponent],
@@ -20,7 +22,9 @@ import { BrMaskerModule } from 'br-mask';
     NgbModule,
     ComponentModule,
     BrMaskerModule,
-    NgbModalModule
+    NgbModalModule,
+    NgxDatatableModule,
+    Ng2SmartTableModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

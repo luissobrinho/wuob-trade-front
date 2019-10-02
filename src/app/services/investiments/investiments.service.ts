@@ -52,6 +52,24 @@ export class InvestimentsService{
       })
   }
 
+  getInvestiments():Promise<InvestmentResponse>{
+
+      let header = {
+        Authorization: `Bearer ${this._TOKEN}`,
+        'Content-Type': 'application/json', 
+        'Accept': 'application/json',
+      }
+        
+      return new Promise<InvestmentResponse>((resolve,reject)=>{
+          this.api.get('investimento_usuarios',{}, header).subscribe((response:{data:InvestmentResponse})=>{
+              resolve(response.data)
+          },err=>{
+              reject(err)
+          })
+      })
+
+  }
+
   private mapValue(investiment){
       return {tipo_investimento_id:investiment.investimenttype,valor:investiment.valueinvestiment}
   }
