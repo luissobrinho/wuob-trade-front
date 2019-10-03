@@ -30,6 +30,10 @@ export const AuthenticationRoutes: Routes = [
         path: 'register',
         component: RegistercountComponent
       },
+      {
+        path: 'register/:ref',
+        component: RegistercountComponent
+      },
   
     ]
   }

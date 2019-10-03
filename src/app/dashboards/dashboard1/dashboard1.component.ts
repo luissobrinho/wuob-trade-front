@@ -7,6 +7,9 @@ import * as shape from 'd3-shape';
 import * as d3 from 'd3';
 import { single } from './data';
 import { colorSets } from '@swimlane/ngx-charts/release/utils/color-sets';
+import { environment } from '../../environments/environments';
+import { Events } from '@ionic/angular';
+import { Scroll } from '../../functions/Scroll';
 
 declare var require: any;
 
@@ -57,24 +60,43 @@ export class Dashboard1Component implements AfterViewInit {
     arcWidth = 0.25;
     rangeFillOpacity = 0.15;
     user:any
+    investmentsType:Array<{}>
+    linkReference:string;
 
     colorScheme = {
         domain: ['#4fc3f7', '#fb8c00', '#7460ee', '#fa5838', '#5ac146', '#137eff']
     };
     schemeType = 'ordinal';
 
-    constructor() {
-        window.document.getElementsByTagName('body').item(0).classList.add('overflow');
+    constructor(public events:Events) {
+        
+        Scroll.showScroll()
         Object.assign(this, {
             single
         });
         
-        this.initValuesDashboard()
-        
+        this.initValuesDashboard();
     }
 
     public initValuesDashboard(){
         this.user = JSON.parse(sessionStorage.getItem('currentUser'));
+        this.investmentsType = this.user.totalTipoRendimento;
+        this.linkReference = `${environment.urlAngularTest}/${this.user.meta.referencia}`
+    }
+
+    copyLink(text){
+        let selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';
+        selBox.value = text;
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
+        this.events.publish('toast','Link copied', null, null,null)
     }
 
     // bar chart

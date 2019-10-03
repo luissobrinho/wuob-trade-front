@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MustMatch } from 'src/app/functions/MustMatch';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
+import { Scroll } from '../../functions/Scroll';
 
 @Component({
   selector: 'app-signup',
@@ -12,9 +13,12 @@ export class SignupComponent {
 
   submitted = false;
   registerForm:FormGroup;
+  referenceLink:string = null;
 
-  constructor(private auth:AuthenticationService,private formBuilder:FormBuilder,public router:Router) {
+  constructor(private auth:AuthenticationService,private formBuilder:FormBuilder,public router:Router,private routeactive:ActivatedRoute) {
+       Scroll.showScroll()
        router.navigate(['authentication/register'])
+       this.referenceLink = (typeof this.routeactive.snapshot.params.ref !== ('undefined'||''||null))?this.routeactive.snapshot.params.ref:null;
   }
 
   ngOnInit() {
@@ -24,7 +28,8 @@ export class SignupComponent {
           email: ['',Validators.compose([Validators.required,Validators.email])],
           password: ['',Validators.compose([Validators.required,Validators.minLength(8)])],
           password_confirmation: ['',Validators.compose([Validators.required])],
-          term: ['',Validators.compose([Validators.required])]
+          term: ['',Validators.compose([Validators.required])],
+          referencia:[this.referenceLink]
       },{
         validator: MustMatch('password', 'password_confirmation')
       });

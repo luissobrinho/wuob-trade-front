@@ -88,7 +88,7 @@
                                 <p class="font-16 m-b-5">network</p>
                             </div>
                             <div class="ml-auto">
-                                <h1 class="font-light text-right">0</h1>
+                                <h1 class="font-light text-right">{{user.totalReferencia}}</h1>
                             </div>
                         </div>
                     </div>
@@ -171,44 +171,25 @@
                                     <thead>
                                         <tr>
                                             <th class="border-top-0">NAME</th>
-                                            <th class="border-top-0">STATUS</th>
-                                            <th class="border-top-0">DATE</th>
-                                            <th class="border-top-0">PRICE</th>
+                                            <th class="border-top-0">TOTAL</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                
-                                            <td class="txt-oflo">Elite admin</td>
-                                            <td>
-                                                <span class="label label-success label-rounded">SALE</span>
+                                        <tr *ngFor="let i of investmentsType">
+            
+                                            <td class="txt-oflo text-success" *ngIf="i.nome==='Day Trader'" >{{i.nome}}</td>
+                                            <td class="text-success" *ngIf="i.nome==='Day Trader'" >
+                                                {{i.total}}
                                             </td>
-                                            <td class="txt-oflo">April 18, 2017</td>
-                                            <td>
-                                                <span class="font-medium">$24</span>
+                                            <td class="txt-oflo text-info" *ngIf="i.nome==='Scalper'" >{{i.nome}}</td>
+                                            <td class="text-info" *ngIf="i.nome==='Scalper'" >
+                                                {{i.total}}
                                             </td>
-                                        </tr>
-                                        <tr>
-                
-                                            <td class="txt-oflo">Real Homes WP Theme</td>
-                                            <td>
-                                                <span class="label label-info label-rounded">EXTENDED</span>
+                                            <td class="txt-oflo text-danger" *ngIf="i.nome==='Arbitration'" >{{i.nome}}</td>
+                                            <td class="text-danger" *ngIf="i.nome==='Arbitration'" >
+                                                {{i.total}}
                                             </td>
-                                            <td class="txt-oflo">April 19, 2017</td>
-                                            <td>
-                                                <span class="font-medium">$1250</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                
-                                            <td class="txt-oflo">Ample Admin</td>
-                                            <td>
-                                                <span class="label label-purple label-rounded">Tax</span>
-                                            </td>
-                                            <td class="txt-oflo">April 19, 2017</td>
-                                            <td>
-                                                <span class="font-medium">$1250</span>
-                                            </td>
+
                                         </tr>
                                     </tbody>
                                 </table>
@@ -221,9 +202,9 @@
                         <h4 class="card-title">Invitation link</h4>
                         <p class="card-text">This is your invitation link, copy and send to your investor team.</p>
                         <div class="input-group">
-                                <input type="text" class="form-control" >
+                                <input type="text" class="form-control" value="{{linkReference}}" >
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-success" type="button">Copy link</button>
+                                    <button (click)='copyLink(linkReference)' class="btn btn-outline-success" type="button">Copy link</button>
                                 </div>
                         </div>
                     </div>

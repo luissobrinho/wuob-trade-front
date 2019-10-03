@@ -17,7 +17,7 @@ export class HistoricComponent implements OnInit {
   loadingIndicator = true;
   reorderable = true;
 
-  columns = [{ prop: 'amountf' ,name:'Value'}, { name: 'Coin' },{ name: 'Status', prop:'status' }, { name: 'Action', prop:'address' }];
+  columns = [{ prop: 'amountf' ,name:'Value'}, { name: 'Coin' ,prop:('Coin'===null)?'-':'Coin'},{ name: 'Status', prop:'status' }, { name: 'Action', prop:'address' }];
   @ViewChild(HistoricComponent, { static: true }) table:HistoricComponent;
   constructor(public investiments:InvestimentsService,public ngxService: NgxUiLoaderService,public events:Events) {
         this.ngxService.start()
@@ -74,6 +74,7 @@ export class HistoricComponent implements OnInit {
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
+    this.events.publish('toast','Link copied', null, null,null)
   }
 
 }

@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { MustMatch } from 'src/app/functions/MustMatch';
 import * as moment from 'moment';
+import { Router, ActivatedRoute} from '@angular/router';
+import { Scroll } from '../../functions/Scroll';
 
 
 @Component({
@@ -15,9 +17,13 @@ export class RegistercountComponent implements OnInit {
   registerForm: FormGroup;
   time: string = '00:00:00';
   days: number = 0;
+  referenceLink:string = null;
 
 
-  constructor(private auth: AuthenticationService, private formBuilder: FormBuilder) {
+  constructor(private auth: AuthenticationService, private formBuilder: FormBuilder,private router:Router,
+    private routeactive:ActivatedRoute) {
+      Scroll.showScroll()
+      this.referenceLink = (typeof this.routeactive.snapshot.params.ref !== ('undefined'||''||null))?this.routeactive.snapshot.params.ref:null;
       this.countDown()
   }
 
@@ -29,7 +35,8 @@ export class RegistercountComponent implements OnInit {
       email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
       password_confirmation: ['', Validators.compose([Validators.required])],
-      term: ['', Validators.compose([Validators.required])]
+      term: ['', Validators.compose([Validators.required])],
+      referencia:[this.referenceLink]
     }, {
       validator: MustMatch('password', 'password_confirmation')
     });
