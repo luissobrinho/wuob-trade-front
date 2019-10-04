@@ -10,6 +10,7 @@ import { colorSets } from '@swimlane/ngx-charts/release/utils/color-sets';
 import { environment } from '../../environments/environments';
 import { Events } from '@ionic/angular';
 import { Scroll } from '../../functions/Scroll';
+import { InvestimentsService } from 'src/app/services/investiments/investiments.service';
 
 declare var require: any;
 
@@ -68,7 +69,7 @@ export class Dashboard1Component implements AfterViewInit {
     };
     schemeType = 'ordinal';
 
-    constructor(public events:Events) {
+    constructor(public events:Events,public investiments:InvestimentsService) {
         
         Scroll.showScroll()
         Object.assign(this, {
@@ -82,6 +83,16 @@ export class Dashboard1Component implements AfterViewInit {
         this.user = JSON.parse(sessionStorage.getItem('currentUser'));
         this.investmentsType = this.user.totalTipoRendimento;
         this.linkReference = `${environment.urlAngularTest}/${this.user.meta.referencia}`
+        this.dailyChart()
+    }
+
+    dailyChart(){
+         this.investiments.getDailyChart().then((response)=>{
+            console.log(response);
+            
+         },err=>{
+             console.log(err);
+         })   
     }
 
     copyLink(text){
@@ -98,54 +109,6 @@ export class Dashboard1Component implements AfterViewInit {
         document.body.removeChild(selBox);
         this.events.publish('toast','Link copied', null, null,null)
     }
-
-    // bar chart
-    public barChartData: Array<any> = [
-        { data: [1.1, 1.4, 1.1, 0.9, 2.1, 1, 0.3, 0.5, 1.2, 1.0, 0.4, 0.9], label: 'Cost' }
-    ];
-    public barChartLabels: Array<any> = [
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '10',
-        '11',
-        '12'
-    ];
-    public barChartOptions: any = {
-        maintainAspectRatio: false,
-        legend: {
-            display: false
-        },
-        tooltips: {
-            enabled: false
-        },
-        scales: {
-            xAxes: [{
-                display: false,
-                barPercentage: 0.2,
-                categoryPercentage: 0.5
-            }],
-            yAxes: [{
-                display: false
-            }]
-        }
-    };
-    public barChartColors: Array<any> = [
-        {
-            backgroundColor: '#2962ff',
-            hoverBackgroundColor: '#2962ff',
-            hoverBorderWidth: 2,
-            hoverBorderColor: '#2962ff'
-        }
-    ];
-    public barChartLegend = false;
-    public barChartType = 'bar';
 
     lineChart: Chart = {
         type: 'Line',
@@ -197,46 +160,5 @@ export class Dashboard1Component implements AfterViewInit {
                 pattern: ['#137eff', '#8b5edd', '#5ac146', '#eceff1']
             }
         });
-
-        // ==============================================================
-        // weather
-        // ==============================================================
-        // const chart2 = c3.generate({
-        //     bindto: '.weather-report',
-        //     data: {
-        //         columns: [
-        //             ['Day 1', 21, 15, 30, 45, 15]
-        //         ],
-        //         type: 'area-spline'
-        //     },
-        //     axis: {
-        //         y: {
-        //             show: false,
-        //             tick: {
-        //                 count: 0,
-        //                 outer: false
-        //             }
-        //         },
-        //         x: {
-        //             show: false,
-        //         }
-        //     },
-        //     padding: {
-        //         top: 0,
-        //         right: -8,
-        //         bottom: -28,
-        //         left: -8,
-        //     },
-        //     point: {
-        //         r: 2,
-        //     },
-        //     legend: {
-        //         hide: true
-        //     },
-        //     color: {
-        //         pattern: ['#5ac146']
-        //     }
-
-        // });
     }
 }

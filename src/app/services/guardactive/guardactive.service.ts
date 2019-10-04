@@ -13,8 +13,10 @@ export class GuardactiveService {
     
       let userCurrent = this.authservice.currentUserValue
       
-      if(userCurrent.meta.is_active){
-        return true
+      if(userCurrent){
+        if(userCurrent.meta.is_active){
+          return true
+        }
       }
      
       this.router.navigate(['/confirmemail'],{queryParams:{returnUrl:state.url}})
