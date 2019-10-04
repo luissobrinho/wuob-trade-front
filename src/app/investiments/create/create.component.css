@@ -1,3 +1,15 @@
 .modal-body {
  text-align: center;
 }
+
+#modal {
+    padding-top: 65px;
+    position: relative;
+}
+
+.modal-header {
+    border-radius: 10px 10px 0 0;
+    width: 100.1%;
+    position: absolute;
+    top: -5px;
+}

@@ -23,6 +23,7 @@ export class CreateComponent implements OnInit {
   investimentForm:FormGroup;
   qrCode:string;
   address: string;
+  amount: string;
 
   constructor(public investiments:InvestimentsService,public events:Events,private ngxService: NgxUiLoaderService,
     private formBuilder:FormBuilder,public router:Router,private modalService: NgbModal) { }
@@ -64,6 +65,7 @@ export class CreateComponent implements OnInit {
         this.ngxService.stop()
         this.qrCode = response.qrcode_url
         this.address = response.address;
+        this.amount = response.amount;
         let modalRef = this.openModal();
         modalRef['qrCode'] = response.qrcode_url;
         modalRef['address'] = response.address;
