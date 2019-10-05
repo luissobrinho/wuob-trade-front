@@ -152,16 +152,16 @@
                                     <tbody>
                                         <tr *ngFor="let i of investmentsType">
 
-                                            <td class="txt-oflo text-success" *ngIf="i.nome==='Day Trader'" >{{i.nome}}</td>
-                                            <td class="text-success" *ngIf="i.nome==='Day Trader'" >
+                                            <td class="txt-oflo text-success" *ngIf="i.id===1" >{{i.nome}}</td>
+                                            <td class="text-success" *ngIf="i.id===1" >
                                                 {{i.total}}
                                             </td>
-                                            <td class="txt-oflo text-info" *ngIf="i.nome==='Scalper'" >{{i.nome}}</td>
-                                            <td class="text-info" *ngIf="i.nome==='Scalper'" >
+                                            <td class="txt-oflo text-info" *ngIf="i.id===2" >{{i.nome}}</td>
+                                            <td class="text-info" *ngIf="i.id===2" >
                                                 {{i.total}}
                                             </td>
-                                            <td class="txt-oflo text-danger" *ngIf="i.nome==='Arbitration'" >{{i.nome}}</td>
-                                            <td class="text-danger" *ngIf="i.nome==='Arbitration'" >
+                                            <td class="txt-oflo text-danger" *ngIf="i.id===3" >{{i.nome}}</td>
+                                            <td class="text-danger" *ngIf="i.id===3" >
                                                 {{i.total}}
                                             </td>
 
