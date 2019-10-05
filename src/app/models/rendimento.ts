@@ -1,0 +1,31 @@
+export interface Rendimento {
+  id: number;
+  user_id: number;
+  modalidade_id: number;
+  tipo_investimento_id: number;
+  valor: string;
+  status: number;
+  txn_id: string;
+  address: string;
+  confirms_needed: string;
+  checkout_url: string;
+  status_url: string;
+  qrcode_url: string;
+  timeout: number;
+  time_created: number;
+  time_expires: number;
+  time_completed: number;
+  amount: number;
+  amountf: string;
+  received: number;
+  receivedf: string;
+  recv_confirms: number;
+  status_text: string;
+  type: string;
+  coin: string;
+  vez: number;
+  created_at: string;
+  updated_at: string;
+  deleted_at?: any;
+  total_diario: number[];
+}

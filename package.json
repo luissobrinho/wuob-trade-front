@@ -45,7 +45,7 @@
     "date-fns": "^1.30.1",
     "firebase": "^6.6.2",
     "ng-chartist": "^4.1.0",
-    "ng2-charts": "^2.3.0",
+    "ng2-charts": "^2.2.4",
     "ng2-completer": "^3.0.2",
     "ng2-dragula": "^2.1.1",
     "ng2-smart-table": "1.5.0",
