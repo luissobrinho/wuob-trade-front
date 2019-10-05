@@ -13,3 +13,18 @@
     position: absolute;
     top: -5px;
 }
+
+
+.card-alert{   
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    margin-bottom: -33px;
+}
+
+
+
+.btn-create {
+    margin: 0 0 0px 127px;
+    width: 59%;    
+} 

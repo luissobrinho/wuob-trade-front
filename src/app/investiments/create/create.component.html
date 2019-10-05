@@ -7,7 +7,7 @@
         <div class="modal-body">
             <img  src="{{qrCode}}" >
             <span> {{ address }} </span>
-            <h4> {{ amount | currency:true:'BTC':'2.8-8' }} </h4>
+            <h4> {{ amount | currency:true:'BTC ':'2.8-8' }} </h4>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-success" (click)="c('Close click')">Close</button>
@@ -18,9 +18,20 @@
 <!-- Row -->
 <div class="row justify-content-center align-items-center">
     
-        <div class="col-lg-8">
-
+        <div class="col-lg-9">
+                <div class="col-12">
+                        
             <div class="card">
+                    <div class="card">
+                            <div class="card-body">
+                                <ngb-alert [dismissible]="false" class="card-alert" >
+                                    <strong>Warning!</strong> Create your investment using BTC value.
+                                    
+                                  </ngb-alert>
+                                    
+                            </div>
+                        </div>
+
 
                 <form [formGroup]="investimentForm" (ngSubmit)="createInvestiment()" >
 
@@ -56,10 +67,10 @@
                                         </div>
                                 </div>
                             </div>
-                    
+                        
                             <div class="form-actions col-12">
                                 <div class="card-body float-right col-4">
-                                    <button type="submit" class="btn btn-rounded btn-block btn-outline-success float-right">
+                                    <button type="submit" class="btn btn-create btn-block btn-outline-success">
                                         <i class="fa fa-check"></i> Create</button>
                                 </div>
                             </div>

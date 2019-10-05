@@ -77,7 +77,7 @@ export class CreateComponent implements OnInit {
   }
 
   openModal() {
-    return this.modalService.open(this.modal, { centered: true });
+    return this.modalService.open(this.modal, { centered: true});
   }
 
 }
