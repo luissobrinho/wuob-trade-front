@@ -1,0 +1,59 @@
+<!-- Row -->
+<div class="row justify-content-center align-items-center">
+    
+    <div class="col-lg-9">
+        <div class="col-12">
+                    
+        <div class="card">
+               
+
+
+            <form [formGroup]="profileForm" (ngSubmit)="editProfile()" >
+
+                <div class="form-body">
+
+                    <div class="card-body">
+                        <div class="row p-t-20">
+
+                            <!--/span-->
+                            <div class="col-md-6">
+                                    <div class="form-group has-success">
+                                            <div class="form-group">
+                                                <label class="control-label">Name</label>
+                                                <input formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" type="text" id="firstName" class="form-control" >
+                                            </div>
+                                            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                                                <div *ngIf="f.name.errors.required">Name is required</div>
+                                            </div>
+                                    </div>
+                            </div>
+                            <!--/span-->
+
+                            <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Email</label>
+                                        <input formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" type="email" id="firstName" class="form-control" >                                    </div>
+                                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                        <div *ngIf="f.email.errors.required">Email is required</div>
+                                    </div>
+                            </div>
+                        </div>
+                    
+                        <div class="form-actions col-12">
+                            <div class="card-body float-right col-4">
+                                <button type="submit" class="btn btn-create btn-block btn-outline-success">
+                                    <i class="fa fa-check"></i> Save</button>
+                            </div>
+                        </div>
+
+                    </div>   
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

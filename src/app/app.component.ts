@@ -31,7 +31,7 @@ export class AppComponent {
             Uuid.generateUuid('v4')
         }
 
-        let token = sessionStorage.getItem('Authorization');
+        let token = localStorage.getItem('Authorization');
         events.subscribe('toast',(message?: string, title?: string, override?: any, type?: string)=>{
           this.toastr.show(message, title, override, type)
         });

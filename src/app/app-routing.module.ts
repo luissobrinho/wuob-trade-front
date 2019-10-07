@@ -6,6 +6,7 @@ import { BlankComponent } from './layouts/blank/blank.component';
 import { GuardService } from './services/guard/guard.service'
 import { GuardactiveService } from './services/guardactive/guardactive.service'
 import { ConfirmemailComponent } from './confirmemail/confirmemail.component';
+import { ProfileComponent } from '../app/profile/profile/profile.component';
 
 export const Approutes: Routes = [
   {
@@ -53,6 +54,11 @@ export const Approutes: Routes = [
         path: 'network',
         loadChildren: './network/network.module#NetworkModule',
         canActivate:[GuardService]
+      },
+      {
+        path: 'profile',
+        component:ProfileComponent,
+        canActivate:[GuardService,GuardactiveService]
       },
     ]
   },

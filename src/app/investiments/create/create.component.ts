@@ -68,7 +68,7 @@ export class CreateComponent implements OnInit {
         this.amount = response.amount;
         let modalRef = this.openModal();
         modalRef['qrCode'] = response.qrcode_url;
-        modalRef['address'] = response.address;
+        modalRef['add nbress'] = response.address;
     },err=>{
         this.ngxService.stop()
         console.log(err)
