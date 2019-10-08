@@ -13,6 +13,7 @@
                 <div class="form-body">
 
                     <div class="card-body">
+
                         <div class="row p-t-20">
 
                             <!--/span-->
@@ -37,6 +38,37 @@
                                         <div *ngIf="f.email.errors.required">Email is required</div>
                                     </div>
                             </div>
+
+
+                        </div>
+
+                        <div class="row p-t-20" formGroupName="meta" >
+
+                                <div class="col-md-6">
+                                        <div class="form-group has-success">
+                                                <div class="form-group">
+                                                    <label class="control-label">Phone</label>
+                                                    <input (keypress)="onlynumber();" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.meta.controls.phone.errors }" type="text" id="phone" class="form-control" >
+                                                </div>
+                                                <div *ngIf="submitted && f.meta.controls.phone.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.meta.controls.phone.errors.required">Phone is required</div>
+                                                </div>
+                                        </div>
+                                </div>
+                                <!--/span-->
+        
+                                <div class="col-md-6" >
+                                        <div class="form-group has-success">
+                                                <label class="control-label">Language</label>
+                                                <select formControlName="pais" [ngClass]="{ 'is-invalid': submitted && f.meta.controls.pais.errors }" class="form-control custom-select">
+                                                    <option *ngFor='let l of langs' value="{{l.value}}" >{{l.name}}</option>
+                                                </select>
+                                                <div *ngIf="submitted && f.meta.controls.pais.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.meta.controls.pais.errors.required">Language is required</div>
+                                                </div>
+                                        </div>
+                                </div>
+
                         </div>
                     
                         <div class="form-actions col-12">

@@ -66,6 +66,7 @@ export class Dashboard1Component implements AfterViewInit {
   user: any
   investmentsType: Array<{}>
   linkReference: string;
+  valueInitial:string = "0.00000000"
 
   colorScheme = {
     domain: ['#4fc3f7', '#fb8c00', '#7460ee', '#fa5838', '#5ac146', '#137eff']

@@ -15,6 +15,7 @@ export class WithdrawComponent implements OnInit {
   submitted = false;
   withdrawForm:FormGroup;
   private balance:string;
+  private wallets:Array<[]>
 
   constructor(public loot:LootService,public events:Events,private ngxService: NgxUiLoaderService,
     private formBuilder:FormBuilder,public router:Router) { }
@@ -43,7 +44,7 @@ export class WithdrawComponent implements OnInit {
     this.ngxService.start()
     this.loot.getWallets().then((response)=>{
       this.ngxService.stop()
-      console.log(response);
+      this.wallets = response;
     },err=>{
       this.ngxService.stop()
       this.events.publish('toast',err,'Erro',10000,'toast-error')
