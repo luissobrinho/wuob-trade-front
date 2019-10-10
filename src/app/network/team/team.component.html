@@ -1,1 +1,9 @@
-<p>team works!</p>
+<div class="col-lg-4 col-sm-12">
+        <div class="form-group">
+          <label>
+            <strong>ngx-treeview</strong>
+          </label>
+          <ngx-treeview [config]="config" [items]="items" (filterChange)="onFilterChange($event)" (selectedChange)="values = $event">
+          </ngx-treeview>
+        </div>
+</div>

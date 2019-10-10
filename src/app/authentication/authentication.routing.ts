@@ -26,14 +26,14 @@ export const AuthenticationRoutes: Routes = [
         path: 'signup',
         component: SignupComponent
       },
-      {
-        path: 'register',
-        component: RegistercountComponent
-      },
-      {
-        path: 'register/:ref',
-        component: RegistercountComponent
-      },
+      // {
+      //   path: 'register',
+      //   component: RegistercountComponent
+      // },
+      // {
+      //   path: 'register/:ref',
+      //   component: RegistercountComponent
+      // },
   
     ]
   }
