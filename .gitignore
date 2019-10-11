@@ -1,6 +1,7 @@
 .DS_STORE
 
 /dist/
+/docs/
 /bazel-out
 /integration/bazel/bazel-*
 e2e_test.*

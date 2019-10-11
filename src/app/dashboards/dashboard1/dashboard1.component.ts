@@ -7,13 +7,13 @@ import * as shape from 'd3-shape';
 import * as d3 from 'd3';
 import { single } from './data';
 import { colorSets } from '@swimlane/ngx-charts/release/utils/color-sets';
-import { environment } from '../../environments/environments';
 import { Events } from '@ionic/angular';
 import { Scroll } from '../../functions/Scroll';
 import { InvestimentsService } from 'src/app/services/investiments/investiments.service';
 import { Rendimento } from 'src/app/models/rendimento';
 import { ChartDataSets, ChartOptions, ChartAnimationOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { environment } from 'src/environments/environment.prod';
 
 declare var require: any;
 

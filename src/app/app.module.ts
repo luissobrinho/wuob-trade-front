@@ -27,21 +27,20 @@ import { SpinnerComponent } from './shared/spinner.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { environment } from './environments/environments';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { NgxUiLoaderModule } from  'ngx-ui-loader';
 import { IonicStorageModule } from '@ionic/storage';
 import { ConfirmemailComponent } from './confirmemail/confirmemail.component';
 import { ProfileComponent } from './profile/profile/profile.component';
+import { environment } from 'src/environments/environment';
 
 
 //Environment default, define api url and inicialize firebase
 //Enviroment default defined: localhost
-environment.urlApi(true)
 
 export function HttpLoaderFactory(http:HttpClient){
-    return new TranslateHttpLoader(http)
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json')
 }
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
