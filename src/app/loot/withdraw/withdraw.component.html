@@ -32,7 +32,7 @@
 
 <!-- Row -->
 <div class="row justify-content-center align-items-center">
-    
+
         <div class="col-lg-8">
 
             <div class="card">
@@ -49,7 +49,7 @@
                                         <div class="form-group has-success">
                                                 <label class="control-label">Wallet</label>
                                                 <select formControlName="wallet" [ngClass]="{ 'is-invalid': submitted && f.wallet.errors }" class="form-control custom-select">
-                                                    <option *ngFor='let c of wallets' value="{{c.hash}}" >{{c.nome}}</option>
+                                                    <option *ngFor='let c of wallets' value="{{c.id}}" >{{c.nome}}</option>
                                                 </select>
                                                 <div *ngIf="submitted && f.wallet.errors" class="invalid-feedback">
                                                     <div *ngIf="f.wallet.errors.required">Select a wallet</div>
@@ -70,7 +70,7 @@
                                         </div>
                                 </div>
                             </div>
-                    
+
                             <div class="form-actions col-12">
                                 <div class="card-body float-right col-4">
                                     <button type="submit" class="btn btn-rounded btn-block btn-outline-success float-right">
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
 
-                        </div>   
+                        </div>
 
                     </div>
 

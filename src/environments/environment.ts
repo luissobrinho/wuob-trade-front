@@ -14,8 +14,7 @@ export const environment = {
     messagingSenderId: "615076606227",
     appId: "1:615076606227:web:b2dd9ae3a71f8149e3eae6"
   },
-  urlAngularPro: '',
-  urlAngularTest: 'http://localhost:4200/authentication/register'
+  urlAngular: 'http://localhost:4200/authentication/signup'
 };
 
 /*

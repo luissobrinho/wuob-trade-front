@@ -13,7 +13,7 @@ import { InvestimentsService } from 'src/app/services/investiments/investiments.
 import { Rendimento } from 'src/app/models/rendimento';
 import { ChartDataSets, ChartOptions, ChartAnimationOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 declare var require: any;
 
@@ -86,7 +86,7 @@ export class Dashboard1Component implements AfterViewInit {
   public initValuesDashboard() {
     this.user = JSON.parse(sessionStorage.getItem('currentUser'));
     this.investmentsType = this.user.totalTipoRendimento;
-    this.linkReference = `${environment.urlAngularTest}/${this.user.meta.referencia}`
+    this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`
     this.dailyChart()
   }
 
