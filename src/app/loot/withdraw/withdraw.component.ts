@@ -7,6 +7,7 @@ import { LootService } from 'src/app/services/loot/loot.service';
 import { Wallet, Wallets } from 'src/app/models/Wallet';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { movement } from 'src/app/models/movement';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-withdraw',
@@ -82,6 +83,10 @@ export class WithdrawComponent implements OnInit {
       // let modalRef = this.openModal();
       // modalRef['valor'] = response.valor;
       // modalRef['status_text'] = response.status_text;
+    }).catch((err: HttpErrorResponse) => {
+
+      this.ngxService.stop();
+      this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
     }), err => {
       this.ngxService.stop();
       this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
