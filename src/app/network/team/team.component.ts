@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TreeviewItem, TreeviewConfig, TreeItem } from 'ngx-treeview/src/';
 import { NetworkService } from 'src/app/services/network/network.service';
 import { UserNetwork, Networkdown } from 'src/app/models/Network';
+import { Events } from '@ionic/angular';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-team',
@@ -15,20 +17,17 @@ export class TeamComponent implements OnInit {
     hasFilter: true,
     hasCollapseExpand: false,
     decoupleChildFromParent: false,
-    maxHeight: 400
+    maxHeight: 400,
   });
   items: TreeviewItem[] = [];
 
-  constructor(private network: NetworkService) { }
+  constructor(private network: NetworkService,public events:Events,public ngxService:NgxUiLoaderService) { }
 
   ngOnInit() {
-    this.network.getNetwork().then((res) => {
-      console.log(this.mountNetwork(res));
-      
-      this.items.push(new TreeviewItem(this.mountNetwork(res)));
+    this.network.getNetwork().then((res) => {      
+         this.items.push(new TreeviewItem(this.mountNetwork(res)));
     }, err => {
-      console.log(err);
-
+       this.events.publish('toast', err, 'Erro', 5000, 'toast-error')
     })
   }
 
@@ -36,6 +35,8 @@ export class TeamComponent implements OnInit {
     let tree: TreeItem = {
         value: params.id,
         text: params.name,
+        collapsed:true,
+        disabled:true,
         children: []
     };
 
