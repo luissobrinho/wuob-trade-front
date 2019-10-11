@@ -1,9 +1,15 @@
-<div class="col-lg-4 col-sm-12">
-        <div class="form-group">
-          <label>
-            <strong>ngx-treeview</strong>
-          </label>
-          <ngx-treeview [config]="config" [items]="items" (filterChange)="onFilterChange($event)" (selectedChange)="values = $event">
-          </ngx-treeview>
+
+<div class="row  justify-content-center align-items-center">
+    <!-- column -->
+    <div class="col-lg-9">
+        <div class="card justify-content-center align-items-center" >
+            <div class="col-lg-4 col-sm-12">
+                <div class="form-group p-3">
+                  <ngx-treeview [config]="config" [items]="items" (filterChange)="onFilterChange($event)" (selectedChange)="values = $event">
+                  </ngx-treeview>
+                </div>
+            </div>
         </div>
+    </div>          
 </div>
+    

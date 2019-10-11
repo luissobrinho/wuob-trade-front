@@ -32,5 +32,25 @@ export class LootService {
       })
   }
 
+  getReportWithDrawal():Promise<any>{
+
+      let header = {
+        Authorization: `Bearer ${this._TOKEN}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      }
+
+      return new Promise((resolve,reject)=>{
+
+        this.api.get('movimentacao_investimentos',{},header).subscribe((response:{data:[]})=>{
+            resolve(response.data)
+        },err=>{
+            reject(err);
+        })
+
+      })
+
+  }
+
 
 }

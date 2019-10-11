@@ -1,0 +1,10 @@
+:host /deep/ .treeview-container input[type="checkbox"] {
+    display: none !important;
+}
+
+.form-check{
+    font-size: 15px
+}
+:host /deep/ .treeview-container .form-check-label{
+    color:green;
+}
