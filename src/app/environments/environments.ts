@@ -16,7 +16,21 @@ export const environment = {
         messagingSenderId: "615076606227",
         appId: "1:615076606227:web:b2dd9ae3a71f8149e3eae6"
     },
-    urlAngularPro:'',
-    urlAngularTest:'http://localhost:4200/authentication/register'
+    port:window.location.port,
+    host:window.location.host,
+    hostname:window.location.hostname,
+    protocol:window.location.protocol,
+    getLinkReference:function() {
+        let url = ''
+        switch(this.host){
+            case'localhost':
+                url = `${this.host}:${this.port}/authentication/signup`
+                break;
+            default:
+                url = `${this.host}/authentication/signup`
+                break;
+        }
+        return url;
+    }
 
 }

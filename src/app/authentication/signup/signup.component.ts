@@ -17,7 +17,7 @@ export class SignupComponent {
 
   constructor(private auth:AuthenticationService,private formBuilder:FormBuilder,public router:Router,private routeactive:ActivatedRoute) {
        Scroll.showScroll()
-       router.navigate(['authentication/register'])
+      //  router.navigate(['authentication/register'])
        this.referenceLink = (typeof this.routeactive.snapshot.params.ref !== ('undefined'||''||null))?this.routeactive.snapshot.params.ref:null;
   }
 

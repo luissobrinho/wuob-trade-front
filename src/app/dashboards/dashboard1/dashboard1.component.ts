@@ -86,7 +86,7 @@ export class Dashboard1Component implements AfterViewInit {
   public initValuesDashboard() {
     this.user = JSON.parse(sessionStorage.getItem('currentUser'));
     this.investmentsType = this.user.totalTipoRendimento;
-    this.linkReference = `${environment.urlAngularTest}/${this.user.meta.referencia}`
+    this.linkReference = `${environment.getLinkReference()}/${this.user.meta.referencia}`
     this.dailyChart()
   }
 
