@@ -111,6 +111,51 @@ export class AuthenticationService
     })
 }
 
+sendEmailResetPassword(user){
+
+   //get user credentials 
+   let header = {  
+    Authorization: `Bearer`, 
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  }
+
+    this.ngxService.start()
+    this.api.post('password/username',user,header).subscribe((response)=>{
+      this.events.publish('toast','Verify your email.','Sucesso',10000,'toast-success')
+      this.ngxService.stop()
+    },err=>{
+      this.events.publish('toast',err,'Erro',10000,'toast-error')
+      this.ngxService.stop()
+    })
+}
+
+recoverPassword(user){
+
+  //get user credentials 
+  let header = {  
+   Authorization: `Bearer`, 
+   'Content-Type': 'application/json',
+   'Accept': 'application/json',
+ }
+
+   this.ngxService.start()
+   this.api.post('password/reset',user,header).subscribe((response)=>{
+     
+      this.router.navigate(['dashboard/classic']).then(() => {
+        this.events.publish('toast','Password changed with success.','Sucesso',10000,'toast-success')
+        this.ngxService.stop()
+      }, err => {
+        this.events.publish('toast', err, 'Erro',10000, 'toast-error')
+        this.ngxService.stop()
+      })
+    
+   },err=>{
+     this.events.publish('toast',err,'Erro',10000,'toast-error')
+     this.ngxService.stop()
+   })
+}
+
 logOut(){
   // remove user from local storage and set current user to null
   localStorage.removeItem('currentUser');
