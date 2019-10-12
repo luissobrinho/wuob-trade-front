@@ -12,6 +12,7 @@ import { RegistercountComponent } from './registercount/registercount.component'
 
 import { AuthenticationRoutes } from './authentication.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RecoverComponent } from './recover/recover.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SignupComponent,
     LockComponent,
     RegistercountComponent,
+    RecoverComponent,
   ]
 })
 export class AuthenticationModule {}
