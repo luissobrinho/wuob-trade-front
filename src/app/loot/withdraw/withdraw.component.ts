@@ -20,7 +20,7 @@ export class WithdrawComponent implements OnInit {
 
   submitted = false;
   withdrawForm:FormGroup;
-  private balance:string;
+  public balance:string = '';
   public wallets: Wallet[] = [];
   valor: string;
   status_text: string;
