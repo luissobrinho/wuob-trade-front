@@ -31,7 +31,7 @@ export class NavigationComponent implements AfterViewInit {
       let User = JSON.parse(localStorage.getItem('currentUser'))
       this.user.name = User.name
       this.user.email = User.email
-      this.user.photo = '/assets/images/users/1.jpg'
+      this.user.photo = './assets/images/users/1.jpg'
       // this.user.photo = (typeof User.photo !== 'undefined')?User.photo:'/assets/images/users/1.jpg'
   }
 

@@ -1,15 +1,15 @@
    import { Injectable } from '@angular/core';
 import { HttpClient,HttpParams, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/app/environments/environments';
 import { Observable } from 'rxjs';
 import { Uuid } from 'src/app/functions/Uuid';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  url: string = environment.urlApi(true)
+  url: string = environment.urlApi
 
   constructor(public http: HttpClient) { }
 

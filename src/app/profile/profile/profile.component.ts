@@ -16,11 +16,10 @@ export class ProfileComponent implements OnInit {
   private user:{name:'',email:'',meta:{phone:'',pais:''}}
   private langs = [{'name':'Portuguese','value':'pt'},{'name':'English','value':'en'},{'name':'French','value':'fr'}]
 
-  constructor(private formBuilder:FormBuilder,private profile:ProfileService) { }
+  constructor(private formBuilder:FormBuilder,private profile:ProfileService) { this.initForm() }
 
   ngOnInit() {
     this.initValues()
-    this.initForm()
   }
 
   initForm(){

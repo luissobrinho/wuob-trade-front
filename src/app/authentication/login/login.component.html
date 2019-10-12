@@ -59,19 +59,22 @@
                 </div>
             </div>
         </div>
-        <div id="recoverform" [ngClass]="{'d-block': recoverform}">
+        <div  id="recoverform" [ngClass]="{'d-block': recoverform}">
             <div class="logo">
                 <!-- <span class="db"><img src="assets/images/logo-icon.png" alt="logo" /></span> -->
                 <!-- <h5 class="font-medium m-b-20">Recuperar senha</h5> -->
-                <span>Digite seu email e as instruções será enviado por email!</span>
+                <span>Digite seu username e as instruções será enviado por email!</span>
             </div>
             <div class="row m-t-20">
                 <!-- Form -->
-                <form class="col-12">
+                <form  [formGroup]="recoverForm" (ngSubmit)="SubmitRecover()" class="col-12">
                     <!-- email -->
                     <div class="form-group row">
                         <div class="col-12">
-                            <input class="form-control form-control-lg" type="email" required="" placeholder="Username">
+                            <input formControlName="username"  [ngClass]="{ 'is-invalid': submittedRec && g.username.errors }" class="form-control form-control-lg" type="text" required="" placeholder="Username">
+                        </div>
+                        <div *ngIf="submittedRec && g.username.errors" class="invalid-feedback">
+                            <div *ngIf="g.username.errors.required">Username is required</div>
                         </div>
                     </div>
                     <!-- pwd -->
