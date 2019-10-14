@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators,AbstractControl } from '@angular/forms';
 import {Inputs} from '../../functions/Inputs';
 import { ProfileService } from 'src/app/services/profile/profile.service';
 
@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
   private user:{name:'',email:'',meta:{phone:'',pais:''}}
   private langs = [{'name':'Portuguese','value':'pt'},{'name':'English','value':'en'},{'name':'French','value':'fr'}]
 
-  constructor(private formBuilder:FormBuilder,private profile:ProfileService) { this.initForm() }
+  constructor(private formBuilder:FormBuilder,private profile:ProfileService,absCtrl:AbstractControl) { this.initForm() }
 
   ngOnInit() {
     this.initValues()
