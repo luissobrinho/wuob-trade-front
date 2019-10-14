@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { Events } from '@ionic/angular';
-import { Wallets } from 'src/app/models/Wallet';
+import { Wallets, Wallet } from 'src/app/models/Wallet';
 import { movement } from 'src/app/models/movement';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -76,5 +77,30 @@ export class LootService {
 
   private mapValue(movement) {
     return { carteira_id: movement.wallet, valor: movement.value }
+  }
+
+  createWallet(wallet): Promise<Wallet>{
+    let createWallet = this.mapValueWallet(wallet);
+
+    console.log(createWallet);
+
+
+    let header = {
+      Authorization: `Bearer ${this._TOKEN}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    }
+
+    return new Promise<Wallet>((resolve, reject) => {
+      this.api.post('carteiras', createWallet, header).subscribe((response: Wallet) => {
+        resolve(response)
+      }, err => {
+        reject(err)
+      })
+    })
+  }
+
+  private mapValueWallet(wallet){
+    return { nome: wallet.nome, hash: wallet.hash }
   }
 }
