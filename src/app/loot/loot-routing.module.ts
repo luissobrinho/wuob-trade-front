@@ -1,10 +1,8 @@
 import { Routes } from '@angular/router';
-import { Component } from '@angular/core';
 import { WithdrawComponent } from './withdraw/withdraw.component';
 import { ReportComponent } from './report/report.component';
 import { WalletComponent } from './wallet/wallet.component';
-
-
+import { WalletslistComponent } from './walletslist/walletslist/walletslist.component';
 
 
 export const LootRoutes: Routes = [
@@ -41,6 +39,17 @@ export const LootRoutes: Routes = [
           urls: [
             { title: 'Loot', url: '/My Wallet' },
             { title: 'My Wallet' }
+          ]
+        }
+      },
+      {
+        path: 'wallets',
+        component: WalletslistComponent,
+        data: {
+          title: 'My Wallets',
+          urls: [
+            { title: 'Loot', url: '/My Wallets' },
+            { title: 'My Wallets' }
           ]
         }
       },

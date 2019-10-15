@@ -113,4 +113,8 @@ export class NavigationComponent implements AfterViewInit {
     this.router.navigate(['/profile'])
   }
 
+  wallets(){
+    this.router.navigate(['/loot/wallets'])
+  }
+
 }

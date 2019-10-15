@@ -52,12 +52,12 @@ export class WalletComponent implements OnInit {
     this.ngxService.start();
 
     this.loot.createWallet(this.walletForm.value).then((response: Wallet) => {
-      console.log(response);
 
       this.ngxService.stop();
       this.nome = response.nome;
       this.hash = response.hash;
-      this.events.publish('toast', 'Success', 10000, 'toast-success')
+      this.events.publish('toast','Create with success','Success',10000,'toast-success')
+      this.router.navigate(['/loot/wallets'])
       // let modalRef = this.openModal();
       // modalRef['valor'] = response.valor;
       // modalRef['status_text'] = response.status_text;
