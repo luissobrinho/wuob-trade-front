@@ -11,12 +11,13 @@ import { LootRoutes } from './loot-routing.module';
 import { WithdrawComponent } from './withdraw/withdraw.component';
 import { ReportComponent } from './report/report.component';
 import { WalletComponent } from './wallet/wallet.component';
+import { WalletEditComponent } from './wallet-edit/wallet-edit.component';
 import { WalletslistComponent } from './walletslist/walletslist/walletslist.component';
 
 
 
 @NgModule({
-  declarations: [WithdrawComponent, ReportComponent, WalletComponent, WalletslistComponent],
+  declarations: [WithdrawComponent, ReportComponent, WalletComponent, WalletslistComponent, WalletEditComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(LootRoutes),

@@ -1,7 +1,7 @@
 import { RouteInfo } from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
-  
+
   {
     path: '',
     title: 'MENU.DASHBOARD.TITLE',

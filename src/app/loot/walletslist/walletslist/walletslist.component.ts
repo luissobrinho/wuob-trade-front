@@ -44,7 +44,7 @@ export class WalletslistComponent implements OnInit {
       this.events.publish('toast',err,'Erro',10000,'toast-error')
     })
   }
-  
+
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
 
@@ -58,7 +58,7 @@ export class WalletslistComponent implements OnInit {
     // Whenever the filter changes, always go back to the first page
     this.table = this.data;
   }
-  
+
   updateValue(event, cell, rowIndex) {
       this.editing[rowIndex + '-' + cell] = false;
       this.rows[rowIndex][cell] = event.target.value;
@@ -71,15 +71,15 @@ export class WalletslistComponent implements OnInit {
     this.ngxService.start()
     this.loot.deleteWallet(id).then((res)=>{
           this.events.publish('toast','Wallet removed with success','Success',10000,'toast-success')
-          
+
           this.data = []
           this.loot.getWallets().then((response:Wallets)=>{
-      
+
             this.ngxService.stop()
             this.data = response.data;
             this.rows = this.data;
             this.temp = [this.data];
-      
+
           },err=>{
             this.ngxService.stop()
             this.events.publish('toast',err,'Erro',10000,'toast-error')
@@ -92,11 +92,11 @@ export class WalletslistComponent implements OnInit {
       this.ngxService.stop()
       this.events.publish('toast',err,'Erro',10000,'toast-error')
     })
-    
+
   }
 
   redirectEdit(row){
-      this.router.navigate([`wallet-edit/${row.id}`])
+      this.router.navigate([`/loot/wallet-edit/${row.id}`])
   }
 
 
