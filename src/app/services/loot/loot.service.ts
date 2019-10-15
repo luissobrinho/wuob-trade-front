@@ -35,6 +35,44 @@ export class LootService {
       })
   }
 
+  getWallet(idForm):Promise<Wallet>{
+
+    let header = {
+      Authorization: `Bearer ${this._TOKEN}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    }
+
+    return new Promise((resolve, reject) => {
+
+      this.api.get(`carteiras/${idForm}`, {}, header).subscribe((response:Wallet) => {
+        resolve(response)
+      }, err => {
+        reject(err);
+      })
+
+    })
+  }
+
+  updateWallet(idForm, data): Promise<Wallet> {
+
+    let header = {
+      Authorization: `Bearer ${this._TOKEN}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    }
+
+    return new Promise((resolve, reject) => {
+
+      this.api.put(`carteiras/${idForm}`, data, header).subscribe((response: Wallet) => {
+        resolve(response)
+      }, err => {
+        reject(err);
+      })
+
+    })
+  }
+
   getReportWithDrawal():Promise<any>{
 
       let header = {
@@ -82,7 +120,7 @@ export class LootService {
   createWallet(wallet): Promise<Wallet>{
     let createWallet = this.mapValueWallet(wallet);
 
-    console.log(createWallet);
+    // console.log(createWallet);
 
 
     let header = {

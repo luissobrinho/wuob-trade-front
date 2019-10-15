@@ -1,7 +1,7 @@
 import { RouteInfo } from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
-  
+
   {
     path: '',
     title: 'MENU.DASHBOARD.TITLE',
@@ -60,6 +60,14 @@ export const ROUTES: RouteInfo[] = [
       },
       {
         path: '/loot/wallet',
+        title: 'MENU.WITHDRAWALS.SUBMENU.WALLET',
+        icon: 'mdi mdi-wallet',
+        class: '',
+        extralink: false,
+        submenu: []
+      },
+      {
+        path: '/loot/wallet-edit/1',
         title: 'MENU.WITHDRAWALS.SUBMENU.WALLET',
         icon: 'mdi mdi-wallet',
         class: '',
