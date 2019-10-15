@@ -14,6 +14,7 @@ import { Rendimento } from 'src/app/models/rendimento';
 import { ChartDataSets, ChartOptions, ChartAnimationOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { environment } from 'src/environments/environment';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
 declare var require: any;
 
@@ -79,12 +80,11 @@ export class Dashboard1Component implements AfterViewInit {
     Object.assign(this, {
       single
     });
-
     this.initValuesDashboard();
   }
 
   public initValuesDashboard() {
-    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
+    this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.investmentsType = this.user.totalTipoRendimento;
     this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`
     this.dailyChart()

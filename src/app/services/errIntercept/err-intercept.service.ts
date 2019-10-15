@@ -13,17 +13,19 @@ export class ErrInterceptService implements HttpInterceptor{
   constructor(private authenticationService:AuthenticationService,public events:Events) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      return next.handle(request).pipe(catchError(err => {
+      
+          return next.handle(request).pipe(catchError(err => {
 
-          if (err.status === 401 && err.error.message === 'token_expired') {
-              // auto logout if 401 response returned from api
-              this.authenticationService.logOut();
-              location.reload(true);
-          }
+              if (err.status === 401 && err.error.message === 'token_expired') {
+                  // auto logout if 401 response returned from api
+                  this.authenticationService.logOut();
+                  location.reload(true);
+              }
+              
+              const error = err.error.error || err.error.message || err.statusText;
+              return throwError(error);
 
-          const error = err.error.error || err.error.message || err.statusText;
-          return throwError(error);
-      }))
+          }))
     }
 
 }

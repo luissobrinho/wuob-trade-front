@@ -37,6 +37,7 @@ export class AppComponent {
         });
         //added config of the language. default:en
         this.translation.configLang()
+       
         if(token){
               this.authenticationService.getProfile(token).then(()=>{
               //Subscribe user 
@@ -46,6 +47,9 @@ export class AppComponent {
                 this.router.navigate(['/dashboard/classic']);
               }
           })
+        }else{
+          this.authenticationService.logOut();
+          this.router.navigate(['/authentication/login']);
         }
 
     }

@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
   }
 
   signIn(user){
-      this.auth.signIn(user);
+      this.auth.signIn(user)
   }
 
   SubmitRecover(){

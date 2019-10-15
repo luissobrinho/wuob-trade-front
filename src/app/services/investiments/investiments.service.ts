@@ -12,7 +12,7 @@ export class InvestimentsService {
   private _TOKEN: string;
 
   constructor(private api: ApiService, public events: Events) {
-    this._TOKEN = sessionStorage.getItem('Authorization')
+    this._TOKEN = localStorage.getItem('Authorization')
   }
 
   getInvestimentsType(): Promise<[]> {

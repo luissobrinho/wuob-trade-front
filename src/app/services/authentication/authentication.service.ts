@@ -38,6 +38,8 @@ export class AuthenticationService
       'Accept': 'application/json',
        Authorization:'Bearer'
     }
+    console.log(user);
+    
     return this.api.post('login',user,header).subscribe((response: { token: string }) => {
       //get user credentials 
       header.Authorization = `Bearer ${response.token}`;
@@ -63,6 +65,8 @@ export class AuthenticationService
       })
 
     }, err => {
+      console.log(err);
+      
       this.events.publish('toast',err, 'Erro', null, 'toast-error')
       this.ngxService.stop()
     })
