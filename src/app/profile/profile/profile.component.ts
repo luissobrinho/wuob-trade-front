@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators,AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Inputs} from '../../functions/Inputs';
 import { ProfileService } from 'src/app/services/profile/profile.service';
 
@@ -13,13 +13,14 @@ export class ProfileComponent implements OnInit {
 
   submitted = false;
   profileForm:FormGroup;
-  private user:{name:'',email:'',meta:{phone:'',pais:''}}
+  public user:{name:'',email:'',meta:{phone:'',pais:''}}
   public langs = [{'name':'Portuguese','value':'pt'},{'name':'English','value':'en'},{'name':'French','value':'fr'}]
 
-  constructor(private formBuilder:FormBuilder,private profile:ProfileService,absCtrl:AbstractControl) { this.initForm() }
+  constructor(public formBuilder:FormBuilder,private profile:ProfileService) {  }
 
   ngOnInit() {
     this.initValues()
+    this.initForm()
   }
 
   initForm(){

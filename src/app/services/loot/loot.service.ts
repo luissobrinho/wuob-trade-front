@@ -118,10 +118,8 @@ export class LootService {
   }
 
   createWallet(wallet): Promise<Wallet>{
+
     let createWallet = this.mapValueWallet(wallet);
-
-    // console.log(createWallet);
-
 
     let header = {
       Authorization: `Bearer ${this._TOKEN}`,
@@ -136,6 +134,26 @@ export class LootService {
         reject(err)
       })
     })
+  }
+
+  deleteWallet(id){
+
+      let header = {
+        Authorization: `Bearer ${this._TOKEN}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      }
+
+      return new Promise<any>((resolve,reject)=>{
+
+          this.api.delete(`carteiras/${id}`,header).subscribe((response)=>{
+              resolve(response)
+          },err=>{
+              reject(err)
+          })
+
+      })
+
   }
 
   private mapValueWallet(wallet){
