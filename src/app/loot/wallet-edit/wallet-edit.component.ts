@@ -28,7 +28,7 @@ export class WalletEditComponent implements OnInit {
     private formBuilder: FormBuilder, public router: Router, private modalService: NgbModal, public routeactive:ActivatedRoute) {
     ngxService.start();
       this.id = this.routeactive.snapshot.params.id;
-      console.log(this.id);
+      // console.log(this.id);
 
     }
 
@@ -64,15 +64,13 @@ export class WalletEditComponent implements OnInit {
     this.ngxService.start();
 
     this.loot.updateWallet(this.id, this.walletForm.value).then((response: Wallet) => {
-      console.log(response);
+      // console.log(response);
 
       this.ngxService.stop();
       this.nome = response.nome;
       this.hash = response.hash;
-      this.events.publish('toast', 'Success', 10000, 'toast-success')
-      // let modalRef = this.openModal();
-      // modalRef['valor'] = response.valor;
-      // modalRef['status_text'] = response.status_text;
+      this.events.publish('toast', 'Wallet updated with success', 'Success', 10000, 'toast-success');
+      this.router.navigate([`/loot/wallets`]);
     }).catch((err: HttpErrorResponse) => {
 
       this.ngxService.stop();
