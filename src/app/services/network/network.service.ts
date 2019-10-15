@@ -11,7 +11,10 @@ export class NetworkService {
   private _TOKEN: string;
 
   constructor(private api: ApiService, public events: Events,private ngxService:NgxUiLoaderService) {
-     this._TOKEN = sessionStorage.getItem('Authorization')
+      this._TOKEN = localStorage.getItem('Authorization')
+      events.subscribe('token',(token)=>{
+        this._TOKEN = token;
+      })
   }
 
   getNetwork():Promise<any>{
