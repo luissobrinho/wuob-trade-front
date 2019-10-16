@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { InvestimentsService } from 'src/app/services/investiments/investiments.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Events } from '@ionic/angular';
+import { InvestmentResponse, Investments } from 'src/app/models/InvestmentResponse';
+import { ColumnMode } from '@swimlane/ngx-datatable';
 
 @Component({
   selector: 'app-historic',
@@ -9,57 +11,53 @@ import { Events } from '@ionic/angular';
   styleUrls: ['./historic.component.css']
 })
 export class HistoricComponent implements OnInit {
-  editing = {};
-  rows = [];
-  temp = [];
-  data:any;
+  
+  rows:InvestmentResponse[] = [];
+  page:Investments = {per_page: 0, total: 0, current_page: 0};
 
   loadingIndicator = true;
   reorderable = true;
+  ColumnMode = ColumnMode;
 
-  columns = [{ prop: 'amountf' ,name:'Value'}, { name: 'Coin' ,prop:('Coin'===null)?'-':'Coin'},{ name: 'Status', prop:'status' }, { name: 'Action', prop:'address' }];
+  columns = [
+    { prop: 'amountf' ,name:'Value'}, 
+    { name: 'Coin' ,prop:('Coin'===null)?'-':'Coin'},
+    { name: 'Status', prop:'status' }, 
+    { name: 'Action', prop:'address' }
+  ];
   @ViewChild(HistoricComponent, { static: true }) table:HistoricComponent;
-  constructor(public investiments:InvestimentsService,public ngxService: NgxUiLoaderService,public events:Events) {
-        this.ngxService.start()
-        this.investiments.getInvestiments().then((response)=>{
-            console.log(response)
-            this.ngxService.stop()
-            this.data = response;
-            this.rows = this.data;
-            this.temp = [this.data];
-            setTimeout(() => {
-              this.loadingIndicator = false;
-            }, 1500);
-        },err=>{
-            this.ngxService.stop()
-            this.events.publish('toast', err, 'Erro', null, 'toast-error')
-        })
+  constructor(public investiments:InvestimentsService,public ngxService: NgxUiLoaderService,public events:Events) {}
+
+  setPage($event: {count: number, limit: number, offset: number, pageSize: number}) {
+    this.ngxService.start()
+    this.investiments.getInvestimentsPages(`${this.page.path}?page=${$event.offset + 1}`)
+      .then((response: Investments) => {
+       
+        this.rows = response.data;
+        this.page = response;
+        this.ngxService.stop()
+      }, err => {
+        this.ngxService.stop()
+        this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
+      });
   }
 
   ngOnInit() {
+    this.loadTable()
+  }
 
+  loadTable(){
+      this.ngxService.start()
+      this.investiments.getInvestiments().then((response:Investments)=>{
+      
+          this.ngxService.stop()
+          this.rows = response.data
+          this.page = response
         
-  }
-
-  updateFilter(event) {
-      const val = event.target.value.toLowerCase();
-
-      // filter our data
-      const temp = this.temp.filter(function (d) {
-        return d.name.toLowerCase().indexOf(val) !== -1 || !val;
-      });
-
-      // update the rows
-      this.rows = temp;
-      // Whenever the filter changes, always go back to the first page
-      this.table = this.data;
-  }
-  updateValue(event, cell, rowIndex) {
-      console.log('inline editing rowIndex', rowIndex);
-      this.editing[rowIndex + '-' + cell] = false;
-      this.rows[rowIndex][cell] = event.target.value;
-      this.rows = [...this.rows];
-      console.log('UPDATED!', this.rows[rowIndex][cell]);
+      },err=>{
+          this.ngxService.stop()
+          this.events.publish('toast', err, 'Erro', null, 'toast-error')
+      })   
   }
 
   copyLink(row){

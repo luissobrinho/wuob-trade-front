@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ApiService } from '../api/api.service';
 import { Events } from '@ionic/angular';
-import { InvestmentResponse } from 'src/app/models/InvestmentResponse';
+import { InvestmentResponse, Investments } from 'src/app/models/InvestmentResponse';
 import { Rendimento } from 'src/app/models/rendimento';
 import { reject } from 'q';
 import { resolve } from 'dns';
@@ -58,7 +58,7 @@ export class InvestimentsService {
     })
   }
 
-  getInvestiments(): Promise<InvestmentResponse> {
+  getInvestiments(): Promise<Investments> {
 
     let header = {
       Authorization: `Bearer ${this._TOKEN}`,
@@ -66,14 +66,33 @@ export class InvestimentsService {
       'Accept': 'application/json',
     }
 
-    return new Promise<InvestmentResponse>((resolve, reject) => {
-      this.api.get('investimento_usuarios', {}, header).subscribe((response: { data: InvestmentResponse }) => {
-        resolve(response.data)
+    return new Promise<Investments>((resolve, reject) => {
+      this.api.get('investimento_usuarios', {}, header).subscribe((response:Investments) => {
+        resolve(response)
       }, err => {
         reject(err)
       })
     })
 
+  }
+
+  getInvestimentsPages(url: string): Promise<Investments> {
+
+    let header = {
+      Authorization: `Bearer ${this._TOKEN}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    }
+
+    return new Promise((resolve, reject) => {
+
+      this.api.request(url, header).subscribe((response: Investments) => {
+        resolve(response)
+      }, err => {
+        reject(err);
+      })
+
+    })
   }
 
   getDailyChart(): Promise<any> {
