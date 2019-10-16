@@ -95,7 +95,7 @@ export class LootService {
     })
   }
 
-  getReportWithDrawal(): Promise<any> {
+  getReportWithDrawal(): Promise<WithDrawals> {
 
     let header = {
       Authorization: `Bearer ${this._TOKEN}`,
@@ -105,8 +105,28 @@ export class LootService {
 
     return new Promise((resolve, reject) => {
 
-      this.api.get('movimentacao_investimentos', {}, header).subscribe((response: { data: [] }) => {
-        resolve(response.data)
+      this.api.get('movimentacao_investimentos', {}, header).subscribe((response:WithDrawals) => {
+        resolve(response)
+      }, err => {
+        reject(err);
+      })
+
+    })
+
+  }
+
+  getReportWithDrawalPage(url: string): Promise<WithDrawals> {
+
+    let header = {
+      Authorization: `Bearer ${this._TOKEN}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    }
+
+    return new Promise((resolve, reject) => {
+
+      this.api.request(url, header).subscribe((response: WithDrawals) => {
+        resolve(response)
       }, err => {
         reject(err);
       })

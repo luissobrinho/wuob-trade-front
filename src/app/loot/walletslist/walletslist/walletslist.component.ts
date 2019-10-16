@@ -29,12 +29,7 @@ export class WalletslistComponent implements OnInit {
   @ViewChild(ReportComponent, { static: true }) table: ReportComponent;
   constructor(private loot: LootService, private ngxService: NgxUiLoaderService, public events: Events, public router: Router) { }
 
-  getGenderSummary(): string {
-    return `${this.page.from}/${this.page.to}`;
-  }
-
   setPage($event: {count: number, limit: number, offset: number, pageSize: number}) {
-    console.log($event);
     this.ngxService.start()
     this.loot.getWalletsPages(`${this.page.path}?page=${$event.offset + 1}`)
       .then((response: Wallets) => {

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Events } from '@ionic/angular';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { LootService } from 'src/app/services/loot/loot.service';
+import { ColumnMode } from '@swimlane/ngx-datatable';
 
 @Component({
   selector: 'app-report',
@@ -10,55 +11,48 @@ import { LootService } from 'src/app/services/loot/loot.service';
 })
 export class ReportComponent implements OnInit {
 
-  editing = {};
-  rows = [];
-  temp = [];
-  data:any;
+  rows:WithDrawal[] = [];
+  page:WithDrawals = {per_page: 0, total: 0, current_page: 0};
 
   loadingIndicator = true;
   reorderable = true;
-
-  columns = [{ prop: 'value' ,name:'Value'}, { name: 'Coin' , prop:'coin'},{ name: 'Status', prop:'status' }];
+  ColumnMode = ColumnMode;
+  columns = [
+    { prop: 'value' ,name:'Value'},
+    { name: 'Coin' , prop:'coin'},
+    { name: 'Status', prop:'status' }
+  ];
   @ViewChild(ReportComponent, { static: true }) table:ReportComponent;
   constructor(private loot:LootService,public ngxService: NgxUiLoaderService,public events:Events) { }
 
   ngOnInit() {
-     this.reportWithDrawal()
+     this.loaderTable()
   }
 
-  reportWithDrawal(){
+  loaderTable(){
       this.ngxService.start()
       this.loot.getReportWithDrawal().then((response)=>{
         this.ngxService.stop()
-        this.data = response;
-        this.rows = this.data;
-        this.temp = [this.data];
+        this.rows = response.data;
+        this.page = response;
       },err=>{
         this.ngxService.stop()
         this.events.publish('toast', err, 'Erro', null, 'toast-error')
       })
   }
 
-  updateFilter(event) {
-    const val = event.target.value.toLowerCase();
-
-    // filter our data
-    const temp = this.temp.filter(function (d) {
-      return d.name.toLowerCase().indexOf(val) !== -1 || !val;
-    });
-
-    // update the rows
-    this.rows = temp;
-    // Whenever the filter changes, always go back to the first page
-    this.table = this.data;
-  }
-  
-  updateValue(event, cell, rowIndex) {
-      console.log('inline editing rowIndex', rowIndex);
-      this.editing[rowIndex + '-' + cell] = false;
-      this.rows[rowIndex][cell] = event.target.value;
-      this.rows = [...this.rows];
-      console.log('UPDATED!', this.rows[rowIndex][cell]);
+  setPage($event: {count: number, limit: number, offset: number, pageSize: number}) {
+    this.ngxService.start()
+    this.loot.getReportWithDrawalPage(`${this.page.path}?page=${$event.offset + 1}`)
+      .then((response: WithDrawals) => {
+       
+        this.rows = response.data;
+        this.page = response;
+        this.ngxService.stop()
+      }, err => {
+        this.ngxService.stop()
+        this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
+      });
   }
 
 }
