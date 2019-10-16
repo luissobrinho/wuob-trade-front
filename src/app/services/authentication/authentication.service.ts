@@ -38,9 +38,12 @@ export class AuthenticationService
       'Accept': 'application/json',
        Authorization:'Bearer'
     }
+    
     return this.api.post('login',user,header).subscribe((response: { token: string }) => {
       //get user credentials 
       header.Authorization = `Bearer ${response.token}`;
+
+      this.events.publish('token',response.token);
 
       this.api.get('user/profile', {}, header).subscribe((User: {}) => {
         //store user and token in localstorage,sessionstorage and set as current use  
@@ -63,6 +66,8 @@ export class AuthenticationService
       })
 
     }, err => {
+      console.log(err);
+      
       this.events.publish('toast',err, 'Erro', null, 'toast-error')
       this.ngxService.stop()
     })
@@ -80,6 +85,8 @@ export class AuthenticationService
           'Content-Type': 'application/json',
           'Accept': 'application/json',
       }
+      
+      this.events.publish('token',response.token);
 
       this.api.get('user/profile', {}, header).subscribe((User: {}) => {
            

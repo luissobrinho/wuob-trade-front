@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlApi: 'http://127.0.0.1:8000/api/v1/',
+  urlApi: 'http://api.wuob.trade/api/v1/',
   firebaseConfig: {
     apiKey: "AIzaSyC-gsIybRxDiDOmUGFJheHDEOSgHG-6qs4",
     authDomain: "trade-dbbf3.firebaseapp.com",

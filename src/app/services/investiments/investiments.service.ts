@@ -4,6 +4,8 @@ import { ApiService } from '../api/api.service';
 import { Events } from '@ionic/angular';
 import { InvestmentResponse } from 'src/app/models/InvestmentResponse';
 import { Rendimento } from 'src/app/models/rendimento';
+import { reject } from 'q';
+import { resolve } from 'dns';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +14,10 @@ export class InvestimentsService {
   private _TOKEN: string;
 
   constructor(private api: ApiService, public events: Events) {
-    this._TOKEN = sessionStorage.getItem('Authorization')
+      this._TOKEN = localStorage.getItem('Authorization')
+      events.subscribe('token',(token)=>{
+        this._TOKEN = token;
+      })
   }
 
   getInvestimentsType(): Promise<[]> {
@@ -78,7 +83,15 @@ export class InvestimentsService {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     }
-    return this.api.get('user/grafico_diario', {}, header).toPromise();
+
+    return new Promise<any>((resolve,reject)=>{
+        this.api.get('user/grafico_diario', {}, header).subscribe((response)=>{
+            resolve(response)
+        },err=>{
+            reject(err)
+        })
+    })
+  
   }
 
   private mapValue(investiment) {
