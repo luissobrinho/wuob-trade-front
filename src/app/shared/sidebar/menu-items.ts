@@ -59,7 +59,7 @@ export const ROUTES: RouteInfo[] = [
         submenu: []
       },
       {
-        path: '/loot/wallet',
+        path: '/loot/wallets',
         title: 'MENU.WITHDRAWALS.SUBMENU.WALLET',
         icon: 'mdi mdi-wallet',
         class: '',

@@ -57,4 +57,10 @@ export class ApiService {
     })
   }
 
+  request(url: string, reqOpts?: {}) {
+    return this.http.get(`${url}`, {
+      headers: new HttpHeaders(reqOpts).append('HashAppSecurytWeb',Uuid.getUuid)
+    })
+  }
+
 }

@@ -28,14 +28,14 @@
               </div>
             </div>
           </div>
-          <hr>
-          <div class="card-body">
-            <div class="card-body float-right col-4">
-              <button type="submit" class="btn btn-create btn-outline-success">
-                <i class="fa fa-check"></i> Save</button>
-            </div>
-          </div>
+          <div class="card-footer text-right">
+            <button type="submit" class="btn btn-create btn-outline-success">
+              <i class="fa fa-check"></i> Save</button>
 
+              <a [routerLink]="['/loot/wallets']" class="btn btn-outline-secondary">
+                  <i class="fa fa-times"></i> Back
+              </a>
+          </div>
         </div>
       </form>
     </div>
