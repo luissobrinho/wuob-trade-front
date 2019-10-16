@@ -6,7 +6,9 @@ export interface UserNetwork {
   email_verified_at?: any;
   created_at: string;
   updated_at: string;
-  network_down: Networkdown[];
+  network_down?: Networkdown[];
+  treeStatus?: string;
+  parentId?: number;
 }
 
 export interface Networkdown {
