@@ -1,11 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { TreeviewItem, TreeviewConfig, TreeItem } from 'ngx-treeview/src/';
 import { NetworkService } from 'src/app/services/network/network.service';
 import { UserNetwork, Networkdown } from 'src/app/models/Network';
 import { Events } from '@ionic/angular';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ColumnMode } from '@swimlane/ngx-datatable';
-import undefined = require('firebase/empty-import');
 
 @Component({
   selector: 'app-team',
@@ -51,13 +49,13 @@ export class TeamComponent implements OnInit {
   mountNetwork(network_down: Networkdown[]): UserNetwork[] {
     network_down.map((d: Networkdown) => {
       let user = d.user;
-      if (user.network_down !== undefined) {
+      if (typeof user.network_down !== 'undefined') {
         user.treeStatus = (user.network_down.length > 0) ? 'collapsed' : 'disabled';
       } else {
         user.treeStatus = 'disabled';
       }
       user.parentId = d.referencia_id;
-      if (user.network_down !== undefined) {
+      if (typeof user.network_down !== 'undefined') {
         if (user.network_down.length > 0) {
           this.mountNetwork(user.network_down)
         }
