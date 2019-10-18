@@ -105,7 +105,7 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '/yield/yieldreport',
     title: 'MENU.YIELD.TITLE',
-    icon: 'mdi mdi-view-dashboard',
+    icon: 'mdi mdi-book-open-variant',
     class: '',
     extralink: false,
     submenu: []
