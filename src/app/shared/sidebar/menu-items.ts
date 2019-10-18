@@ -83,23 +83,32 @@ export const ROUTES: RouteInfo[] = [
         extralink: false,
         submenu: []
       },
-      {
-        path: '/network/residual',
-        title: 'MENU.NETWORK.SUBMENU.RESIDUAL',
-        icon: 'mdi mdi-clock-in',
-        class: '',
-        extralink: false,
-        submenu: []
-      },
-      {
-        path: '/network/bonus',
-        title: 'MENU.NETWORK.SUBMENU.BONUS',
-        icon: 'mdi mdi-wallet-giftcard',
-        class: '',
-        extralink: false,
-        submenu: []
-      }
+      // {
+      //   path: '/network/residual',
+      //   title: 'MENU.NETWORK.SUBMENU.RESIDUAL',
+      //   icon: 'mdi mdi-clock-in',
+      //   class: '',
+      //   extralink: false,
+      //   submenu: []
+      // },
+      // {
+      //   path: '/network/bonus',
+      //   title: 'MENU.NETWORK.SUBMENU.BONUS',
+      //   icon: 'mdi mdi-wallet-giftcard',
+      //   class: '',
+      //   extralink: false,
+      //   submenu: []
+      // }
+     
     ]
   },
-
+  {
+    path: '/yield/yieldreport',
+    title: 'MENU.YIELD.TITLE',
+    icon: 'mdi mdi-view-dashboard',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+ 
 ];

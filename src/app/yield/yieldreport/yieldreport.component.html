@@ -1,0 +1,27 @@
+<div class="row">
+    <!-- column -->
+    <div class="col-lg-12">
+
+        <div class="card">
+            <div class="card-body">
+        
+                <ngx-datatable #table class='material' [columns]="columns" [headerHeight]="50"
+                    [footerHeight]="50" [rowHeight]="'auto'" [rows]='rows' [columnMode]="ColumnMode.force"
+                    [externalPaging]="true" [count]="page.total || 0"
+                    [offset]="(page.current_page - 1)" [limit]="page.per_page || 0" (page)="setPage($event)">
+
+                    <ngx-datatable-column prop="valor" name="Value"></ngx-datatable-column>
+                    <ngx-datatable-column name="Type" prop="tipo">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                                <span *ngIf="row.tipo === 'C' " class="text-success" >Credit</span>
+                                <span *ngIf="row.tipo === 'D' " class="text-danger" >Debit</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                </ngx-datatable>
+
+            </div>
+        </div>
+
+    </div>
+</div>
