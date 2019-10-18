@@ -56,6 +56,11 @@ export const Approutes: Routes = [
         canActivate:[GuardService]
       },
       {
+        path: 'yield',
+        loadChildren: './yield/yield.module#YieldModule',
+        canActivate:[GuardService]
+      },
+      {
         path: 'profile',
         component:ProfileComponent,
         canActivate:[GuardService,GuardactiveService]
