@@ -4,6 +4,7 @@ import { UserNetwork, Networkdown } from 'src/app/models/Network';
 import { Events } from '@ionic/angular';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ColumnMode } from '@swimlane/ngx-datatable';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-team',
@@ -14,6 +15,8 @@ export class TeamComponent implements OnInit {
 
   ColumnMode = ColumnMode;
   rows: UserNetwork[] = [];
+  user: any;
+  linkReference: string;
 
   constructor(
     private network: NetworkService,
@@ -23,6 +26,10 @@ export class TeamComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`
+
     this.network.getNetwork()
       .then((res: UserNetwork) => {
 
@@ -82,6 +89,21 @@ export class TeamComponent implements OnInit {
       this.rows = [...this.rows];
       this.cd.detectChanges();
     }
+  }
+
+  copyLink(text) {
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = text;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    this.events.publish('toast', 'Link copied', null, null, null)
   }
 
 }
