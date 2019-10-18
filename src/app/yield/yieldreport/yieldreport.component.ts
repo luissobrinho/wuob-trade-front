@@ -22,6 +22,7 @@ export class YieldreportComponent implements OnInit {
   columns = [
     { prop: 'valor' ,name:'Value'}, 
     { name: 'Type' ,prop:'tipo'},
+    {name:'Date',prop:'created_at'}
   ];
   @ViewChild(YieldreportComponent, { static: true }) table:YieldreportComponent;
   constructor(public yields:YieldService,public ngxService: NgxUiLoaderService,public events:Events) { }
