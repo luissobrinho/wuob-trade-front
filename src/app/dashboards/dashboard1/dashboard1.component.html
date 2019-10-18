@@ -140,6 +140,15 @@
                                         <h4 class="card-title">Yields X Investment Type</h4>
                                     </div>
                                 </div>
+                                <canvas baseChart
+                                    [data]="pieChartData"
+                                    [labels]="pieChartLabels"
+                                    [chartType]="pieChartType"
+                                    [options]="pieChartOptions"
+                                    [colors]="pieChartColors"
+                                    [legend]="pieChartLegend">
+                                </canvas>
+
                             </div>
                             <div class="table-responsive" *ngIf="investmentsType">
                                 <table class="table table-hover">
@@ -154,15 +163,15 @@
 
                                             <td class="txt-oflo text-success" *ngIf="i.id===1" >{{i.nome}}</td>
                                             <td class="text-success" *ngIf="i.id===1" >
-                                                {{i.total}}
+                                                {{i.valor | currency:'BTC':true:'1.2-8'}}
                                             </td>
                                             <td class="txt-oflo text-info" *ngIf="i.id===2" >{{i.nome}}</td>
                                             <td class="text-info" *ngIf="i.id===2" >
-                                                {{i.total}}
+                                                {{i.valor | currency:'BTC':true:'1.2-8'}}
                                             </td>
                                             <td class="txt-oflo text-danger" *ngIf="i.id===3" >{{i.nome}}</td>
                                             <td class="text-danger" *ngIf="i.id===3" >
-                                                {{i.total}}
+                                                {{i.valor | currency:'BTC':true:'1.2-8'}}
                                             </td>
 
                                         </tr>

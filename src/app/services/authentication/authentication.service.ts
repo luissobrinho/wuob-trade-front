@@ -187,6 +187,7 @@ getProfile(token):Promise<boolean>{
               localStorage.setItem('currentUser', JSON.stringify(User))
               sessionStorage.setItem('currentUser', JSON.stringify(User))
               this.currentUserSubject.next(User);
+              this.events.publish('update:user', User)
               resolve(true)
             }, err => {
               reject(false)
