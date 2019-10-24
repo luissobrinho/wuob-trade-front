@@ -2,3 +2,8 @@
 .modal-content {
     border-radius: 10px !important;
 }
+
+*{
+
+    cursor: url(src/assets/images/mouse.png), auto !important;
+}
