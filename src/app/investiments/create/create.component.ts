@@ -36,7 +36,7 @@ export class CreateComponent implements OnInit {
   initForm(){
         this.investimentForm = this.formBuilder.group({
           investimenttype: ['',Validators.compose([Validators.required])],
-          valueinvestiment: ['',Validators.compose([Validators.required,Validators.min(0.005)])],
+          valueinvestiment: ['',Validators.compose([Validators.required,Validators.min(0.001)])],
         });
   }
 

@@ -1,89 +1,95 @@
 <app-cryptocard></app-cryptocard>
 <!-- inicio Modal -->
 <ng-template #modal id="modal" let-c="close" let-d="dismiss">
-        <div id="modal">
-        <div class="modal-header justify-content-center p-15 bg-danger text-white m-b-10 align-items-center" style="border-color: grey">
-          <h4 class="modal-title row justify-content-center align-items-center">ATTENTION! Transfer the exact amount of the transaction.</h4>        </div>
-        <div class="modal-body">
-            <img  src="{{qrCode}}" >
-            <span> {{ address }} </span>
-            <h4> {{ amount | currency:true:'BTC ':'1.8-8' }} </h4>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success" (click)="c('Close click')">Close</button>
-        </div>
+  <div id="modal">
+    <div class="modal-header justify-content-center p-15 bg-danger text-white m-b-10 align-items-center"
+      style="border-color: grey">
+      <h4 class="modal-title row justify-content-center align-items-center">ATTENTION! Transfer the exact amount of the
+        transaction.</h4>
     </div>
-    </ng-template>
+    <div class="modal-body">
+      <img src="{{qrCode}}">
+      <span> {{ address }} </span>
+      <h4> {{ amount | currency:true:'BTC ':'1.8-8' }} </h4>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="c('Close click')">Close</button>
+    </div>
+  </div>
+</ng-template>
 <!-- fim Modal -->
 <!-- Row -->
 <div class="row justify-content-center align-items-center">
-    
-        <div class="col-lg-9">
-                <div class="col-12">
-                        
-            <div class="card">
-                    <div class="card">
-                            <div class="card-body">
-                                <ngb-alert [dismissible]="false" class="card-alert" >
-                                    <strong>Warning!</strong> Create your investment using BTC value.
-                                    
-                                  </ngb-alert>
-                                    
-                            </div>
-                        </div>
+
+  <div class="col-lg-9">
+    <div class="col-12">
+
+      <div class="card">
+        <div class="card">
+          <div class="card-body">
+            <ngb-alert [dismissible]="false" class="card-alert">
+              <strong>Warning!</strong> Create your investment using BTC value.
+
+            </ngb-alert>
+
+          </div>
+        </div>
 
 
-                <form [formGroup]="investimentForm" (ngSubmit)="createInvestiment()" >
+        <form [formGroup]="investimentForm" (ngSubmit)="createInvestiment()">
 
-                    <div class="form-body">
+          <div class="form-body">
 
-                        <div class="card-body">
-                            <div class="row p-t-20">
+            <div class="card-body">
+              <div class="row p-t-20">
 
-                                <!--/span-->
-                                <div class="col-md-6">
-                                        <div class="form-group has-success">
-                                                <label class="control-label">Investment Type</label>
-                                                <select formControlName="investimenttype" [ngClass]="{ 'is-invalid': submitted && f.investimenttype.errors }" class="form-control custom-select">
-                                                    <option value="" ></option>
-                                                    <option  *ngFor="let type of investimenttypes" [value]="type.id" >{{type.nome}}</option>
-                                                </select>
-                                                <div *ngIf="submitted && f.investimenttype.errors" class="invalid-feedback">
-                                                    <div *ngIf="f.investimenttype.errors.required">Investiment type is required</div>
-                                                </div>
-                                        </div>
-                                </div>
-                                <!--/span-->
-
-                                <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Value Investiment</label>
-                                            <input formControlName="valueinvestiment" [ngClass]="{ 'is-invalid': submitted && f.valueinvestiment.errors }" [brmasker]="{money: true, thousand: ',',  decimalCaracter: '.', decimal: '3'}" type="text" id="firstName" class="form-control" placeholder="0.00">
-                                            <small class="form-control-feedback"> Value minimium 0,005 </small>
-                                        </div>
-                                        <div *ngIf="submitted && f.valueinvestiment.errors" class="invalid-feedback">
-                                            <div *ngIf="f.valueinvestiment.errors.required">Value is required</div>
-                                            <div *ngIf="f.valueinvestiment.errors.min">Entered value is less than 0.005</div>
-                                        </div>
-                                </div>
-                            </div>
-                        
-                            <div class="form-actions col-12">
-                                <div class="card-body float-right col-4">
-                                    <button type="submit" class="btn btn-create btn-block btn-outline-success">
-                                        <i class="fa fa-check"></i> Create</button>
-                                </div>
-                            </div>
-
-                        </div>   
-
+                <!--/span-->
+                <div class="col-md-6">
+                  <div class="form-group has-success">
+                    <label class="control-label">Investment Type</label>
+                    <select formControlName="investimenttype"
+                      [ngClass]="{ 'is-invalid': submitted && f.investimenttype.errors }"
+                      class="form-control custom-select">
+                      <option value=""></option>
+                      <option *ngFor="let type of investimenttypes" [value]="type.id">{{type.nome}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.investimenttype.errors" class="invalid-feedback">
+                      <div *ngIf="f.investimenttype.errors.required">Investiment type is required</div>
                     </div>
+                  </div>
+                </div>
+                <!--/span-->
 
-                </form>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Value Investiment</label>
+                    <input formControlName="valueinvestiment"
+                      [ngClass]="{ 'is-invalid': submitted && f.valueinvestiment.errors }"
+                      [brmasker]="{money: true, thousand: ',',  decimalCaracter: '.', decimal: '3'}" type="text"
+                      id="firstName" class="form-control" placeholder="0.00">
+                    <small class="form-control-feedback"> Value minimium 0,001 </small>
+                  </div>
+                  <div *ngIf="submitted && f.valueinvestiment.errors" class="invalid-feedback">
+                    <div *ngIf="f.valueinvestiment.errors.required">Value is required</div>
+                    <div *ngIf="f.valueinvestiment.errors.min">Entered value is less than 0.005</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-footer text-right">
+                <button type="submit" class="btn btn-create btn-block btn-outline-success">
+                  <i class="fa fa-check"></i> Create</button>
+              </div>
 
             </div>
 
-        </div>
+          </div>
 
-</div>
-<!-- Row -->
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+  <!-- Row -->

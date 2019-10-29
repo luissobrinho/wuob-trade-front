@@ -39,10 +39,13 @@ export class AppComponent {
         //redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
           this.router.navigate(['/dashboard/classic']);
+          setInterval(() => {
+            this.authenticationService.getProfile(token).then(() => { });
+          }, 30000)
         }
       })
     } else {
-      if (this.location.path().indexOf('signup') < 0) {
+      if (this.location.path().indexOf('signup') < 0 && this.location.path().indexOf('recover') < 0) {
         this.authenticationService.logOut();
         this.router.navigate(['/authentication/login']);
       }

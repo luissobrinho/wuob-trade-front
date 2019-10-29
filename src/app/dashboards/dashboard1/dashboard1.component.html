@@ -19,6 +19,7 @@
 </div>
 
 <div class="card-group">
+<<<<<<< HEAD
     <div class="col-lg-3 col-md-6">
         <div class="card">
             <div class="card-body">
@@ -51,8 +52,57 @@
                     </div>
                 </div>
             </div>
+=======
+
+  <!-- Column -->
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="d-flex no-block align-items-center">
+            <div>
+              <i class="mdi mdi-poll font-20"></i>
+              <p class="font-16 m-b-5">Investments</p>
+            </div>
+            <div class="ml-auto">
+              <h1 class="font-light text-right">{{user.totalQtdInvestimento}}</h1>
+            </div>
+          </div>
         </div>
+        <div class="col-12">
+          <!-- <div class="progress">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 85%; height: 6px;"
+                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div> -->
+        </div>
+      </div>
     </div>
+  </div>
+  <!-- Column -->
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="d-flex no-block align-items-center">
+            <div>
+              <i class="mdi mdi-currency-btc font-20"></i>
+              <p class="font-16 m-b-5"> yields</p>
+            </div>
+            <div class="ml-auto">
+              <h1 class="font-light text-right font-22">{{user.totalRendimento || valueInitial}}</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <!-- <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 85%; height: 6px;"
+                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div> -->
+>>>>>>> 7ecf480c450ad692bb80c78c3d112010f82e4bad
+        </div>
+      </div>
+    </div>
+<<<<<<< HEAD
     <!-- Column -->
     <!-- Column -->
     <div class="col-lg-3 col-md-6">
@@ -73,8 +123,34 @@
                     </div>
                 </div>
             </div>
+=======
+  </div>
+  <!-- Column -->
+  <!-- Column -->
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="d-flex no-block align-items-center">
+            <div>
+              <i class="mdi mdi-currency-btc font-20"></i>
+              <p class="font-16 m-b-5">Balance available</p>
+            </div>
+            <div class="ml-auto">
+              <h1 class="font-light text-right font-22">{{user.totalSaldo}}</h1>
+            </div>
+          </div>
         </div>
+        <div class="col-12">
+          <!-- <div class="progress">
+                        <div class="progress-bar bg-purple" role="progressbar" style="width: 85%; height: 6px;"
+                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div> -->
+>>>>>>> 7ecf480c450ad692bb80c78c3d112010f82e4bad
+        </div>
+      </div>
     </div>
+<<<<<<< HEAD
     <!-- Column -->
     <!-- Column -->
     <div class="col-lg-3 col-md-6">
@@ -95,6 +171,34 @@
         </div>
     </div>
     <!-- Column -->
+=======
+  </div>
+  <!-- Column -->
+  <!-- Column -->
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="d-flex no-block align-items-center">
+            <div>
+              <i class="mdi mdi-account-network font-20"></i>
+              <p class="font-16 m-b-5">network</p>
+            </div>
+            <div class="ml-auto">
+              <h1 class="font-light text-right">{{user.totalReferencia}}</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <!-- <div class="progress">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 85%; height: 6px;"
+                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+>>>>>>> 7ecf480c450ad692bb80c78c3d112010f82e4bad
 </div>
 <!-- ============================================================== -->
 <!-- Sales chart -->
@@ -104,28 +208,29 @@
 <!-- ============================================================== -->
 <div class="row">
 
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div>
-                        <h4 class="card-title">Yields X Investments</h4>
-                    </div>
-                </div>
-                <div style="display: block;">
-                  <canvas baseChart width="400" height="150" [datasets]="lineChartData" [labels]="lineChartLabels"
-                    [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
-                    [plugins]="lineChartPlugins">
-                  </canvas>
-                </div>
-            </div>
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <div>
+            <h4 class="card-title">Yields X Investments</h4>
+          </div>
         </div>
-
+        <div style="display: block;">
+          <canvas baseChart width="400" height="150" [datasets]="lineChartData" [labels]="lineChartLabels"
+            [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+            [plugins]="lineChartPlugins">
+          </canvas>
+        </div>
+      </div>
     </div>
+
+  </div>
 </div>
 
-<div class="row">
+<div class="col-lg-6 col-md-12 order-lg-2 order-md-3">
 
+<<<<<<< HEAD
 <<<<<<< HEAD
             <div class="card">
                     <div class="card-body collapse show" style="padding: 0.85rem" >
@@ -158,28 +263,53 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let i of investmentsType">
-
-                            <td class="txt-oflo text-success" *ngIf="i.id===1" >{{i.nome}}</td>
-                            <td class="text-success" *ngIf="i.id===1" >
-                                {{i.total}}
-                            </td>
-                            <td class="txt-oflo text-info" *ngIf="i.id===2" >{{i.nome}}</td>
-                            <td class="text-info" *ngIf="i.id===2" >
-                                {{i.total}}
-                            </td>
-                            <td class="txt-oflo text-danger" *ngIf="i.id===3" >{{i.nome}}</td>
-                            <td class="text-danger" *ngIf="i.id===3" >
-                                {{i.total}}
-                            </td>
-
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+=======
+  <!-- column investimento type -->
+  <div>
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex">
+          <div>
+            <h4 class="card-title">Yields X Investment Type</h4>
+          </div>
         </div>
+        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+          [options]="pieChartOptions" [colors]="pieChartColors" [legend]="pieChartLegend">
+        </canvas>
+>>>>>>> 7ecf480c450ad692bb80c78c3d112010f82e4bad
+
+      </div>
+      <div class="table-responsive" *ngIf="investmentsType">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th class="border-top-0">NAME</th>
+              <th class="border-top-0">TOTAL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let i of investmentsType">
+
+              <td class="txt-oflo text-success" *ngIf="i.id===1">{{i.nome}}</td>
+              <td class="text-success" *ngIf="i.id===1">
+                {{i.valor | currency:'BTC':true:'1.2-8'}}
+              </td>
+              <td class="txt-oflo text-info" *ngIf="i.id===2">{{i.nome}}</td>
+              <td class="text-info" *ngIf="i.id===2">
+                {{i.valor | currency:'BTC':true:'1.2-8'}}
+              </td>
+              <td class="txt-oflo text-danger" *ngIf="i.id===3">{{i.nome}}</td>
+              <td class="text-danger" *ngIf="i.id===3">
+                {{i.valor | currency:'BTC':true:'1.2-8'}}
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 
 
 
 </div>
-
