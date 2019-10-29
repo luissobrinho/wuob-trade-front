@@ -13,10 +13,10 @@ export class ProfileComponent implements OnInit {
 
   submitted = false;
   profileForm:FormGroup;
-  private user:{name:'',email:'',meta:{phone:'',pais:''}}
-  private langs = [{'name':'Portuguese','value':'pt'},{'name':'English','value':'en'},{'name':'French','value':'fr'}]
+  public user:{name:'',email:'',meta:{phone:'',pais:''}}
+  public langs = [{'name':'Portuguese','value':'pt'},{'name':'English','value':'en'},{'name':'French','value':'fr'}]
 
-  constructor(private formBuilder:FormBuilder,private profile:ProfileService) { }
+  constructor(public formBuilder:FormBuilder,private profile:ProfileService) {  }
 
   ngOnInit() {
     this.initValues()

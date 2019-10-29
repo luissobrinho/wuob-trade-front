@@ -7,13 +7,14 @@ import * as shape from 'd3-shape';
 import * as d3 from 'd3';
 import { single } from './data';
 import { colorSets } from '@swimlane/ngx-charts/release/utils/color-sets';
-import { environment } from '../../environments/environments';
 import { Events } from '@ionic/angular';
 import { Scroll } from '../../functions/Scroll';
 import { InvestimentsService } from 'src/app/services/investiments/investiments.service';
 import { Rendimento } from 'src/app/models/rendimento';
 import { ChartDataSets, ChartOptions, ChartAnimationOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { environment } from 'src/environments/environment';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
 declare var require: any;
 
@@ -79,15 +80,29 @@ export class Dashboard1Component implements AfterViewInit {
     Object.assign(this, {
       single
     });
-
     this.initValuesDashboard();
   }
 
   public initValuesDashboard() {
-    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
+    this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.investmentsType = this.user.totalTipoRendimento;
-    this.linkReference = `${environment.urlAngularTest}/${this.user.meta.referencia}`
+    this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`
     this.dailyChart()
+  }
+
+  copyLink(text) {
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = text;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    this.events.publish('toast', 'Link copied', null, null, null)
   }
 
 
@@ -126,23 +141,6 @@ export class Dashboard1Component implements AfterViewInit {
     })
 
   }
-
-  copyLink(text) {
-    let selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = text;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
-    this.events.publish('toast', 'Link copied', null, null, null)
-  }
-
-
 
   ngAfterViewInit() {
     // ==============================================================

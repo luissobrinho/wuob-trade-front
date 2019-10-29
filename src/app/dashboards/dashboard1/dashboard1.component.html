@@ -1,6 +1,23 @@
 <!-- ============================================================== -->
 <!-- Sales chart -->
 <!-- ============================================================== -->
+<div class="row justify-content-center">
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body collapse show" style="padding: 0.85rem">
+        <h4 class="card-title">Invitation link</h4>
+        <p class="card-text">This is your invitation link, copy and send to your investor team.</p>
+        <div class="input-group">
+          <input type="text" class="form-control" value="{{linkReference}}">
+          <div class="input-group-append">
+            <button (click)='copyLink(linkReference)' class="btn btn-outline-success" type="button">Copy link</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="card-group">
     <div class="col-lg-3 col-md-6">
         <div class="card">
@@ -87,7 +104,7 @@
 <!-- ============================================================== -->
 <div class="row">
 
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -96,7 +113,7 @@
                     </div>
                 </div>
                 <div style="display: block;">
-                  <canvas baseChart width="400" height="200" [datasets]="lineChartData" [labels]="lineChartLabels"
+                  <canvas baseChart width="400" height="150" [datasets]="lineChartData" [labels]="lineChartLabels"
                     [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
                     [plugins]="lineChartPlugins">
                   </canvas>
@@ -105,50 +122,11 @@
         </div>
 
     </div>
+</div>
 
-    <div class="col-lg-6 col-md-12 order-lg-2 order-md-3">
+<div class="row">
 
-            <!-- column investimento type -->
-            <div >
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div>
-                                        <h4 class="card-title">Yields X Investment Type</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th class="border-top-0">NAME</th>
-                                            <th class="border-top-0">TOTAL</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let i of investmentsType">
-
-                                            <td class="txt-oflo text-success" *ngIf="i.id===1" >{{i.nome}}</td>
-                                            <td class="text-success" *ngIf="i.id===1" >
-                                                {{i.total}}
-                                            </td>
-                                            <td class="txt-oflo text-info" *ngIf="i.id===2" >{{i.nome}}</td>
-                                            <td class="text-info" *ngIf="i.id===2" >
-                                                {{i.total}}
-                                            </td>
-                                            <td class="txt-oflo text-danger" *ngIf="i.id===3" >{{i.nome}}</td>
-                                            <td class="text-danger" *ngIf="i.id===3" >
-                                                {{i.total}}
-                                            </td>
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-            </div>
-
+<<<<<<< HEAD
             <div class="card">
                     <div class="card-body collapse show" style="padding: 0.85rem" >
                         <h4 class="card-title">Invitation link</h4>
@@ -159,10 +137,48 @@
                                     <button (click)='copyLink(linkReference)' class="btn btn-outline-success" type="button">Copy link</button>
                                 </div>
                         </div>
+=======
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div>
+                        <h4 class="card-title">Yields X Investment Type</h4>
+>>>>>>> 0c8c9b7f4bb1fe96b9ee80da5d8690a8d5da682d
                     </div>
+                </div>
             </div>
+            <div class="table-responsive" *ngIf="investmentsType">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="border-top-0">NAME</th>
+                            <th class="border-top-0">TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let i of investmentsType">
 
+                            <td class="txt-oflo text-success" *ngIf="i.id===1" >{{i.nome}}</td>
+                            <td class="text-success" *ngIf="i.id===1" >
+                                {{i.total}}
+                            </td>
+                            <td class="txt-oflo text-info" *ngIf="i.id===2" >{{i.nome}}</td>
+                            <td class="text-info" *ngIf="i.id===2" >
+                                {{i.total}}
+                            </td>
+                            <td class="txt-oflo text-danger" *ngIf="i.id===3" >{{i.nome}}</td>
+                            <td class="text-danger" *ngIf="i.id===3" >
+                                {{i.total}}
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+
 
 
 </div>

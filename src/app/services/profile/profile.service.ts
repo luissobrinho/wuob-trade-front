@@ -13,7 +13,10 @@ export class ProfileService {
   private _TOKEN:string;
 
   constructor(private api:ApiService,private ngxService: NgxUiLoaderService,public events:Events,private auth:AuthenticationService) { 
-      this._TOKEN = sessionStorage.getItem('Authorization')
+     this._TOKEN = localStorage.getItem('Authorization')
+      events.subscribe('token',(token)=>{
+        this._TOKEN = token;
+      })
   }
 
   updateProfile(user){

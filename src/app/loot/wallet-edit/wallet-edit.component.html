@@ -1,0 +1,43 @@
+<div class="row justify-content-center align-items-center">
+  <div class="col-lg-8">
+    <div class="card">
+      <form [formGroup]="walletForm" (ngSubmit)="updateWallet()">
+        <div class="form-body">
+
+          <div class="card-body">
+            <h4 class="card-title">Edit Wallet</h4>
+            <div class="row">
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group row">
+                  <label for="email2" class="col-sm-3 text-right control-label col-form-label">Description</label>
+                  <div class="col-sm-9">
+                    <input type="email" class="form-control" formControlName="nome"
+                      [ngClass]="{ 'is-invalid': submitted && f.nome.errors }"
+                      placeholder="Create a descripton for your wallet">
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group row">
+                  <label for="web1" class="col-sm-3 text-right control-label col-form-label">Address</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="hash"
+                      [ngClass]="{ 'is-invalid': submitted && f.hash.errors }" placeholder="Your Address (hash)">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-right">
+            <button type="submit" class="btn btn-create btn-outline-success">
+              <i class="fa fa-check"></i> Save</button>
+
+              <a [routerLink]="['/loot/wallets']" class="btn btn-outline-secondary">
+                  <i class="fa fa-times"></i> Back
+              </a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+export interface movement {
+  carteira_id: number,
+  valor: string,
+  time_created: number,
+  status: number, //'The status of the withdrawal (-1 = Cancelled, 0 = Waiting for email confirmation, 1 = Pending, 2 = Complete)',
+  status_text: string,
+  coin: string,
+  amount: number,
+  amountf: string,
+  send_address: string,
+  send_txid: string,
+  created: string,
+  updated: string,
+  deleted: string,
+}

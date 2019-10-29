@@ -5,6 +5,7 @@ import { LockComponent } from './lock/lock.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { RegistercountComponent } from './registercount/registercount.component';
+import { RecoverComponent } from './recover/recover.component';
 
 export const AuthenticationRoutes: Routes = [
   {
@@ -22,18 +23,26 @@ export const AuthenticationRoutes: Routes = [
         path: 'login',
         component: LoginComponent
       },
+      // {
+      //   path: 'signup',
+      //   component: SignupComponent
+      // },
       {
-        path: 'signup',
+        path: 'signup/:ref',
         component: SignupComponent
       },
       {
-        path: 'register',
-        component: RegistercountComponent
+        path: 'recover/:ref',
+        component: RecoverComponent
       },
-      {
-        path: 'register/:ref',
-        component: RegistercountComponent
-      },
+      // {
+      //   path: 'register',
+      //   component: RegistercountComponent
+      // },
+      // {
+      //   path: 'register/:ref',
+      //   component: RegistercountComponent
+      // },
   
     ]
   }

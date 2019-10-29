@@ -20,8 +20,10 @@ export class LoginComponent implements OnInit {
   loginform = true;
   recoverform = false;
   loginForm: FormGroup;
+  recoverForm: FormGroup;
   loading = false;
   submitted = false;
+  submittedRec = false;
   returnUrl: string;
 
   constructor(private router:Router,private auth:AuthenticationService,private routeactive:ActivatedRoute,
@@ -35,15 +37,24 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
-  this.loginForm = this.formBuilder.group({
-      username: ['',Validators.compose([Validators.required])],
-      password: ['',Validators.compose([Validators.required,Validators.minLength(8)])],
-      remember: ['']
-  });
-
+    this.initFormLogin()
+    this.initFormRecover()
     //get return url from route parameters or default to '/'
     this.returnUrl = this.routeactive.snapshot.queryParams['returnUrl'] || '/';
+  }
+
+  initFormLogin(){
+      this.loginForm = this.formBuilder.group({
+        username: ['',Validators.compose([Validators.required])],
+        password: ['',Validators.compose([Validators.required,Validators.minLength(8)])],
+        remember: []
+      });
+  }
+
+  initFormRecover(){
+      this.recoverForm = this.formBuilder.group({
+        username: ['',Validators.compose([Validators.required])],
+      });
   }
 
   showRecoverForm() {
@@ -53,6 +64,8 @@ export class LoginComponent implements OnInit {
 
   // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
+
+  get g() { return this.recoverForm.controls; }
 
   SubmitSignIn(){
     this.submitted = true;
@@ -66,7 +79,18 @@ export class LoginComponent implements OnInit {
   }
 
   signIn(user){
-      this.auth.signIn(user);
+      this.auth.signIn(user)
+  }
+
+  SubmitRecover(){
+      this.submittedRec = true;
+      
+      // stop here if form is invalid
+      if (this.recoverForm.invalid) {
+        return false;
+      }
+
+      this.auth.sendEmailResetPassword(this.recoverForm.value)
   }
 
   // googleSignIn(){

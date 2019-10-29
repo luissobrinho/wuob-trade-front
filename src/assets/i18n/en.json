@@ -30,6 +30,9 @@
                 "BONUS": "Bonus"
             }
         },
+        "YIELD":{
+            "TITLE":"Yield"
+        },
         "CONFIG":{
             "TITLE":"Configuration"
         }

@@ -1,7 +1,7 @@
 import { RouteInfo } from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
-  
+
   {
     path: '',
     title: 'MENU.DASHBOARD.TITLE',
@@ -59,7 +59,7 @@ export const ROUTES: RouteInfo[] = [
         submenu: []
       },
       {
-        path: '/loot/wallet',
+        path: '/loot/wallets',
         title: 'MENU.WITHDRAWALS.SUBMENU.WALLET',
         icon: 'mdi mdi-wallet',
         class: '',
@@ -83,23 +83,32 @@ export const ROUTES: RouteInfo[] = [
         extralink: false,
         submenu: []
       },
-      {
-        path: '/network/residual',
-        title: 'MENU.NETWORK.SUBMENU.RESIDUAL',
-        icon: 'mdi mdi-clock-in',
-        class: '',
-        extralink: false,
-        submenu: []
-      },
-      {
-        path: '/network/bonus',
-        title: 'MENU.NETWORK.SUBMENU.BONUS',
-        icon: 'mdi mdi-wallet-giftcard',
-        class: '',
-        extralink: false,
-        submenu: []
-      }
+      // {
+      //   path: '/network/residual',
+      //   title: 'MENU.NETWORK.SUBMENU.RESIDUAL',
+      //   icon: 'mdi mdi-clock-in',
+      //   class: '',
+      //   extralink: false,
+      //   submenu: []
+      // },
+      // {
+      //   path: '/network/bonus',
+      //   title: 'MENU.NETWORK.SUBMENU.BONUS',
+      //   icon: 'mdi mdi-wallet-giftcard',
+      //   class: '',
+      //   extralink: false,
+      //   submenu: []
+      // }
+     
     ]
   },
-
+  {
+    path: '/yield/yieldreport',
+    title: 'MENU.YIELD.TITLE',
+    icon: 'mdi mdi-view-dashboard',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+ 
 ];

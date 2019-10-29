@@ -4,12 +4,14 @@
         <div class="card">
             <div class="card-body">
                 <!-- <h4 class="card-title">This is your Investiments Historic</h4> -->
-                <form class="w-50 m-b-30">
+                <!-- <form class="w-50 m-b-30">
                     <input type='text' class="form-control" placeholder='Type to filter the name column...'
                         (keyup)='updateFilter($event)' />
-                </form>
-                <ngx-datatable #table class='material' [columns]="columns" [columnMode]="'force'" [headerHeight]="50"
-                    [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [rows]='rows'>
+                </form> -->
+                <ngx-datatable #table class='material' [columns]="columns"  [headerHeight]="50"
+                    [footerHeight]="50" [rowHeight]="'auto'" [rows]='rows' [columnMode]="ColumnMode.force"
+                    [externalPaging]="true" [count]="page.total || 0"
+                    [offset]="(page.current_page - 1)" [limit]="page.per_page || 0" (page)="setPage($event)">
                     <ngx-datatable-column prop="valor" name="Value"></ngx-datatable-column>
                     <ngx-datatable-column name="Coin"></ngx-datatable-column>
                     <ngx-datatable-column name="Status">

@@ -21,10 +21,10 @@
                                     <div class="form-group has-success">
                                             <div class="form-group">
                                                 <label class="control-label">Name</label>
-                                                <input formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" type="text" id="firstName" class="form-control" >
+                                                <input formControlName="name" [ngClass]="{ 'is-invalid': submitted && profileForm['controls'].name.errors }" type="text" id="firstName" class="form-control" >
                                             </div>
-                                            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                                                <div *ngIf="f.name.errors.required">Name is required</div>
+                                            <div *ngIf="submitted && profileForm['controls'].name.errors" class="invalid-feedback">
+                                                <div *ngIf="profileForm['controls'].name.errors.required">Name is required</div>
                                             </div>
                                     </div>
                             </div>
@@ -33,9 +33,9 @@
                             <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Email</label>
-                                        <input formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" type="email" id="firstName" class="form-control" >                                    </div>
-                                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                                        <div *ngIf="f.email.errors.required">Email is required</div>
+                                        <input formControlName="email" [ngClass]="{ 'is-invalid': submitted && profileForm['controls'].email.errors }" type="email" id="firstName" class="form-control" >                                    </div>
+                                    <div *ngIf="submitted && profileForm['controls'].email.errors" class="invalid-feedback">
+                                        <div *ngIf="profileForm['controls'].email.errors.required">Email is required</div>
                                     </div>
                             </div>
 
@@ -48,10 +48,10 @@
                                         <div class="form-group has-success">
                                                 <div class="form-group">
                                                     <label class="control-label">Phone</label>
-                                                    <input (keypress)="onlynumber();" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.meta.controls.phone.errors }" type="text" id="phone" class="form-control" >
+                                                    <input (keypress)="onlynumber($event);" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f['meta']['controls'].phone.errors }" type="text" id="phone" class="form-control" >
                                                 </div>
-                                                <div *ngIf="submitted && f.meta.controls.phone.errors" class="invalid-feedback">
-                                                    <div *ngIf="f.meta.controls.phone.errors.required">Phone is required</div>
+                                                <div *ngIf="submitted && f['meta']['controls'].phone.errors" class="invalid-feedback">
+                                                    <div *ngIf="f['meta']['controls'].phone.errors.required">Phone is required</div>
                                                 </div>
                                         </div>
                                 </div>
@@ -60,11 +60,11 @@
                                 <div class="col-md-6" >
                                         <div class="form-group has-success">
                                                 <label class="control-label">Language</label>
-                                                <select formControlName="pais" [ngClass]="{ 'is-invalid': submitted && f.meta.controls.pais.errors }" class="form-control custom-select">
+                                                <select formControlName="pais" [ngClass]="{ 'is-invalid': submitted && f['meta']['controls'].pais.errors }" class="form-control custom-select">
                                                     <option *ngFor='let l of langs' value="{{l.value}}" >{{l.name}}</option>
                                                 </select>
-                                                <div *ngIf="submitted && f.meta.controls.pais.errors" class="invalid-feedback">
-                                                    <div *ngIf="f.meta.controls.pais.errors.required">Language is required</div>
+                                                <div *ngIf="submitted && f['meta']['controls'].pais.errors" class="invalid-feedback">
+                                                    <div *ngIf="f['meta']['controls'].pais.errors.required">Language is required</div>
                                                 </div>
                                         </div>
                                 </div>

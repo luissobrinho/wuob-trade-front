@@ -38,14 +38,17 @@ export class AuthenticationService
       'Accept': 'application/json',
        Authorization:'Bearer'
     }
+    
     return this.api.post('login',user,header).subscribe((response: { token: string }) => {
       //get user credentials 
       header.Authorization = `Bearer ${response.token}`;
 
+      this.events.publish('token',response.token);
+
       this.api.get('user/profile', {}, header).subscribe((User: {}) => {
         //store user and token in localstorage,sessionstorage and set as current use  
-        localStorage.setItem('Authorization', `Bearer ${response.token}`)
-        sessionStorage.setItem('Authorization', `Bearer ${response.token}`)
+        localStorage.setItem('Authorization', `${response.token}`)
+        sessionStorage.setItem('Authorization', `${response.token}`)
         localStorage.setItem('currentUser', JSON.stringify(User))
         sessionStorage.setItem('currentUser', JSON.stringify(User))
         this.currentUserSubject.next(User);
@@ -63,6 +66,8 @@ export class AuthenticationService
       })
 
     }, err => {
+      console.log(err);
+      
       this.events.publish('toast',err, 'Erro', null, 'toast-error')
       this.ngxService.stop()
     })
@@ -80,12 +85,14 @@ export class AuthenticationService
           'Content-Type': 'application/json',
           'Accept': 'application/json',
       }
+      
+      this.events.publish('token',response.token);
 
       this.api.get('user/profile', {}, header).subscribe((User: {}) => {
            
         //store user and token in localstorage,sessionstorage and set as current use  
-            localStorage.setItem('Authorization', `Bearer ${response.token}`)
-            sessionStorage.setItem('Authorization', `Bearer ${response.token}`)
+            localStorage.setItem('Authorization', `${response.token}`)
+            sessionStorage.setItem('Authorization', `${response.token}`)
             localStorage.setItem('currentUser', JSON.stringify(User))
             sessionStorage.setItem('currentUser', JSON.stringify(User))
             this.currentUserSubject.next(User);
@@ -109,6 +116,51 @@ export class AuthenticationService
         this.events.publish('toast',"The given data was invalid.",'Erro',10000,'toast-error')
         this.ngxService.stop()
     })
+}
+
+sendEmailResetPassword(user){
+
+   //get user credentials 
+   let header = {  
+    Authorization: `Bearer`, 
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  }
+
+    this.ngxService.start()
+    this.api.post('password/username',user,header).subscribe((response)=>{
+      this.events.publish('toast','Verify your email.','Sucesso',10000,'toast-success')
+      this.ngxService.stop()
+    },err=>{
+      this.events.publish('toast',err,'Erro',10000,'toast-error')
+      this.ngxService.stop()
+    })
+}
+
+recoverPassword(user){
+
+  //get user credentials 
+  let header = {  
+   Authorization: `Bearer`, 
+   'Content-Type': 'application/json',
+   'Accept': 'application/json',
+ }
+
+   this.ngxService.start()
+   this.api.post('password/reset',user,header).subscribe((response)=>{
+     
+      this.router.navigate(['dashboard/classic']).then(() => {
+        this.events.publish('toast','Password changed with success.','Sucesso',10000,'toast-success')
+        this.ngxService.stop()
+      }, err => {
+        this.events.publish('toast', err, 'Erro',10000, 'toast-error')
+        this.ngxService.stop()
+      })
+    
+   },err=>{
+     this.events.publish('toast',err,'Erro',10000,'toast-error')
+     this.ngxService.stop()
+   })
 }
 
 logOut(){
@@ -143,58 +195,4 @@ getProfile(token):Promise<boolean>{
       })
       
 }
-
-  // signInGoogle(){
-  //   return new Promise<any>((resolve,reject)=>{
-  //       let provider =  new auth.GoogleAuthProvider()
-  //       provider.addScope('profile');
-  //       provider.addScope('email');
-  //       this.ofAuth.auth
-  //       .signInWithPopup(provider)
-  //       .then(result => {
-  //         this.user.name = result.user.displayName;
-  //         this.user.email = result.user.email;
-  //         this.user.setPass(result.user.uid)
-  //         this.ngxService.start()
-  //         return this.api.post('login', this.user).subscribe((response: { token: string }) => {
-  //           let header = {Authorization: `Bearer ${response.token}`, 'Content-Type': 'application/json', 'Accept': 'application/json' }
-  //           this.api.get('user/profile', {}, header).subscribe((User: {}) => {
-
-  //             localStorage.setItem('Authorization', `Bearer ${response.token}`)
-  //             sessionStorage.setItem('Authorization', `Bearer ${response.token}`)
-  //             localStorage.setItem('currentUser', JSON.stringify(User))
-  //             sessionStorage.setItem('currentUser', JSON.stringify(User))
-  //             this.currentUserSubject.next(User);
-  //             this.router.navigate(['dashboard/classic']).then(() => {
-  //               this.ngxService.stop()
-  //             }, err => {
-  //               this.events.publish('toast', err, 'Erro', null, 'toast-error')
-  //               this.ngxService.stop()
-  //             })
-
-  //           }, err => {
-  //             this.events.publish('toast', err, 'Erro', null, 'toast-error')
-  //             this.ngxService.stop()
-  //           })
-
-  //         }, err => {
-  //           this.events.publish('toast', 'Ocorreu um erro inesperado.', 'Erro', null, 'toast-error')
-  //           this.ngxService.stop()
-  //         })
-
-  //       },err=>reject(err))
-  //   })
-  // }
-
-
-  // mapUser(result):User|any{
-  //   this.user.email = result.user.email
-  //   this.user.name = result.user.displayName
-  //   this.user.login = (typeof result.additionalUserInfo.username === "undefined")?result.user.email:result.additionalUserInfo.username
-  //   this.user.photo = result.user.photoURL
-  //   this.user.provider = 'google'
-
-  //   return this.user;
-  // }
-
 }
