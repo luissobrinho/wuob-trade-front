@@ -65,13 +65,6 @@
           </div>
           <div class="m-l-10 align-self-center">
             <h4 id="balance">{{user.totalSaldo}}</h4>
-            <!-- <style>  
-                        <!-- <style>  
-            <!-- <style>  
-                                #balance{
-                                    font-size: 15pt;
-                                }
-                            </style> -->
             <span class="text-muted">Balance available</span>
           </div>
         </div>
@@ -85,17 +78,85 @@
       <div class="card-body">
         <div class="d-flex flex-row">
           <div class="round align-self-center round-danger">
-            <i class="icon-people"></i>
+            <i class="mdi mdi-block-helper"></i>
           </div>
           <div class="m-l-10 align-self-center">
             <div id="teste">
               <h4>{{user.totalReferencia}}</h4>
             </div>
-            <span class="text-muted">network</span>
+            <span class="text-muted">Balance Locked</span>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6 col-md-12 order-lg-2 order-md-3">
+    <div class="card">
+      <div class="card-body">
+          <h4 class="card-title">Campaign</h4>
+          <div id="campaign" style="height: 168px; width: 100%;" class="m-t-10"></div>
+          <!-- row -->
+          <div class="row text-center text-lg-left">
+              <!-- column -->
+              <!-- column -->
+              <div class="col-4">
+                  <h4 class="m-b-0 font-medium">BTC 50.0000000</h4>
+                  <span class="text-muted">Yields</span>
+              </div>
+              <!-- column -->
+              <div class="col-4">
+                <h4 class="m-b-0 font-medium">BTC 150.00000000</h4>
+                <span class="text-muted">Un-completed</span>
+            </div>
+              <!-- column -->
+              <div class="col-4">
+                <h4 class="m-b-0 font-medium">BTC 200.00000000</h4>
+                <span class="text-muted">Total</span>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-12 order-lg-2 order-md-3">
+    <div class="card">
+      <div class="card-body">
+          <h4 class="card-title">Top Plans</h4>
+          <table class="table browser m-t-30 no-border">
+              <tbody>
+                  <tr>
+                      <td style="width:40px">
+                          <img src="assets/images/mouse.png" alt="logo">
+                      </td>
+                      <td>Green Camaleon <br><small>BTC 0.0001</small></td>
+                      <td align="right">
+                        <button (click)='copyLink(linkReference)' class="btn btn-outline-success" type="button">Invest</button>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <img src="assets/images/mouse.png" alt="logo">
+                      </td>
+                      <td>Yellow Camaleon <br><small>BTC 0.0001</small></td>
+                      <td align="right">
+                        <button (click)='copyLink(linkReference)' class="btn btn-outline-success" type="button">Invest</button>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+                          <img src="assets/images/mouse.png" alt="logo">
+                      </td>
+                      <td>Orange Camaleon <br><small>BTC 0.0001</small></td>
+                      <td align="right">
+                        <button (click)='copyLink(linkReference)' class="btn btn-outline-success" type="button">Invest</button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
   </div>
 </div>
 <!-- Column -->
@@ -127,9 +188,9 @@
   </div>
 </div>
 
-<div class="col-lg-6 col-md-12 order-lg-2 order-md-3">
+<!-- <div class="col-lg-6 col-md-12 order-lg-2 order-md-3">
 
-  <!-- column investimento type -->
+   column investimento type
   <div class="card">
     <div class="card-body">
       <div class="d-flex">
@@ -172,4 +233,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

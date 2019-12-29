@@ -1,6 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import * as c3 from 'c3';
+import * as d3 from 'd3';
 import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from 'ng-chartist';
 import { single } from './data';
@@ -154,7 +155,7 @@ export class Dashboard1Component implements AfterViewInit {
 
   dailyChart() {
     this.investiments.getDailyChart().then((rendimento: Rendimento[]) => {
-      for (let index = 1; index <= 100; index++) {
+      for (let index = 1; index <= 200; index++) {
         this.lineChartLabels.push(index.toString() + ' Days');
 
       }
@@ -193,26 +194,22 @@ export class Dashboard1Component implements AfterViewInit {
       bindto: '#campaign',
       data: {
         columns: [
-          ['Un-opened', 35],
-          ['Clicked', 15],
-          ['Open', 10],
-          ['Bounced', 18],
+          ['Yields', 50],
+          ['Un-complete', 150]
         ],
-
         type: 'donut'
       },
       donut: {
         label: {
-          show: false
+          show: false,
+          format: (v, r, i) => {
+            return d3.format('BTC')(v);
+          }
         },
         width: 15,
       },
-
-      legend: {
-        hide: true
-      },
       color: {
-        pattern: ['#137eff', '#8b5edd', '#5ac146', '#eceff1']
+        pattern: ['#137eff', '#f5f5f5']
       }
     });
   }
