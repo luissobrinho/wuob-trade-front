@@ -3,9 +3,6 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ApiService } from '../api/api.service';
 import { Events } from '@ionic/angular';
 import { InvestmentResponse, Investments } from 'src/app/models/InvestmentResponse';
-import { Rendimento } from 'src/app/models/rendimento';
-import { reject } from 'q';
-import { resolve } from 'dns';
 @Injectable({
   providedIn: 'root'
 })
@@ -41,8 +38,6 @@ export class InvestimentsService {
 
   Invest(investiment): Promise<InvestmentResponse> {
 
-    let Investiment = this.mapValue(investiment)
-
     let header = {
       Authorization: `Bearer ${this._TOKEN}`,
       'Content-Type': 'application/json',
@@ -50,7 +45,7 @@ export class InvestimentsService {
     }
 
     return new Promise<InvestmentResponse>((resolve, reject) => {
-      this.api.post('investimento_usuarios', Investiment, header).subscribe((response: InvestmentResponse) => {
+      this.api.post('investimento_usuarios', investiment, header).subscribe((response: InvestmentResponse) => {
         resolve(response)
       }, err => {
         reject(err)

@@ -1,3 +1,20 @@
+<ng-template #modal id="modal" let-c="close" let-d="dismiss">
+  <div id="modal">
+    <div class="modal-header justify-content-center p-15 bg-danger text-white m-b-10 align-items-center"
+      style="border-color: grey">
+      <h4 class="modal-title row justify-content-center align-items-center">ATTENTION! Transfer the exact amount of the
+        transaction.</h4>
+    </div>
+    <div class="modal-body">
+      <img src="{{qrCode}}">
+      <span> {{ address }} </span>
+      <h4> {{ amount | currency:true:'BTC ':'1.8-8' }} </h4>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="c('Close click')">Close</button>
+    </div>
+  </div>
+</ng-template>
 <!-- ============================================================== -->
 <!-- Sales chart -->
 <!-- ============================================================== -->
@@ -82,7 +99,7 @@
           </div>
           <div class="m-l-10 align-self-center">
             <div id="teste">
-              <h4>{{user.totalReferencia}}</h4>
+              <h4>{{user.totalBloqueado}}</h4>
             </div>
             <span class="text-muted">Balance Locked</span>
           </div>
@@ -126,31 +143,13 @@
           <h4 class="card-title">Top Plans</h4>
           <table class="table browser m-t-30 no-border">
               <tbody>
-                  <tr>
+                  <tr *ngFor="let plan of plans">
                       <td style="width:40px">
                           <img src="assets/images/mouse.png" alt="logo">
                       </td>
-                      <td>Green Camaleon <br><small>BTC 0.0001</small></td>
+                      <td>{{plan.nome}} <br><small>BTC {{plan.valor}}</small></td>
                       <td align="right">
-                        <button (click)='copyLink(linkReference)' class="btn btn-outline-success" type="button">Invest</button>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <img src="assets/images/mouse.png" alt="logo">
-                      </td>
-                      <td>Yellow Camaleon <br><small>BTC 0.0001</small></td>
-                      <td align="right">
-                        <button (click)='copyLink(linkReference)' class="btn btn-outline-success" type="button">Invest</button>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <img src="assets/images/mouse.png" alt="logo">
-                      </td>
-                      <td>Orange Camaleon <br><small>BTC 0.0001</small></td>
-                      <td align="right">
-                        <button (click)='copyLink(linkReference)' class="btn btn-outline-success" type="button">Invest</button>
+                        <button (click)='createInvestiment(plan)' class="btn btn-outline-success" type="button" [disabled]="totalQtdInvestiments > 0" >Invest</button>
                       </td>
                   </tr>
               </tbody>

@@ -1,0 +1,31 @@
+.modal-body {
+    text-align: center;
+   }
+   
+   #modal {
+       padding-top: 65px;
+       position: relative;
+   }
+   
+   .modal-header {
+       border-radius: 10px 10px 0 0;
+       width: 100.1%;
+       position: absolute;
+       top: -5px;
+   }
+   
+   
+   .card-alert{   
+       color: #856404;
+       background-color: #fff3cd;
+       border-color: #ffeeba;
+       margin-bottom: -33px;
+   }
+   
+   
+   
+   .btn-create {
+       margin: 0 0 0px 127px;
+       width: 59%;    
+   } 
+   

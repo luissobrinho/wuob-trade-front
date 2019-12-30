@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InvestmentResponse } from 'src/app/models/InvestmentResponse';
+import { Plan } from 'src/app/models/plans';
 
 
 @Component({
@@ -53,7 +54,7 @@ export class CreateComponent implements OnInit {
 
   get f() { return this.investimentForm.controls; }
 
-  createInvestiment(){
+  createInvestiment(plan: Plan){
 
     this.submitted = true
 
@@ -61,14 +62,14 @@ export class CreateComponent implements OnInit {
       return;
     }
     this.ngxService.start()
-    this.investiments.Invest(this.investimentForm.value).then((response: InvestmentResponse)=>{
+    this.investiments.Invest({pacote_id: plan.id}).then((response: InvestmentResponse)=>{
         this.ngxService.stop()
         this.qrCode = response.qrcode_url
         this.address = response.address;
         this.amount = response.amount;
         let modalRef = this.openModal();
         modalRef['qrCode'] = response.qrcode_url;
-        modalRef['add nbress'] = response.address;
+        modalRef['addnbress'] = response.address;
     },err=>{
         this.ngxService.stop()
         console.log(err)

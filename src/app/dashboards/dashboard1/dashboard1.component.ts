@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import * as c3 from 'c3';
 import * as d3 from 'd3';
@@ -9,9 +9,16 @@ import { Events } from '@ionic/angular';
 import { Scroll } from '../../functions/Scroll';
 import { InvestimentsService } from 'src/app/services/investiments/investiments.service';
 import { Rendimento } from 'src/app/models/rendimento';
+import { Plans, Plan } from 'src/app/models/plans';
 import { ChartDataSets, ChartOptions, ChartAnimationOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { environment } from 'src/environments/environment';
+import { PacoteService } from 'src/app/services/pacote/pacote.service';
+import Swal from 'sweetalert2'
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { InvestmentResponse } from 'src/app/models/InvestmentResponse';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 declare var require: any;
 
@@ -31,6 +38,13 @@ export interface Chart {
 })
 export class Dashboard1Component implements AfterViewInit {
   public config: PerfectScrollbarConfigInterface = {};
+
+  @ViewChild('modal', {static: true}) modal;
+
+  public plans: Plan[] = [];
+  qrCode:string;
+  address: string;
+  amount: string;
 
   single: any[];
   dateData: any[];
@@ -64,14 +78,16 @@ export class Dashboard1Component implements AfterViewInit {
   user: any
   investmentsType: Array<{}>
   linkReference: string;
-  valueInitial: string = "0.00000000"
+  valueInitial: string = "0.00000000";
 
   colorScheme = {
     domain: ['#4fc3f7', '#fb8c00', '#7460ee', '#fa5838', '#5ac146', '#137eff']
   };
   schemeType = 'ordinal';
+  totalQtdInvestiments: any;
 
-  constructor(public events: Events, public investiments: InvestimentsService) {
+  constructor(public events: Events, public investiments: InvestimentsService, 
+    public pacotes: PacoteService, private ngxService: NgxUiLoaderService, private modalService: NgbModal) {
 
     Scroll.showScroll()
     Object.assign(this, {
@@ -87,9 +103,11 @@ export class Dashboard1Component implements AfterViewInit {
   public initValuesDashboard() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.investmentsType = this.user.totalTipoRendimento;
-    this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`
-    this.dailyChart()
-    this.pieChart()
+    this.totalQtdInvestiments = this.user.totalInvestimento;
+    this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`;
+    this.dailyChart();
+    this.pieChart();
+    this.indicatePlans();
   }
 
 
@@ -169,6 +187,15 @@ export class Dashboard1Component implements AfterViewInit {
 
   }
 
+  indicatePlans() {
+    this.pacotes.getIndicatePlans().then(
+      (plans: Plans) => {
+        this.plans = plans.data;
+      }, err => {
+        console.log(err);
+      });
+  }
+
   copyLink(text) {
     let selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
@@ -184,7 +211,44 @@ export class Dashboard1Component implements AfterViewInit {
     this.events.publish('toast', 'Link copied', null, null, null)
   }
 
+  createInvestiment(plan: Plan) {
 
+    if(this.totalQtdInvestiments === 0){
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Once processed, you will not be able to recover it!",
+        icon: "warning",
+        showConfirmButton: true,
+        showCancelButton: true
+      }).then((willDelete) => {
+        if (willDelete.value) {
+          this.ngxService.start()
+          this.investiments.Invest({ pacote_id: plan.id }).then((response: InvestmentResponse) => {
+            this.ngxService.stop()
+            this.qrCode = response.qrcode_url
+            this.address = response.address;
+            this.amount = response.amount;
+            let modalRef = this.openModal();
+            modalRef['qrCode'] = response.qrcode_url;
+            modalRef['addnbress'] = response.address;
+          }, err => {
+            this.ngxService.stop()
+            console.log(err)
+          })
+        }
+      });
+    }
+
+    if(this.totalQtdInvestiments > 0) {
+      Swal.fire({
+        title: "Opps!",
+        text: "You have investiments activeted",
+        icon: "warning",
+        showConfirmButton: true,
+      })
+    }
+    
+  }
 
   ngAfterViewInit() {
     // ==============================================================
@@ -213,4 +277,9 @@ export class Dashboard1Component implements AfterViewInit {
       }
     });
   }
+
+  openModal() {
+    return this.modalService.open(this.modal, { centered: true});
+  }
+
 }
