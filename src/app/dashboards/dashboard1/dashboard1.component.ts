@@ -80,7 +80,7 @@ export class Dashboard1Component implements AfterViewInit {
   linkReference: string;
   valueInitial: string = "0.00000000";
   totalQtdInvestiments: any;
-  
+
   colorScheme = {
     domain: ['#4fc3f7', '#fb8c00', '#7460ee', '#fa5838', '#5ac146', '#137eff']
   };
@@ -179,6 +179,7 @@ export class Dashboard1Component implements AfterViewInit {
 
       }
       this.lineChartData = [];
+      let valor = 0;
       rendimento.forEach((rend: Rendimento) => {
         this.lineChartData.push({ data: rend.total_diario, label: rend.valor + ' BTC' });
       });
@@ -259,8 +260,8 @@ export class Dashboard1Component implements AfterViewInit {
       bindto: '#campaign',
       data: {
         columns: [
-          ['Yields', 50],
-          ['Un-complete', 150]
+          ['Yields', this.user.totalRendimento],
+          ['Un-complete', (0.002 - this.user.totalRendimento)]
         ],
         type: 'donut'
       },
