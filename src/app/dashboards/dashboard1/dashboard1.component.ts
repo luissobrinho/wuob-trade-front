@@ -79,12 +79,13 @@ export class Dashboard1Component implements AfterViewInit {
   investmentsType: Array<{}>
   linkReference: string;
   valueInitial: string = "0.00000000";
-
+  totalQtdInvestiments: any;
+  
   colorScheme = {
     domain: ['#4fc3f7', '#fb8c00', '#7460ee', '#fa5838', '#5ac146', '#137eff']
   };
   schemeType = 'ordinal';
-  totalQtdInvestiments: any;
+  
 
   constructor(public events: Events, public investiments: InvestimentsService, 
     public pacotes: PacoteService, private ngxService: NgxUiLoaderService, private modalService: NgbModal) {

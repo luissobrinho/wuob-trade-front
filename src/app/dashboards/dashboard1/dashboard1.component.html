@@ -145,7 +145,7 @@
               <tbody>
                   <tr *ngFor="let plan of plans">
                       <td style="width:40px">
-                          <img src="assets/images/mouse.png" alt="logo">
+                          <img src="assets/images/mouse.png" [ngStyle]="{'background-image':plan.cor}" alt="logo">
                       </td>
                       <td>{{plan.nome}} <br><small>BTC {{plan.valor}}</small></td>
                       <td align="right">
