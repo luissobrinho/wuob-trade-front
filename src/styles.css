@@ -7,3 +7,22 @@
 
     cursor: url(src/assets/images/mouse.png), auto !important;
 }
+
+.topbar .navbar-collapse, .topbar{
+    background: #595338b8 !important;
+    /* background: #2EA879 !important; */
+}
+.left-sidebar{
+    position: fixed !important;
+    z-index: 0 !important;
+    left: 0 !important;
+    padding-top: 64px;
+    transition: 0.2s ease-in;
+    background-image: url('assets/images/background/header-bg.jpg') !important;
+    background-repeat: no-repeat center !important;
+    background-size: cover !important;
+}
+
+.navbar-header .sidebartoggler {
+    display: none !important;
+}

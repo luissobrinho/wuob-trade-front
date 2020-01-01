@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ApiService } from '../api/api.service';
 import { Events } from '@ionic/angular';
-import { Plans, Plan } from 'src/app/models/plans';
+
 @Injectable({
   providedIn: 'root'
 })

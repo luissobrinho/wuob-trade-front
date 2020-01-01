@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import * as c3 from 'c3';
 import * as d3 from 'd3';
@@ -36,7 +36,7 @@ export interface Chart {
   templateUrl: './dashboard1.component.html',
   styleUrls: ['./dashboard1.component.css']
 })
-export class Dashboard1Component implements AfterViewInit {
+export class Dashboard1Component implements OnInit {
   public config: PerfectScrollbarConfigInterface = {};
 
   @ViewChild('modal', {static: true}) modal;
@@ -50,6 +50,12 @@ export class Dashboard1Component implements AfterViewInit {
   dateData: any[];
   dateDataWithRange: any[];
   range = false;
+
+  user: any
+  investmentsType: Array<{}>
+  linkReference: string;
+  valueInitial: string = "0.00000000";
+
   // options
   showXAxis = true;
   showYAxis = true;
@@ -75,43 +81,12 @@ export class Dashboard1Component implements AfterViewInit {
   doughnut = false;
   arcWidth = 0.25;
   rangeFillOpacity = 0.15;
-  user: any
-  investmentsType: Array<{}>
-  linkReference: string;
-  valueInitial: string = "0.00000000";
-  totalQtdInvestiments: any;
-
+  
   colorScheme = {
     domain: ['#4fc3f7', '#fb8c00', '#7460ee', '#fa5838', '#5ac146', '#137eff']
   };
   schemeType = 'ordinal';
   
-
-  constructor(public events: Events, public investiments: InvestimentsService, 
-    public pacotes: PacoteService, private ngxService: NgxUiLoaderService, private modalService: NgbModal) {
-
-    Scroll.showScroll()
-    Object.assign(this, {
-      single
-    });
-    this.initValuesDashboard();
-
-    this.events.subscribe('update:user', (user: any) => {
-      this.user = user;
-    });
-  }
-
-  public initValuesDashboard() {
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
-    this.investmentsType = this.user.totalTipoRendimento;
-    this.totalQtdInvestiments = this.user.totalInvestimento;
-    this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`;
-    this.dailyChart();
-    this.pieChart();
-    this.indicatePlans();
-  }
-
-
   public lineChartData: ChartDataSets[] = [{ label: '', data: [0] }];
 
   public lineChartLabels: Label[] = [];
@@ -156,6 +131,38 @@ export class Dashboard1Component implements AfterViewInit {
     },
   ];
 
+  constructor(public events: Events, public investiments: InvestimentsService, 
+    public pacotes: PacoteService, private ngxService: NgxUiLoaderService, private modalService: NgbModal) {
+
+    
+  }
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+
+    Scroll.showScroll()
+    Object.assign(this, {
+      single
+    });
+    this.initValuesDashboard();
+
+    this.events.subscribe('update:user', (user: any) => {
+      this.user = user;
+    });
+    
+  }
+
+  public initValuesDashboard() {
+    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.investmentsType = this.user.totalTipoRendimento;
+    this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`;
+    this.dailyChart();
+    this.pieChart();
+    this.indicatePlans();
+    this.campaing();
+  }
+
   pieChart() {
     this.user.totalTipoRendimento.forEach(invest => {
       this.pieChartLabels.push(invest.nome);
@@ -193,6 +200,7 @@ export class Dashboard1Component implements AfterViewInit {
     this.pacotes.getIndicatePlans().then(
       (plans: Plans) => {
         this.plans = plans.data;
+        console.log(this.plans);
       }, err => {
         console.log(err);
       });
@@ -215,7 +223,7 @@ export class Dashboard1Component implements AfterViewInit {
 
   createInvestiment(plan: Plan) {
 
-    if(this.totalQtdInvestiments === 0){
+    if(this.user.totalInvestimento === 0){
       Swal.fire({
         title: "Are you sure?",
         text: "Once processed, you will not be able to recover it!",
@@ -241,7 +249,7 @@ export class Dashboard1Component implements AfterViewInit {
       });
     }
 
-    if(this.totalQtdInvestiments > 0) {
+    if(this.user.totalInvestimento > 0) {
       Swal.fire({
         title: "Opps!",
         text: "You have investiments activeted",
@@ -252,10 +260,7 @@ export class Dashboard1Component implements AfterViewInit {
     
   }
 
-  ngAfterViewInit() {
-    // ==============================================================
-    // campaign
-    // ==============================================================
+  campaing() {
     const chart1 = c3.generate({
       bindto: '#campaign',
       data: {
