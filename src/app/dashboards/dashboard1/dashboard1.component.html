@@ -149,7 +149,7 @@
                       </td>
                       <td>{{plan.nome}} <br><small>BTC {{plan.valor}}</small></td>
                       <td align="right">
-                        <button (click)='createInvestiment(plan)' class="btn btn-outline-success" type="button" [disabled]="totalQtdInvestiments > 0" >Invest</button>
+                        <button (click)='createInvestiment(plan)' class="btn btn-outline-success" type="button" [disabled]="user.totalInvestimento > 0" >Invest</button>
                       </td>
                   </tr>
               </tbody>
