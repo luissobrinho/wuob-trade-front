@@ -10,6 +10,7 @@ import { Plan, Plans } from 'src/app/models/plans';
 import { PacoteService } from 'src/app/services/pacote/pacote.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { Profile } from 'src/app/models/Profile';
 
 
 @Component({
@@ -29,19 +30,21 @@ export class CreateComponent implements OnInit {
   address: string;
   amount: string;
   plans: Plan[];
-  user: any
+  user: Profile
   investmentsType: Array<{}>
   linkReference: string;
   totalQtdInvestiments: any;
+  valor_investimento: number;
 
   constructor(public investiments:InvestimentsService,public events:Events,private ngxService: NgxUiLoaderService,
     private formBuilder:FormBuilder,public router:Router,private modalService: NgbModal,
     public pacotes: PacoteService) { }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.user = <Profile>JSON.parse(localStorage.getItem('currentUser'));
     this.investmentsType = this.user.totalTipoRendimento;
     this.totalQtdInvestiments = this.user.totalInvestimento;
+    this.valor_investimento = parseFloat(this.user.investimento.valor);
     this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`;
     this.initForm();
     this.investimentTypes();

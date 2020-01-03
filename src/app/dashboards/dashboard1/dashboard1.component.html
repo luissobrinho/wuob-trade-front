@@ -44,7 +44,7 @@
             <i class="icon-chart"></i>
           </div>
           <div class="m-l-10 align-self-center">
-            <h4 id="investimentos">{{user.totalQtdInvestimento}}</h4>
+            <h4 id="investimentos">{{user.totalInvestimento}}</h4>
             <span class="text-muted">Investments</span>
           </div>
         </div>
@@ -62,7 +62,7 @@
           </div>
           <div class="m-l-10 align-self-center">
             <div class="card-yields-values">
-              <h4 id="yields">{{user.totalRendimento || valueInitial}}</h4>
+              <h4 id="yields">{{user.totalRendimento || valueInitial  | currency:'BTC ':true:'1.1-8'}}</h4>
             </div>
             <span class="text-muted">yields</span>
           </div>
@@ -81,7 +81,7 @@
             <i class="ti-wallet"></i>
           </div>
           <div class="m-l-10 align-self-center">
-            <h4 id="balance">{{user.totalSaldo}}</h4>
+            <h4 id="balance">{{user.totalSaldo | currency:'BTC ':true:'1.1-8'}}</h4>
             <span class="text-muted">Balance available</span>
           </div>
         </div>
@@ -99,7 +99,7 @@
           </div>
           <div class="m-l-10 align-self-center">
             <div id="teste">
-              <h4>{{user.totalBloqueado}}</h4>
+              <h4>{{user.totalBloqueado | currency:'BTC ':true:'1.1-8'}}</h4>
             </div>
             <span class="text-muted">Balance Locked</span>
           </div>
@@ -120,17 +120,17 @@
               <!-- column -->
               <!-- column -->
               <div class="col-4">
-                  <h4 class="m-b-0 font-medium">BTC {{user.totalRendimento}}</h4>
+                  <h4 class="m-b-0 font-medium">BTC {{user.totalRendimentoAcumulado | currency:'BTC ':true:'1.1-8'}}</h4>
                   <span class="text-muted">Yields</span>
               </div>
               <!-- column -->
               <div class="col-4">
-                <h4 class="m-b-0 font-medium">BTC {{(0.002 - user.totalRendimento)}}</h4>
+                <h4 class="m-b-0 font-medium">BTC {{(totalInvestimentoValor - user.totalRendimentoAcumulado) | currency:'BTC ':true:'1.1-8'}}</h4>
                 <span class="text-muted">Un-completed</span>
             </div>
               <!-- column -->
               <div class="col-4">
-                <h4 class="m-b-0 font-medium">BTC 0.002</h4>
+                <h4 class="m-b-0 font-medium">{{(totalInvestimentoValor) | currency:'BTC ':true:'1.1-8'}}</h4>
                 <span class="text-muted">Total</span>
             </div>
           </div>
@@ -145,9 +145,11 @@
               <tbody>
                   <tr *ngFor="let plan of plans">
                       <td style="width:40px">
-                          <img src="assets/images/mouse.png" [ngStyle]="{'background-image':plan.cor}" alt="logo">
+                        <div class="rounded-circle" style="box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);padding: 10px 12px;">
+                          <img src="{{plan.icon}}" class="img-circle" width="50" alt="logo">
+                        </div>
                       </td>
-                      <td>{{plan.nome}} <br><small>BTC {{plan.valor}}</small></td>
+                      <td>{{plan.nome}} <br><small>BTC {{plan.valor  | currency:'BTC ':true:'1.1-8'}}</small></td>
                       <td align="right">
                         <button (click)='createInvestiment(plan)' class="btn btn-outline-success" type="button" [disabled]="user.totalInvestimento > 0" >Invest</button>
                       </td>
@@ -172,7 +174,7 @@
       <div class="card-body">
         <div class="d-flex align-items-center">
           <div>
-            <h4 class="card-title">Yields X Investments</h4>
+            <h4 class="card-title">Yields</h4>
           </div>
         </div>
         <div style="display: block;">

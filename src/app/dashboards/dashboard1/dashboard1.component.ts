@@ -100,7 +100,7 @@ export class Dashboard1Component implements OnInit {
   public lineChartColors: Color[] = [
     {
       borderColor: 'black',
-      backgroundColor: 'rgba(255,0,0,0.3)',
+      backgroundColor: 'rgba(0,255,0,0.3)',
     },
   ];
   public lineChartLegend = true;
@@ -130,6 +130,8 @@ export class Dashboard1Component implements OnInit {
       backgroundColor: [],
     },
   ];
+  totalInvestimentoValor: any;
+  totalRendimentoAcumulado: any;
 
   constructor(public events: Events, public investiments: InvestimentsService, 
     public pacotes: PacoteService, private ngxService: NgxUiLoaderService, private modalService: NgbModal) {
@@ -156,9 +158,12 @@ export class Dashboard1Component implements OnInit {
   public initValuesDashboard() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.investmentsType = this.user.totalTipoRendimento;
+    this.totalRendimentoAcumulado = this.user.totalRendimentoAcumulado;
+    this.totalInvestimentoValor = (this.user.investimento.valor * 2);
+    
     this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`;
     this.dailyChart();
-    this.pieChart();
+    // this.pieChart();
     this.indicatePlans();
     this.campaing();
   }
@@ -179,20 +184,32 @@ export class Dashboard1Component implements OnInit {
     });
   }
 
+  public dataValor = [];
   dailyChart() {
     this.investiments.getDailyChart().then((rendimento: Rendimento[]) => {
-      for (let index = 1; index <= 200; index++) {
-        this.lineChartLabels.push(index.toString() + ' Days');
-
-      }
       this.lineChartData = [];
-      let valor = 0;
-      rendimento.forEach((rend: Rendimento) => {
-        this.lineChartData.push({ data: rend.total_diario, label: rend.valor + ' BTC' });
-      });
+     
+     let acc = 0.000000;
+     let tamanho = 0;
+     this.dataValor  = (rendimento[0].total_diario).reduce((init, current) => {
+          if(current > 0) {
+            tamanho++;
+            acc += current;
+            init.push(acc);
+          }       
+          return init;
+        },[]);    
+        
+        for (let index = 1; index <= tamanho; index++) {
+          this.lineChartLabels.push(index.toString() + ' Days');
+        }
+
+        this.lineChartData.push({ data: this.dataValor, label: rendimento[0].valor + ' BTC' });
+      
     }, err => {
       console.log(err);
     })
+    
 
   }
 
@@ -265,8 +282,8 @@ export class Dashboard1Component implements OnInit {
       bindto: '#campaign',
       data: {
         columns: [
-          ['Yields', this.user.totalRendimento],
-          ['Un-complete', (0.002 - this.user.totalRendimento)]
+          ['Yields', this.totalRendimentoAcumulado],
+          ['Un-complete', (this.totalInvestimentoValor - this.totalRendimentoAcumulado)]
         ],
         type: 'donut'
       },
@@ -280,7 +297,7 @@ export class Dashboard1Component implements OnInit {
         width: 15,
       },
       color: {
-        pattern: ['#137eff', '#f5f5f5']
+        pattern: ['#51b64e', '#f5f5f5']
       }
     });
   }
