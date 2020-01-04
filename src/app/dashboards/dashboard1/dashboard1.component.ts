@@ -18,6 +18,7 @@ import Swal from 'sweetalert2'
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { InvestmentResponse } from 'src/app/models/InvestmentResponse';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
 
 
 declare var require: any;

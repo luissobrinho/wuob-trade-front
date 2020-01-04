@@ -13,14 +13,22 @@
                     <ngx-datatable-column prop="valor" name="Value">
                         <ng-template let-row="row" ngx-datatable-cell-template>
                             <span>
-                                {{ row.valor | currency:'BTC':true:'1.2-8' }}
+                                {{ row.valor | currency:'BTC ':true:'1.2-8' }}
                             </span>
                         </ng-template>
                     </ngx-datatable-column>
                     <ngx-datatable-column name="Type" prop="tipo">
                         <ng-template let-row="row" ngx-datatable-cell-template>
-                                <span *ngIf="row.tipo === 'C' " class="text-success" >Credit</span>
-                                <span *ngIf="row.tipo === 'D' " class="text-danger" >Debit</span>
+                                <span *ngIf="row.tipo === 'R'" class="text-success" >Residual</span>
+                                <span *ngIf="row.tipo === 'C'" class="text-success" >Credit</span>
+                                <span *ngIf="row.tipo === 'D'" class="text-danger" >Debit</span>
+                                <span *ngIf="row.tipo === 1" class="text-success" >Direct indication</span>
+                                <span *ngIf="row.tipo > 1" class="text-success" >Indirect indication - {{row.tipo}} Level</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column prop="descricao" name="description">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <span>{{row.descricao}}</span>
                         </ng-template>
                     </ngx-datatable-column>
                     <ngx-datatable-column prop="created_at" name="Date">
