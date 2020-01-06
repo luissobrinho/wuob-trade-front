@@ -187,8 +187,9 @@ export class Dashboard1Component implements OnInit {
 
   public dataValor = [];
   dailyChart() {
-    this.investiments.getDailyChart().then((rendimento: Rendimento[]) => {
-      this.lineChartData = [];
+    this.investiments.getDailyChart().subscribe(
+      (rendimento: Rendimento) => {
+    this.lineChartData = [];
      
      let acc = 0.000000;
      let tamanho = 0;
@@ -206,21 +207,18 @@ export class Dashboard1Component implements OnInit {
         }
 
         this.lineChartData.push({ data: this.dataValor, label: rendimento[0].valor + ' BTC' });
-      
-    }, err => {
-      console.log(err);
-    })
+      }
+    );
     
-
   }
 
   indicatePlans() {
     this.pacotes.getIndicatePlans().then(
       (plans: Plans) => {
         this.plans = plans.data;
-        console.log(this.plans);
+        // console.log(this.plans);
       }, err => {
-        console.log(err);
+        // console.log(err);
       });
   }
 
