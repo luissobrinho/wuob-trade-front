@@ -1,7 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Adapter } from './adapter'
 
-export class Rendimento {
+export interface RendimentoI {
+  
+}
+
+export class Rendimento implements RendimentoI {
 
   constructor(
     public id: number,
@@ -34,7 +38,6 @@ export class Rendimento {
     public deleted_at: Date,
     public total_diario: number[],
   ){}
-  
 }
 
 @Injectable({

@@ -57,6 +57,8 @@ export class Dashboard1Component implements OnInit {
   linkReference: string;
   valueInitial: string = "0.00000000";
 
+  video: string = "/assets/video/videodashboard.mp4";
+
   // options
   showXAxis = true;
   showYAxis = true;
@@ -190,6 +192,7 @@ export class Dashboard1Component implements OnInit {
     this.investiments.getDailyChart().subscribe(
       (rendimento: Rendimento) => {
     this.lineChartData = [];
+     console.log(rendimento);
      
      let acc = 0.000000;
      let tamanho = 0;

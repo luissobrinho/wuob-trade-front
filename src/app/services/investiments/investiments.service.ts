@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ApiService } from '../api/api.service';
 import { Events } from '@ionic/angular';
 import { InvestmentResponse, Investments } from 'src/app/models/InvestmentResponse';
-import { Rendimento, RendimentoAdapter } from 'src/app/models/rendimento';
+import { RendimentoAdapter, Rendimento } from 'src/app/models/rendimento';
 import { map } from 'rxjs/operators'; 
 
 @Injectable({
