@@ -69,7 +69,7 @@ export class CreateComponent implements OnInit {
 
   createInvestiment(plan: Plan) {
 
-    if(this.totalQtdInvestiments === 0){
+    if(plan.valor > this.user.investimento.valor){
       Swal.fire({
         title: "Are you sure?",
         text: "Once processed, you will not be able to recover it!",
@@ -93,12 +93,10 @@ export class CreateComponent implements OnInit {
           })
         }
       });
-    }
-
-    if(this.totalQtdInvestiments > 0) {
-      Swal.fire({
+    }else{
+       Swal.fire({
         title: "Opps!",
-        text: "You have investiments activeted",
+        text: "You selecetd a plan smaller than your investiment",
         icon: "warning",
         showConfirmButton: true,
       })

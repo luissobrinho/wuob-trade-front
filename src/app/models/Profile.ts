@@ -14,6 +14,7 @@ export interface Profile {
   totalBloqueado: number;
   totalQtdInvestimento: number;
   totalSaldo: number;
+  totalSaldoIndicacaoDireta: number;
   totalTipoRendimento: TotalTipoRendimento[];
   totalReferencia: number;
   meta: Meta;

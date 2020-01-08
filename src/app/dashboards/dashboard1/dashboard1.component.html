@@ -82,7 +82,7 @@
             <i class="icon-cursor"></i>
           </div>
           <div class="m-l-10 align-self-center">
-            <h4 id="investimentos">{{user.totalInvestimento}}</h4>
+            <h4 id="investimentos">{{user.totalSaldoIndicacaoDireta}}</h4>
             <span class="text-muted">1st level balance</span>
           </div>
         </div>
@@ -176,7 +176,7 @@
                       </td>
                       <td>{{plan.nome}} <br><small>BTC {{plan.valor  | currency:'BTC ':true:'1.1-8'}}</small></td>
                       <td align="right">
-                        <button (click)='createInvestiment(plan)' class="btn btn-outline-success" type="button" [disabled]="user.totalInvestimento > 0" >Invest</button>
+                        <button (click)='createInvestiment(plan)' class="btn btn-outline-success" type="button" [disabled]="plan.valor <= (user.investimento.valor)" >Invest</button>
                       </td>
                   </tr>
               </tbody>
@@ -193,6 +193,8 @@
   <!--Embeds-->
 <div class="card">
   <div class="card-body">
+        <h4 class="card-title">Video</h4>
+        <!-- <h6 class="card-subtitle">Quickly manage the layout, alignment, and sizing of grid columns, navigation, components, and more with a full suite of responsive flexbox utilities. For more complex implementations, custom CSS may be necessary.</h6> -->
       <div class="bd-example">
           <div class="embed-responsive embed-responsive-4by3">
               <video class="embed-responsive-item" controls>

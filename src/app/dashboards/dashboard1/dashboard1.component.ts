@@ -57,7 +57,7 @@ export class Dashboard1Component implements OnInit {
   linkReference: string;
   valueInitial: string = "0.00000000";
 
-  video: string = "/assets/video/videodashboard.mp4";
+  video: string = "/assets/video/videodashboard2.mp4";
 
   // options
   showXAxis = true;
@@ -219,9 +219,8 @@ export class Dashboard1Component implements OnInit {
     this.pacotes.getIndicatePlans().then(
       (plans: Plans) => {
         this.plans = plans.data;
-        // console.log(this.plans);
       }, err => {
-        // console.log(err);
+        console.log(err);
       });
   }
 
@@ -241,8 +240,8 @@ export class Dashboard1Component implements OnInit {
   }
 
   createInvestiment(plan: Plan) {
-
-    if(this.user.totalInvestimento === 0){
+    
+    if(plan.valor > this.user.investimento.valor){
       Swal.fire({
         title: "Are you sure?",
         text: "Once processed, you will not be able to recover it!",
@@ -266,12 +265,11 @@ export class Dashboard1Component implements OnInit {
           })
         }
       });
-    }
+    }else{
 
-    if(this.user.totalInvestimento > 0) {
       Swal.fire({
         title: "Opps!",
-        text: "You have investiments activeted",
+        text: "You selecetd a plan smaller than your investiment",
         icon: "warning",
         showConfirmButton: true,
       })
