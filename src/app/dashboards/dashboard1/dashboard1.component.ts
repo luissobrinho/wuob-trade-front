@@ -19,6 +19,8 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { InvestmentResponse } from 'src/app/models/InvestmentResponse';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
+import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
+
 
 
 declare var require: any;
@@ -35,7 +37,8 @@ export interface Chart {
 
 @Component({
   templateUrl: './dashboard1.component.html',
-  styleUrls: ['./dashboard1.component.css']
+  styleUrls: ['./dashboard1.component.css'],
+  animations: []
 })
 export class Dashboard1Component implements OnInit {
   public config: PerfectScrollbarConfigInterface = {};
@@ -135,6 +138,8 @@ export class Dashboard1Component implements OnInit {
   ];
   totalInvestimentoValor: any;
   totalRendimentoAcumulado: any;
+
+  valorAnime = true;
 
   constructor(public events: Events, public investiments: InvestimentsService, 
     public pacotes: PacoteService, private ngxService: NgxUiLoaderService, private modalService: NgbModal) {

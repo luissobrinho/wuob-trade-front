@@ -1,5 +1,4 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -34,6 +33,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ConfirmemailComponent } from './confirmemail/confirmemail.component';
 import { ProfileComponent } from './profile/profile/profile.component';
 import { environment } from 'src/environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 //Environment default, define api url and inicialize firebase

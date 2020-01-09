@@ -9,16 +9,17 @@
 
 <router-outlet>
     <app-spinner></app-spinner>
-    <div style="position: relative"> <!-- the position of the parent container must be set to relative -->
+      <div style="position: relative"> 
+        <!-- the position of the parent container must be set to relative -->
         <!-- It is really important to set loaderId for non-master loader -->
         <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader>
       </div>
       
-      <div style="position: relative"> <!-- the position of the parent container must be set to relative -->
+      <div style="position: relative"> 
+        <!-- the position of the parent container must be set to relative -->
         <!-- It is really important to set loaderId for non-master loader -->
         <ngx-ui-loader [loaderId]="'loader-02'"></ngx-ui-loader>
       </div>
-      
       <ngx-ui-loader></ngx-ui-loader> <!-- this is master loader and its loaderId is "master" by default -->
       <!-- Note 1: If you really want to change loaderId of master loader, please use NgxUiLoaderModule.forRoot() method. -->
       <!-- Note 2: Your application can only have ONE master loader.
