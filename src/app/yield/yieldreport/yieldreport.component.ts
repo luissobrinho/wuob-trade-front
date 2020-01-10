@@ -19,6 +19,12 @@ export class YieldreportComponent implements OnInit {
   reorderable = true;
   ColumnMode = ColumnMode;
 
+  totalResidual:number = 0.000000;
+  totalCredit:number = 0.000000;
+  totalDebit:number = 0.000000;
+  totalDirect:number = 0.000000;
+  totalIndirect:number = 0.000000;
+
   columns = [
     { prop: 'valor' ,name:'Value'}, 
     { name: 'Type' ,prop:'tipo'},

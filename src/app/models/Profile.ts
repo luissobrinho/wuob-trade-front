@@ -18,6 +18,7 @@ export interface Profile {
   totalTipoRendimento: TotalTipoRendimento[];
   totalReferencia: number;
   meta: Meta;
+  scores: number;
 }
 
 export interface Meta {
@@ -25,6 +26,8 @@ export interface Meta {
   user_id: number;
   referencia_id: number;
   referencia: string;
+  ticket: number,
+  ticket_premium: number,
   pais?: any;
   phone?: any;
   photo?: any;
