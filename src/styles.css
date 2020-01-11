@@ -7,3 +7,22 @@
 
     cursor: url(src/assets/images/mouse.png), auto !important;
 }
+
+.topbar .navbar-collapse, .topbar{
+    background: #ffffff !important;
+}
+.left-sidebar{
+    background-image: url('assets/images/background/header-bg.jpg') !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position-x: -115px !important;
+    background-position-y: center !important;
+}
+
+.navbar-header .sidebartoggler {
+    color: #655f4782 !important;
+}
+
+#sidebarnav {
+    background: #655f4782 !important;
+}

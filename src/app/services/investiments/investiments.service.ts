@@ -3,9 +3,9 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ApiService } from '../api/api.service';
 import { Events } from '@ionic/angular';
 import { InvestmentResponse, Investments } from 'src/app/models/InvestmentResponse';
-import { Rendimento } from 'src/app/models/rendimento';
-import { reject } from 'q';
-import { resolve } from 'dns';
+import { RendimentoAdapter, Rendimento } from 'src/app/models/rendimento';
+import { map } from 'rxjs/operators'; 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +13,7 @@ export class InvestimentsService {
 
   private _TOKEN: string;
 
-  constructor(private api: ApiService, public events: Events) {
+  constructor(private api: ApiService, public events: Events, private adapter: RendimentoAdapter) {
       this._TOKEN = localStorage.getItem('Authorization')
       events.subscribe('token',(token)=>{
         this._TOKEN = token;
@@ -41,8 +41,6 @@ export class InvestimentsService {
 
   Invest(investiment): Promise<InvestmentResponse> {
 
-    let Investiment = this.mapValue(investiment)
-
     let header = {
       Authorization: `Bearer ${this._TOKEN}`,
       'Content-Type': 'application/json',
@@ -50,7 +48,7 @@ export class InvestimentsService {
     }
 
     return new Promise<InvestmentResponse>((resolve, reject) => {
-      this.api.post('investimento_usuarios', Investiment, header).subscribe((response: InvestmentResponse) => {
+      this.api.post('investimento_usuarios', investiment, header).subscribe((response: InvestmentResponse) => {
         resolve(response)
       }, err => {
         reject(err)
@@ -95,7 +93,25 @@ export class InvestimentsService {
     })
   }
 
-  getDailyChart(): Promise<any> {
+  // getDailyChart(): Promise<Rendimento> {
+
+  //   let header = {
+  //     Authorization: `Bearer ${this._TOKEN}`,
+  //     'Content-Type': 'application/json',
+  //     'Accept': 'application/json',
+  //   }
+
+  //   return new Promise<Rendimento>((resolve,reject)=>{
+  //       this.api.get('user/grafico_diario', {}, header).subscribe((response:Rendimento)=>{
+  //           resolve(response)
+  //       },err=>{
+  //           reject(err)
+  //       })
+  //   })
+  
+  // }
+
+  getDailyChart(): Observable<Rendimento> {
 
     let header = {
       Authorization: `Bearer ${this._TOKEN}`,
@@ -103,14 +119,13 @@ export class InvestimentsService {
       'Accept': 'application/json',
     }
 
-    return new Promise<any>((resolve,reject)=>{
-        this.api.get('user/grafico_diario', {}, header).subscribe((response)=>{
-            resolve(response)
-        },err=>{
-            reject(err)
-        })
-    })
-  
+    return this.api.get('user/grafico_diario', {}, header)
+                    .pipe(
+                      map( (data: any) => data.map( item => this.adapter.adapt(item) 
+                      )
+                    )
+                  )
+    
   }
 
   private mapValue(investiment) {

@@ -25,6 +25,7 @@ export class SignupComponent {
       this.registerForm = this.formBuilder.group({
           name: ['',Validators.compose([Validators.required])],
           username: ['',Validators.compose([Validators.required,Validators.minLength(6)])],
+          hash: ['',Validators.compose([Validators.required])],
           email: ['',Validators.compose([Validators.required,Validators.email])],
           password: ['',Validators.compose([Validators.required,Validators.minLength(8)])],
           password_confirmation: ['',Validators.compose([Validators.required])],
