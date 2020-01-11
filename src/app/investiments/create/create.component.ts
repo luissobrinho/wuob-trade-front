@@ -21,12 +21,12 @@ import { Profile } from 'src/app/models/Profile';
 export class CreateComponent implements OnInit {
 
 
-  @ViewChild('modal', {static: true}) modal;
+  @ViewChild('modal', { static: true }) modal;
 
-  public investimenttypes:[] = [];
+  public investimenttypes: [] = [];
   submitted = false;
-  investimentForm:FormGroup;
-  qrCode:string;
+  investimentForm: FormGroup;
+  qrCode: string;
   address: string;
   amount: string;
   plans: Plan[];
@@ -36,26 +36,26 @@ export class CreateComponent implements OnInit {
   totalQtdInvestiments: any;
   valor_investimento: number;
 
-  constructor(public investiments:InvestimentsService,public events:Events,private ngxService: NgxUiLoaderService,
-    private formBuilder:FormBuilder,public router:Router,private modalService: NgbModal,
+  constructor(public investiments: InvestimentsService, public events: Events, private ngxService: NgxUiLoaderService,
+    private formBuilder: FormBuilder, public router: Router, private modalService: NgbModal,
     public pacotes: PacoteService) { }
 
   ngOnInit() {
     this.user = <Profile>JSON.parse(localStorage.getItem('currentUser'));
     this.investmentsType = this.user.totalTipoRendimento;
     this.totalQtdInvestiments = this.user.totalInvestimento;
-    this.valor_investimento = parseFloat(this.user.investimento.valor);
+    this.valor_investimento = parseFloat((this.user.investimento) ? this.user.investimento.valor : '0');
     this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`;
     this.initForm();
     this.investimentTypes();
     this.Plans();
   }
 
-  initForm(){
-        this.investimentForm = this.formBuilder.group({
-          investimenttype: ['',Validators.compose([Validators.required])],
-          valueinvestiment: ['',Validators.compose([Validators.required,Validators.min(0.001)])],
-        });
+  initForm() {
+    this.investimentForm = this.formBuilder.group({
+      investimenttype: ['', Validators.compose([Validators.required])],
+      valueinvestiment: ['', Validators.compose([Validators.required, Validators.min(0.001)])],
+    });
   }
 
   Plans() {
@@ -69,7 +69,40 @@ export class CreateComponent implements OnInit {
 
   createInvestiment(plan: Plan) {
 
-    if(plan.valor > this.user.investimento.valor){
+    if (this.user.investimento) {
+      if (plan.valor > this.user.investimento.valor) {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "Once processed, you will not be able to recover it!",
+          icon: "warning",
+          showConfirmButton: true,
+          showCancelButton: true
+        }).then((willDelete) => {
+          if (willDelete.value) {
+            this.ngxService.start()
+            this.investiments.Invest({ pacote_id: plan.id }).then((response: InvestmentResponse) => {
+              this.ngxService.stop()
+              this.qrCode = response.qrcode_url
+              this.address = response.address;
+              this.amount = response.amount;
+              let modalRef = this.openModal();
+              modalRef['qrCode'] = response.qrcode_url;
+              modalRef['addnbress'] = response.address;
+            }, err => {
+              this.ngxService.stop()
+              console.log(err)
+            })
+          }
+        });
+      } else {
+        Swal.fire({
+          title: "Opps!",
+          text: "You selecetd a plan smaller than your investiment",
+          icon: "warning",
+          showConfirmButton: true,
+        })
+      }
+    } else {
       Swal.fire({
         title: "Are you sure?",
         text: "Once processed, you will not be able to recover it!",
@@ -93,26 +126,19 @@ export class CreateComponent implements OnInit {
           })
         }
       });
-    }else{
-       Swal.fire({
-        title: "Opps!",
-        text: "You selecetd a plan smaller than your investiment",
-        icon: "warning",
-        showConfirmButton: true,
-      })
     }
-    
+
   }
 
-  investimentTypes(){
-      this.ngxService.start()
-      this.investiments.getInvestimentsType().then((types)=>{
-          this.ngxService.stop()
-          this.investimenttypes = types;
-      },err=>{
-          this.ngxService.stop()
-          this.events.publish('toast', err, 'Erro', null, 'toast-error')
-      })
+  investimentTypes() {
+    this.ngxService.start()
+    this.investiments.getInvestimentsType().then((types) => {
+      this.ngxService.stop()
+      this.investimenttypes = types;
+    }, err => {
+      this.ngxService.stop()
+      this.events.publish('toast', err, 'Erro', null, 'toast-error')
+    })
   }
 
   get f() { return this.investimentForm.controls; }
@@ -141,7 +167,7 @@ export class CreateComponent implements OnInit {
   // }
 
   openModal() {
-    return this.modalService.open(this.modal, { centered: true});
+    return this.modalService.open(this.modal, { centered: true });
   }
 
 }

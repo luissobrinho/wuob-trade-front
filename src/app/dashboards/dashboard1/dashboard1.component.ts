@@ -43,10 +43,10 @@ export interface Chart {
 export class Dashboard1Component implements OnInit {
   public config: PerfectScrollbarConfigInterface = {};
 
-  @ViewChild('modal', {static: true}) modal;
+  @ViewChild('modal', { static: true }) modal;
 
   public plans: Plan[] = [];
-  qrCode:string;
+  qrCode: string;
   address: string;
   amount: string;
 
@@ -63,7 +63,7 @@ export class Dashboard1Component implements OnInit {
   valueInitial: string = "0.00000000";
   totalTicket = 0;
 
-  video: string = "/assets/video/videodashboard2.mp4";
+  video: string = "/clients/assets/video/videodashboard2.mp4";
 
   // options
   showXAxis = true;
@@ -90,12 +90,12 @@ export class Dashboard1Component implements OnInit {
   doughnut = false;
   arcWidth = 0.25;
   rangeFillOpacity = 0.15;
-  
+
   colorScheme = {
     domain: ['#4fc3f7', '#fb8c00', '#7460ee', '#fa5838', '#5ac146', '#137eff']
   };
   schemeType = 'ordinal';
-  
+
   public lineChartData: ChartDataSets[] = [{ label: '', data: [0] }];
 
   public lineChartLabels: Label[] = [];
@@ -140,10 +140,10 @@ export class Dashboard1Component implements OnInit {
     },
   ];
 
-  constructor(public events: Events, public investiments: InvestimentsService, 
+  constructor(public events: Events, public investiments: InvestimentsService,
     public pacotes: PacoteService, private ngxService: NgxUiLoaderService, private modalService: NgbModal) {
 
-    
+
   }
 
   ngOnInit(): void {
@@ -159,15 +159,15 @@ export class Dashboard1Component implements OnInit {
     this.events.subscribe('update:user', (user: any) => {
       this.user = user;
     });
-    
+
   }
 
   public initValuesDashboard() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.investmentsType = this.user.totalTipoRendimento;
     this.totalRendimentoAcumulado = this.user.totalRendimentoAcumulado;
-    this.totalInvestimentoValor = (this.user.investimento.valor * 2);
-    this.totalTicket = this.user.meta.ticket+this.user.meta.ticket_premium;
+    this.totalInvestimentoValor = ((this.user.investimento) ? this.user.investimento.valor : 0 * 2);
+    this.totalTicket = this.user.meta.ticket + this.user.meta.ticket_premium;
     this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`;
     this.dailyChart();
     // this.pieChart();
@@ -195,19 +195,19 @@ export class Dashboard1Component implements OnInit {
   dailyChart() {
     this.investiments.getDailyChart().subscribe(
       (rendimento: Rendimento) => {
-    this.lineChartData = [];
-     
-     let acc = 0.000000;
-     let tamanho = 0;
-     this.dataValor  = (rendimento[0].total_diario).reduce((init, current) => {
-          if(current > 0) {
+        this.lineChartData = [];
+
+        let acc = 0.000000;
+        let tamanho = 0;
+        this.dataValor = (rendimento[0].total_diario).reduce((init, current) => {
+          if (current > 0) {
             tamanho++;
             acc += current;
             init.push(acc);
-          }       
+          }
           return init;
-        },[]);    
-        
+        }, []);
+
         for (let index = 1; index <= tamanho; index++) {
           this.lineChartLabels.push(index.toString() + ' Days');
         }
@@ -215,7 +215,7 @@ export class Dashboard1Component implements OnInit {
         this.lineChartData.push({ data: this.dataValor, label: rendimento[0].valor + ' BTC' });
       }
     );
-    
+
   }
 
   indicatePlans() {
@@ -242,7 +242,7 @@ export class Dashboard1Component implements OnInit {
     this.events.publish('toast', 'Link copied', null, null, null)
   }
 
-  buyTicket(){
+  buyTicket() {
     Swal.fire({
       title: "Are you sure?",
       text: "Once processed, you will not be able to recover it!",
@@ -269,8 +269,41 @@ export class Dashboard1Component implements OnInit {
   }
 
   createInvestiment(plan: Plan) {
-    
-    if(plan.valor > this.user.investimento.valor){
+    if (this.user.investimento) {
+      if (plan.valor > this.user.investimento.valor) {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "Once processed, you will not be able to recover it!",
+          icon: "warning",
+          showConfirmButton: true,
+          showCancelButton: true
+        }).then((willDelete) => {
+          if (willDelete.value) {
+            this.ngxService.start()
+            this.investiments.Invest({ pacote_id: plan.id }).then((response: InvestmentResponse) => {
+              this.ngxService.stop()
+              this.qrCode = response.qrcode_url
+              this.address = response.address;
+              this.amount = response.amount;
+              let modalRef = this.openModal();
+              modalRef['qrCode'] = response.qrcode_url;
+              modalRef['addnbress'] = response.address;
+            }, err => {
+              this.ngxService.stop()
+              console.log(err)
+            })
+          }
+        });
+      } else {
+
+        Swal.fire({
+          title: "Opps!",
+          text: "You selecetd a plan smaller than your investiment",
+          icon: "warning",
+          showConfirmButton: true,
+        })
+      }
+    } else {
       Swal.fire({
         title: "Are you sure?",
         text: "Once processed, you will not be able to recover it!",
@@ -294,16 +327,8 @@ export class Dashboard1Component implements OnInit {
           })
         }
       });
-    }else{
-
-      Swal.fire({
-        title: "Opps!",
-        text: "You selecetd a plan smaller than your investiment",
-        icon: "warning",
-        showConfirmButton: true,
-      })
     }
-    
+
   }
 
   campaing() {
@@ -332,7 +357,7 @@ export class Dashboard1Component implements OnInit {
   }
 
   openModal() {
-    return this.modalService.open(this.modal, { centered: true});
+    return this.modalService.open(this.modal, { centered: true });
   }
 
 }
