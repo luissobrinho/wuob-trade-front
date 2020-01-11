@@ -42,7 +42,7 @@ export class WithdrawComponent implements OnInit {
 
   initValues(){
       let user = JSON.parse(sessionStorage.getItem('currentUser'));
-      this.balance = user.totalSaldo;
+      this.balance = user.totalSaldoIndicacaoDireta;
       this.Wallets()
   }
 

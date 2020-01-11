@@ -1,84 +1,86 @@
 <div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Support Tickets</h4>
-                <div class="row m-t-20">
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-3 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-info text-center">
-                                <h1 class="font-light text-white">2,064</h1>
-                                <h6 class="text-white">Total Tickets</h6>
+    <div class="col-12 m-b-30">
+        <div class="card-deck">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row m-t-20">
+                        <!-- Column -->
+                        <div class="col-md-6 col-lg-3 col-xlg-3">
+                            <div class="card card-hover">
+                                <div class="box bg-info text-center">
+                                    <h1 class="font-light text-white">{{balances?.rendimento | currency:'BTC ':true:'1.1-8'}}</h1>
+                                    <h6 class="text-white">Total Yields</h6>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-3 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-primary text-center">
-                                <h1 class="font-light text-white">1,738</h1>
-                                <h6 class="text-white">Responded</h6>
+                        <!-- Column -->
+                        <div class="col-md-6 col-lg-3 col-xlg-3">
+                            <div class="card card-hover">
+                                <div class="box bg-primary text-center">
+                                    <h1 class="font-light text-white">{{balances?.indicacao | currency:'BTC ':true:'1.1-8'}}</h1>
+                                    <h6 class="text-white">Total Level</h6>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-3 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-success text-center">
-                                <h1 class="font-light text-white">1100</h1>
-                                <h6 class="text-white">Resolve</h6>
+                        <!-- Column -->
+                        <div class="col-md-6 col-lg-3 col-xlg-3">
+                            <div class="card card-hover">
+                                <div class="box bg-success text-center">
+                                    <h1 class="font-light text-white">{{balances?.residual | currency:'BTC ':true:'1.1-8'}}</h1>
+                                    <h6 class="text-white">Total Residual</h6>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Column -->
-                    <div class="col-md-6 col-lg-3 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="box bg-dark text-center">
-                                <h1 class="font-light text-white">964</h1>
-                                <h6 class="text-white">Pending</h6>
+                        <!-- Column -->
+                        <div class="col-md-6 col-lg-3 col-xlg-3">
+                            <div class="card card-hover">
+                                <div class="box bg-dark text-center">
+                                    <h1 class="font-light text-white">{{balances?.saldo | currency:'BTC ':true:'1.1-8'}}</h1>
+                                    <h6 class="text-white">Total Withdraw</h6>
+                                </div>
                             </div>
                         </div>
+                        <!-- Column -->
                     </div>
-                    <!-- Column -->
                 </div>
-
-                <ngx-datatable #table class='material' [columns]="columns" [headerHeight]="50"
-                    [footerHeight]="50" [rowHeight]="'auto'" [rows]='rows' [columnMode]="ColumnMode.force"
-                    [externalPaging]="true" [count]="page.total || 0"
-                    [offset]="(page.current_page - 1)" [limit]="page.per_page || 0" (page)="setPage($event)">
-
-                    <ngx-datatable-column prop="valor" name="Value">
-                        <ng-template let-row="row" ngx-datatable-cell-template>
-                            <span>
-                                {{ row.valor | currency:'BTC ':true:'1.2-8' }}
-                            </span>
-                        </ng-template>
-                    </ngx-datatable-column>
-                    <ngx-datatable-column name="Type" prop="tipo">
-                        <ng-template let-row="row" ngx-datatable-cell-template>
-                                <span *ngIf="row.tipo === 'R'" class="text-success" >Residual</span>
-                                <span *ngIf="row.tipo === 'C'" class="text-success" >Credit</span>
-                                <span *ngIf="row.tipo === 'D'" class="text-danger" >Debit</span>
-                                <span *ngIf="row.tipo === 1" class="text-success" >Direct indication</span>
-                                <span *ngIf="row.tipo > 1" class="text-success" >Indirect indication - {{row.tipo}} Level</span>
-                        </ng-template>
-                    </ngx-datatable-column>
-                    <ngx-datatable-column prop="descricao" name="description">
-                        <ng-template let-row="row" ngx-datatable-cell-template>
-                            <span>{{row.descricao}}</span>
-                        </ng-template>
-                    </ngx-datatable-column>
-                    <ngx-datatable-column prop="created_at" name="Date">
-                            <ng-template let-row="row" ngx-datatable-cell-template>
-                                    <span  >{{row.created_at | date:'MM/dd/yyyy  hh:mm'}}</span>
-                            </ng-template>
-                    </ngx-datatable-column>
-                </ngx-datatable>
-
-
-                                    <!-- <span class="label label-warning">In Progress</span> -->
             </div>
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <ngx-datatable #table class='material' [columns]="columns" [headerHeight]="50"
+        [footerHeight]="50" [rowHeight]="'auto'" [rows]='rows' [columnMode]="ColumnMode.force"
+        [externalPaging]="true" [count]="page.total || 0"
+        [offset]="(page.current_page - 1)" [limit]="page.per_page || 0" (page)="setPage($event)">
+
+        <ngx-datatable-column prop="valor" name="Value">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>
+                    {{ row.valor | currency:'BTC ':true:'1.2-8' }}
+                </span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Type" prop="tipo">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                    <span *ngIf="row.tipo === 'R'" class="label label-success" >Residual</span>
+                    <span *ngIf="row.tipo === 'C'" class="label label-success" >Credit</span>
+                    <span *ngIf="row.tipo === 'D'" class="label label-danger" >Debit</span>
+                    <span *ngIf="row.tipo === 1" class="label label-success" >Direct indication</span>
+                    <span *ngIf="row.tipo > 1" class="label label-success" >Indirect indication - {{row.tipo}} Level</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="descricao" name="description">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span>{{row.descricao}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="created_at" name="Date">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                        <span  >{{row.created_at | date:'MM/dd/yyyy  hh:mm'}}</span>
+                </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
     </div>
 </div>

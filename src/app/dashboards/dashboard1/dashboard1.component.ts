@@ -57,8 +57,11 @@ export class Dashboard1Component implements OnInit {
 
   user: any
   investmentsType: Array<{}>
+  totalInvestimentoValor: any;
+  totalRendimentoAcumulado: any;
   linkReference: string;
   valueInitial: string = "0.00000000";
+  totalTicket = 0;
 
   video: string = "/assets/video/videodashboard2.mp4";
 
@@ -136,10 +139,6 @@ export class Dashboard1Component implements OnInit {
       backgroundColor: [],
     },
   ];
-  totalInvestimentoValor: any;
-  totalRendimentoAcumulado: any;
-
-  valorAnime = true;
 
   constructor(public events: Events, public investiments: InvestimentsService, 
     public pacotes: PacoteService, private ngxService: NgxUiLoaderService, private modalService: NgbModal) {
@@ -168,7 +167,7 @@ export class Dashboard1Component implements OnInit {
     this.investmentsType = this.user.totalTipoRendimento;
     this.totalRendimentoAcumulado = this.user.totalRendimentoAcumulado;
     this.totalInvestimentoValor = (this.user.investimento.valor * 2);
-    
+    this.totalTicket = this.user.meta.ticket+this.user.meta.ticket_premium;
     this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`;
     this.dailyChart();
     // this.pieChart();
@@ -197,7 +196,6 @@ export class Dashboard1Component implements OnInit {
     this.investiments.getDailyChart().subscribe(
       (rendimento: Rendimento) => {
     this.lineChartData = [];
-     console.log(rendimento);
      
      let acc = 0.000000;
      let tamanho = 0;
@@ -242,6 +240,32 @@ export class Dashboard1Component implements OnInit {
     document.execCommand('copy');
     document.body.removeChild(selBox);
     this.events.publish('toast', 'Link copied', null, null, null)
+  }
+
+  buyTicket(){
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Once processed, you will not be able to recover it!",
+      icon: "warning",
+      showConfirmButton: true,
+      showCancelButton: true
+    }).then((willDelete) => {
+      if (willDelete.value) {
+        // this.ngxService.start()
+        // this.investiments.Invest({ pacote_id: plan.id }).then((response: InvestmentResponse) => {
+        //   this.ngxService.stop()
+        //   this.qrCode = response.qrcode_url
+        //   this.address = response.address;
+        //   this.amount = response.amount;
+        //   let modalRef = this.openModal();
+        //   modalRef['qrCode'] = response.qrcode_url;
+        //   modalRef['addnbress'] = response.address;
+        // }, err => {
+        //   this.ngxService.stop()
+        //   console.log(err)
+        // })
+      }
+    });
   }
 
   createInvestiment(plan: Plan) {

@@ -10,10 +10,10 @@
                     <div class="d-flex no-block align-items-center">
                         <div>
                             <i class="mdi mdi-currency-btc font-20"></i>
-                            <p class="font-16 m-b-5">Balance available</p>
+                            <p class="font-16 m-b-5">Balance available 1st Level</p>
                         </div>
                         <div class="ml-auto">
-                            <h1 class="text-success font-light text-right font-22">{{balance}}</h1>
+                            <h1 class="text-success font-light text-right font-22">{{balance | currency:'BTC ':true:'1.1-8'}}</h1>
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
 
                             <div class="form-actions col-12">
                                 <div class="card-body float-right col-4">
-                                    <button type="submit" class="btn btn-block btn-outline-success float-right">
+                                    <button type="submit" [disabled]="balance < 0.0005" class="btn btn-block btn-outline-success float-right">
                                             <i class="fab fa-btc"></i> Withdraw Money</button>
                                 </div>
                             </div>

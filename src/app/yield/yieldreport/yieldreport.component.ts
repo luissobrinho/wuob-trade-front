@@ -4,6 +4,8 @@ import { ColumnMode } from '@swimlane/ngx-datatable';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Events } from '@ionic/angular';
 import { Yield, Yields } from 'src/app/models/Yield';
+import { BalanceService } from 'src/app/services/balance/balance.service';
+import { Balance } from 'src/app/models/balance';
 
 @Component({
   selector: 'app-yieldreport',
@@ -12,6 +14,11 @@ import { Yield, Yields } from 'src/app/models/Yield';
 })
 export class YieldreportComponent implements OnInit {
 
+  user: any
+  investmentsType: Array<{}>
+  totalInvestimentoValor: any;
+  totalRendimentoAcumulado: any;
+
   rows:Yield[] = [];
   page:Yields = {per_page: 0, total: 0, current_page: 0};
 
@@ -19,11 +26,7 @@ export class YieldreportComponent implements OnInit {
   reorderable = true;
   ColumnMode = ColumnMode;
 
-  totalResidual:number = 0.000000;
-  totalCredit:number = 0.000000;
-  totalDebit:number = 0.000000;
-  totalDirect:number = 0.000000;
-  totalIndirect:number = 0.000000;
+  balances: Balance;
 
   columns = [
     { prop: 'valor' ,name:'Value'}, 
@@ -31,10 +34,32 @@ export class YieldreportComponent implements OnInit {
     {name:'Date',prop:'created_at'}
   ];
   @ViewChild(YieldreportComponent, { static: true }) table:YieldreportComponent;
-  constructor(public yields:YieldService,public ngxService: NgxUiLoaderService,public events:Events) { }
+  constructor(public yields:YieldService, public balance:BalanceService,public ngxService: NgxUiLoaderService,public events:Events) { }
 
   ngOnInit() {
-    this.loadTable()
+    
+    this.events.subscribe('update:user', (user: any) => {
+      this.user = user;
+    });
+    this.loadUser();
+    this.loadTable();
+
+    this.balance.getBalance().then(
+      (response:Balance) => {
+        this.balances = (response);
+      }
+    );
+
+    // console.log(this.balances);
+    
+    
+  }
+
+  loadUser() {
+    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.investmentsType = this.user.totalTipoRendimento;
+    this.totalRendimentoAcumulado = this.user.totalRendimentoAcumulado;
+    this.totalInvestimentoValor = (this.user.investimento.valor * 2);
   }
 
   loadTable(){
@@ -43,6 +68,7 @@ export class YieldreportComponent implements OnInit {
       this.ngxService.stop()
       this.rows = response.data;
       this.page = response;
+
     },err=>{
       this.ngxService.stop()
       this.events.publish('toast', err, 'Erro', 10000, 'toast-error')

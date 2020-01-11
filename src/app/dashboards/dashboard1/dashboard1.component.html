@@ -1,8 +1,10 @@
 <ng-template #modal id="modal" let-c="close" let-d="dismiss">
   <div id="modal">
-    <div class="modal-header justify-content-center p-15 bg-danger text-white m-b-10 align-items-center"
+    <div class="modal-header justify-content-center p-15 bg-danger text-white
+      m-b-10 align-items-center"
       style="border-color: grey">
-      <h4 class="modal-title row justify-content-center align-items-center">ATTENTION! Transfer the exact amount of the
+      <h4 class="modal-title row justify-content-center align-items-center">ATTENTION!
+        Transfer the exact amount of the
         transaction.</h4>
     </div>
     <div class="modal-body">
@@ -20,8 +22,8 @@
 <!-- Sales chart -->
 <!-- ============================================================== -->
 <div class="row justify-content-center">
-
-  <div class="col-lg-6">
+  <div class="col-12 m-b-30">
+    <div class="card-deck">
       <div class="card">
         <div class="card-body">
           <div class="d-flex flex-row">
@@ -29,34 +31,34 @@
               <i class="mdi mdi-counter"></i>
             </div>
             <div class="m-l-10">
-              <h4 > <span class="text-muted">Total score : </span>520</h4>
-              <h4 > <span class="text-muted">Tickets available : </span>{{user.meta.ticket+user.meta.ticket_premium}} </h4>
+              <h4> <span class="text-muted">Total score : </span>{{user.scores}}</h4>
+              <h4> <span class="text-muted">Tickets available : </span>{{totalTicket}}
+              </h4>
             </div>
             <div class="m-l-30">
-                <button class="btn btn-outline-info" type="button">Buy Tickets</button>
+              <button class="btn btn-outline-info" type="button">Buy Tickets</button>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-  <div class="col-lg-6">
-    <div class="card">
-      <div class="card-body collapse show" style="padding: 0.85rem">
-        <h4 class="card-title">Invitation link</h4>
-        <p class="card-text">This is your invitation link, copy and send to your investor team.</p>
-        <div class="input-group">
-          <input type="text" class="form-control" value="{{linkReference}}">
-          <div class="input-group-append">
-            <button (click)='copyLink(linkReference)' class="btn btn-outline-success" type="button">Copy link</button>
+      <div class="card">
+        <div class="card-body collapse show" style="padding: 0.85rem">
+          <h4 class="card-title">Invitation link</h4>
+          <p class="card-text">This is your invitation link, copy and send to
+            your investor team.</p>
+          <div class="input-group">
+            <input type="text" class="form-control" value="{{linkReference}}">
+            <div class="input-group-append">
+              <button (click)='copyLink(linkReference)' class="btn
+                btn-outline-success" type="button">Copy link</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<div class="card-group">
+<div class="row">
   <div class="col-lg-3 col-md-6">
     <div class="card">
       <div class="card-body">
@@ -65,7 +67,8 @@
             <i class="ti-wallet"></i>
           </div>
           <div class="m-l-10 align-self-center">
-            <h4 id="balance">{{user.totalSaldo | currency:'BTC ':true:'1.1-8'}}</h4>
+            <h4 id="balance">{{user.totalSaldo | currency:'BTC
+              ':true:'1.1-8'}}</h4>
             <span class="text-muted">Balance available</span>
           </div>
         </div>
@@ -83,7 +86,8 @@
           </div>
           <div class="m-l-10 align-self-center">
             <div class="card-yields-values">
-              <h4 id="yields">{{user.totalRendimento || valueInitial  | currency:'BTC ':true:'1.1-8'}}</h4>
+              <h4 id="yields">{{user.totalRendimento || valueInitial |
+                currency:'BTC ':true:'1.1-8'}}</h4>
             </div>
             <span class="text-muted">yields</span>
           </div>
@@ -95,7 +99,6 @@
   <!-- Column -->
   <!-- Column -->
   <div class="col-lg-3 col-md-6">
-
     <div class="card">
       <div class="card-body">
         <div class="d-flex flex-row">
@@ -109,7 +112,6 @@
         </div>
       </div>
     </div>
-
   </div>
   <!-- Column -->
   <!-- Column -->
@@ -131,33 +133,35 @@
     </div>
   </div>
 </div>
-
 <div class="row">
   <div class="col-lg-6 col-md-12 order-lg-2 order-md-3">
-    
+
     <div class="card">
       <div class="card-body">
-          <h4 class="card-title">Campaign</h4>
-          <div id="campaign" style="height: 168px; width: 100%;" class="m-t-10"></div>
-          <!-- row -->
-          <div class="row text-center text-lg-left">
-              <!-- column -->
-              <!-- column -->
-              <div class="col-4">
-                  <h4 class="m-b-0 font-medium">BTC {{user.totalRendimentoAcumulado | currency:'BTC ':true:'1.1-8'}}</h4>
-                  <span class="text-muted">Yields</span>
-              </div>
-              <!-- column -->
-              <div class="col-4">
-                <h4 class="m-b-0 font-medium">BTC {{(totalInvestimentoValor - user.totalRendimentoAcumulado) | currency:'BTC ':true:'1.1-8'}}</h4>
-                <span class="text-muted">Un-completed</span>
-            </div>
-              <!-- column -->
-              <div class="col-4">
-                <h4 class="m-b-0 font-medium">{{(totalInvestimentoValor) | currency:'BTC ':true:'1.1-8'}}</h4>
-                <span class="text-muted">Total</span>
-            </div>
+        <h4 class="card-title">Campaign</h4>
+        <div id="campaign" style="height: 168px; width: 100%;" class="m-t-10"></div>
+        <!-- row -->
+        <div class="row text-center text-lg-left">
+          <!-- column -->
+          <!-- column -->
+          <div class="col-4">
+            <h4 class="m-b-0 font-medium">BTC {{user.totalRendimentoAcumulado |
+              currency:'BTC ':true:'1.1-8'}}</h4>
+            <span class="text-muted">Yields</span>
           </div>
+          <!-- column -->
+          <div class="col-4">
+            <h4 class="m-b-0 font-medium">BTC {{(totalInvestimentoValor -
+              user.totalRendimentoAcumulado) | currency:'BTC ':true:'1.1-8'}}</h4>
+            <span class="text-muted">Un-completed</span>
+          </div>
+          <!-- column -->
+          <div class="col-4">
+            <h4 class="m-b-0 font-medium">{{(totalInvestimentoValor) |
+              currency:'BTC ':true:'1.1-8'}}</h4>
+            <span class="text-muted">Total</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -171,8 +175,10 @@
               </div>
             </div>
             <div style="display: block;">
-              <canvas baseChart width="400" height="150" [datasets]="lineChartData" [labels]="lineChartLabels"
-                [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+              <canvas baseChart width="400" height="150"
+                [datasets]="lineChartData" [labels]="lineChartLabels"
+                [colors]="lineChartColors" [legend]="lineChartLegend"
+                [chartType]="lineChartType"
                 [plugins]="lineChartPlugins">
               </canvas>
             </div>
@@ -183,54 +189,58 @@
 
   </div>
 
-    <div class="col-lg-6 col-md-12 order-lg-2 order-md-3">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Top Plans</h4>
-          <table class="table browser m-t-30 no-border">
-              <tbody>
-                  <tr *ngFor="let plan of plans">
-                      <td style="width:40px">
-                        <div class="rounded-circle" style="box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);padding: 10px 12px;">
-                          <img src="{{plan.icon}}" class="img-circle" width="50" alt="logo">
-                        </div>
-                      </td>
-                      <td>{{plan.nome}} <br><small>BTC {{plan.valor  | currency:'BTC ':true:'1.1-8'}}</small></td>
-                      <td align="right">
-                        <button (click)='createInvestiment(plan)' class="btn btn-outline-success" type="button" [disabled]="plan.valor <= (user.investimento.valor)" >Invest</button>
-                      </td>
-                  </tr>
-              </tbody>
-          </table>
-        </div>
+  <div class="col-lg-6 col-md-12 order-lg-2 order-md-3">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Top Plans</h4>
+        <table class="table browser m-t-30 no-border">
+          <tbody>
+            <tr *ngFor="let plan of plans">
+              <td style="width:40px">
+                <div class="rounded-circle" style="box-shadow: 0px 3px 10px
+                  rgba(0, 0, 0, 0.5);padding: 10px 12px;">
+                  <img src="{{plan.icon}}" class="img-circle" width="50"
+                    alt="logo">
+                </div>
+              </td>
+              <td>{{plan.nome}} <br><small>BTC {{plan.valor | currency:'BTC
+                  ':true:'1.1-8'}}</small></td>
+              <td align="right">
+                <button (click)='createInvestiment(plan)' class="btn
+                  btn-outline-success" type="button" [disabled]="plan.valor <=
+                  (user.investimento.valor)">Invest</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
+  </div>
 
 
 </div>
 
 <!-- <div class="row"> -->
 
-  <!--Embeds-->
+<!--Embeds-->
 <div class="card">
   <div class="card-body">
-        <h4 class="card-title">Video</h4>
-        <!-- <h6 class="card-subtitle">Quickly manage the layout, alignment, and sizing of grid columns, navigation, components, and more with a full suite of responsive flexbox utilities. For more complex implementations, custom CSS may be necessary.</h6> -->
-      <div class="bd-example">
-          <div class="embed-responsive embed-responsive-4by3">
-              <video class="embed-responsive-item" controls>
-                <source src="{{video}}" type="video/mp4">
-                <source src="{{video}}" type="video/ogg">
-                  Not Suport
-              </video>
-          </div>
+    <h4 class="card-title">Video</h4>
+    <!-- <h6 class="card-subtitle">Quickly manage the layout, alignment, and sizing of grid columns, navigation, components, and more with a full suite of responsive flexbox utilities. For more complex implementations, custom CSS may be necessary.</h6> -->
+    <div class="bd-example">
+      <div class="embed-responsive embed-responsive-4by3">
+        <video class="embed-responsive-item" controls>
+          <source src="{{video}}" type="video/mp4">
+          <source src="{{video}}" type="video/ogg">
+          Not Suport
+        </video>
       </div>
+    </div>
   </div>
-  
+
 </div>
 <!--/Embeds-->
 
 <!-- </div> -->
 
 <!-- Column -->
-
