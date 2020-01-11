@@ -59,7 +59,7 @@ export class YieldreportComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.investmentsType = this.user.totalTipoRendimento;
     this.totalRendimentoAcumulado = this.user.totalRendimentoAcumulado;
-    this.totalInvestimentoValor = (this.user.investimento.valor * 2);
+    this.totalInvestimentoValor = ((this.user.investimento) ? this.user.investimento.valor : 0 * 2);
   }
 
   loadTable(){

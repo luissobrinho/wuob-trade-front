@@ -97,4 +97,8 @@ export class WithdrawComponent implements OnInit {
     return this.modalService.open(this.modal, { centered: true });
   }
 
+  _parseFloat(str: string) {
+    return parseFloat(str);
+  }
+
 }
