@@ -2,30 +2,24 @@
 
 <div class="card-group">
 
-    <!-- Column -->
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="d-flex no-block align-items-center">
-                        <div>
-                            <i class="mdi mdi-currency-btc font-20"></i>
-                            <p class="font-16 m-b-5">Balance available 1st Level</p>
-                        </div>
-                        <div class="ml-auto">
-                            <h1 class="text-success font-light text-right font-22">{{balance | currency:'BTC ':true:'1.1-8'}}</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <!-- <div class="progress">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 85%; height: 6px;"
-                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div> -->
-                </div>
+    <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-row">
+              <div class="round align-self-center round-success">
+                <i class="mdi mdi-arrow-top-right"></i>
+              </div>
+              <div class="m-l-5 align-self-center">
+                <h4 id="investimentos">{{balance | currency:'BTC ':true:'1.1-8'}}</h4>
+                <span class="text-muted">Balance available 1st level</span>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
+
+    <!-- Column -->
+
 
 </div>
 </div>
@@ -73,8 +67,7 @@
 
                             <div class="form-actions col-12">
                                 <div class="card-body float-right col-4">
-                                    <button type="submit" [disabled]="(_parseFloat(balance) < 0.0005)" class="btn btn-block btn-outline-success float-right">
-                                            <i class="fab fa-btc"></i> Withdraw Money</button>
+                                    <button type="submit" [disabled]="(_parseFloat(balance) < 0.0005)" class="btn btn-block btn-outline-success float-right">Withdraw Money</button>
                                 </div>
                             </div>
 

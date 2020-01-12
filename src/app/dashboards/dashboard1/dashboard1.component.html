@@ -67,9 +67,9 @@
       <div class="card-body">
         <div class="d-flex flex-row">
           <div class="round align-self-center round-success">
-            <i class="ti-wallet"></i>
+            <i class="mdi mdi-wallet"></i>
           </div>
-          <div class="m-l-10 align-self-center">
+          <div class="m-l-5 align-self-center">
             <h4 id="balance">{{user.totalSaldo | currency:'BTC
               ':true:'1.1-8'}}</h4>
             <span class="text-muted">Balance available</span>
@@ -85,9 +85,9 @@
       <div class="card-body">
         <div class="d-flex flex-row">
           <div class="round align-self-center round-info">
-            <i class="ti-stats-up"></i>
+            <i class="mdi mdi-chart-line"></i>
           </div>
-          <div class="m-l-10 align-self-center">
+          <div class="m-l-5 align-self-center">
             <div class="card-yields-values">
               <h4 id="yields">{{user.totalRendimento || valueInitial |
                 currency:'BTC ':true:'1.1-8'}}</h4>
@@ -106,10 +106,10 @@
       <div class="card-body">
         <div class="d-flex flex-row">
           <div class="round align-self-center round-success">
-            <i class="icon-cursor"></i>
+            <i class="mdi mdi-arrow-top-right"></i>
           </div>
-          <div class="m-l-10 align-self-center">
-            <h4 id="investimentos">{{user.totalSaldoIndicacaoDireta}}</h4>
+          <div class="m-l-5 align-self-center">
+            <h4 id="investimentos">{{user.totalSaldoIndicacaoDireta | currency:'BTC ':true:'1.1-8'}}</h4>
             <span class="text-muted">1st level balance</span>
           </div>
         </div>
@@ -125,7 +125,7 @@
           <div class="round align-self-center round-danger">
             <i class="mdi mdi-block-helper"></i>
           </div>
-          <div class="m-l-10 align-self-center">
+          <div class="m-l-5 align-self-center">
             <div id="teste">
               <h4>{{user.totalBloqueado | currency:'BTC ':true:'1.1-8'}}</h4>
             </div>
@@ -206,12 +206,11 @@
                     alt="logo">
                 </div>
               </td>
-              <td>{{plan.nome}} <br><small>BTC {{plan.valor | currency:'BTC
-                  ':true:'1.1-8'}}</small></td>
+              <td>{{plan.nome}} <br><small>{{plan.valor | currency:'BTC ':true:'1.1-8'}}</small></td>
               <td align="right">
                 <button (click)='createInvestiment(plan)' class="btn
                   btn-outline-success" type="button" [disabled]="plan.valor <=
-                  (user.investimento.valor)">Invest</button>
+                  (investimentoValor)">Invest</button>
               </td>
             </tr>
           </tbody>

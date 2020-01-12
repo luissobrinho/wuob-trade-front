@@ -34,9 +34,9 @@
             </div>
             <div class="m-t-40 align-self-center">
               <div class="card-yields-values">
-                <h4 id="yields">{{plan.nome}}<br><small>BTC {{plan.valor | currency:'BTC ':true:'1.1-8'}}</small></h4>
+                <h4 id="yields">{{plan.nome}}<br><small>{{plan.valor | currency:'BTC ':true:'1.1-8'}}</small></h4>
               </div>
-              <span class="text-muted"><button (click)='createInvestiment(plan)' class="btn btn-outline-success" type="button" [disabled]="plan.valor <= (user.investimento.valor)" >Invest</button></span>
+              <span class="text-muted"><button (click)='createInvestiment(plan)' class="btn btn-outline-success" type="button" [disabled]="plan.valor <= (investimentoValor)" >Invest</button></span>
             </div>
           </div>  
 

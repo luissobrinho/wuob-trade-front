@@ -61,6 +61,7 @@ export class Dashboard1Component implements OnInit {
   investmentsType: Array<{}>
   totalInvestimentoValor: any;
   totalRendimentoAcumulado: any;
+  investimentoValor: string | number;
   linkReference: string;
   valueInitial: string = "0.00000000";
   totalTicket = 0;
@@ -172,6 +173,7 @@ export class Dashboard1Component implements OnInit {
     this.investmentsType = this.user.totalTipoRendimento;
     this.totalRendimentoAcumulado = this.user.totalRendimentoAcumulado;
     this.totalInvestimentoValor = ((this.user.investimento) ? this.user.investimento.valor : 0 * 2);
+    this.investimentoValor = (this.user.investimento) ? this.user.investimento.valor : 0;
     this.totalTicket = this.user.meta.ticket + this.user.meta.ticket_premium;
     this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`;
     this.getTicket();
@@ -205,20 +207,46 @@ export class Dashboard1Component implements OnInit {
 
         let acc = 0.000000;
         let tamanho = 0;
-        this.dataValor = (rendimento[0].total_diario).reduce((init, current) => {
-          if (current > 0) {
-            tamanho++;
-            acc += current;
-            init.push(acc);
-          }
-          return init;
-        }, []);
 
+        if( typeof rendimento[0] !== 'undefined'){
+        
+          this.dataValor = (rendimento[0].total_diario).reduce((init, current) => {
+            if (current > 0) {
+              tamanho++;
+              acc += current;
+              init.push(acc);
+            }
+            return init;
+          }, []);
+        
+          for (let index = 1; index <= tamanho; index++) {
+            this.lineChartLabels.push(index.toString() + ' Days');
+          }
+
+          this.lineChartData.push({ data: this.dataValor, label: rendimento[0].valor + ' BTC' });
+        } else {
+
+          this.lineChartData = [];
+          this.dataValor = [];
+          let tamanho = 0;
+          for (let index = 1; index <= tamanho; index++) {
+            this.lineChartLabels.push(index.toString() + ' Days');
+          }
+
+          this.lineChartData.push({ data: this.dataValor, label: 0 + ' BTC' });
+
+        }
+
+      }, err => {
+        this.lineChartData = [];
+        this.dataValor = [];
+        let tamanho = 0;
         for (let index = 1; index <= tamanho; index++) {
           this.lineChartLabels.push(index.toString() + ' Days');
         }
 
-        this.lineChartData.push({ data: this.dataValor, label: rendimento[0].valor + ' BTC' });
+        this.lineChartData.push({ data: this.dataValor, label: 0 + ' BTC' });
+
       }
     );
 
@@ -354,12 +382,15 @@ export class Dashboard1Component implements OnInit {
   }
 
   campaing() {
+
+    let totalUncomplete = (this.totalInvestimentoValor - this.totalRendimentoAcumulado) == 0 ? 100 : (this.totalInvestimentoValor - this.totalRendimentoAcumulado);
+
     const chart1 = c3.generate({
       bindto: '#campaign',
       data: {
         columns: [
           ['Yields', this.totalRendimentoAcumulado],
-          ['Un-complete', (this.totalInvestimentoValor - this.totalRendimentoAcumulado)]
+          ['Un-complete', totalUncomplete]
         ],
         type: 'donut'
       },

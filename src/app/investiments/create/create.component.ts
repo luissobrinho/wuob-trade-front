@@ -35,6 +35,7 @@ export class CreateComponent implements OnInit {
   linkReference: string;
   totalQtdInvestiments: any;
   valor_investimento: number;
+  investimentoValor: string | number;
 
   constructor(public investiments: InvestimentsService, public events: Events, private ngxService: NgxUiLoaderService,
     private formBuilder: FormBuilder, public router: Router, private modalService: NgbModal,
@@ -45,6 +46,7 @@ export class CreateComponent implements OnInit {
     this.investmentsType = this.user.totalTipoRendimento;
     this.totalQtdInvestiments = this.user.totalInvestimento;
     this.valor_investimento = parseFloat((this.user.investimento) ? this.user.investimento.valor : '0');
+    this.investimentoValor = (this.user.investimento) ? this.user.investimento.valor : 0;
     this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`;
     this.initForm();
     this.investimentTypes();
