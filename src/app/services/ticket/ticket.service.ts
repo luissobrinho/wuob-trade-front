@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { Events } from '@ionic/angular';
-import { Balance } from 'src/app/models/balance';
+import { Ticket } from 'src/app/models/Ticket';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BalanceService {
+export class TicketService {
 
   private _TOKEN: string;
 
@@ -17,7 +17,7 @@ export class BalanceService {
       })
   }
 
-  getBalance():Promise<Balance>{
+  getTicket():Promise<Object>{
 
     let header = {
       Authorization: `Bearer ${this._TOKEN}`,
@@ -25,13 +25,19 @@ export class BalanceService {
       'Accept': 'application/json',
     }
 
-    return new Promise<Balance>((resolve,reject)=>{
-      this.api.get('user/balanco',{},header).subscribe((response:Balance)=>{
-          resolve(response)
-      },err=>{
-          reject(err)
-      })
-    })
+    return this.api.get('pacote_tickets',{},header).toPromise();
+    
   }
 
+  buyTicket(ticket_id):Promise<Object> {
+
+    let header = {
+      Authorization: `Bearer ${this._TOKEN}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    }
+
+    return this.api.get('pacote_tickets/buy-ticket/'+ticket_id,{},header).toPromise();
+  }
+  
 }

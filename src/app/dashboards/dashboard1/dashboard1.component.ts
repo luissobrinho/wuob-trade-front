@@ -20,6 +20,8 @@ import { InvestmentResponse } from 'src/app/models/InvestmentResponse';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
+import { TicketService } from 'src/app/services/ticket/ticket.service';
+import { Tickets, Ticket } from 'src/app/models/Ticket';
 
 
 
@@ -62,6 +64,7 @@ export class Dashboard1Component implements OnInit {
   linkReference: string;
   valueInitial: string = "0.00000000";
   totalTicket = 0;
+  public tickets: Ticket[] = [];
 
   video: string = "/clients/assets/video/videodashboard2.mp4";
 
@@ -140,11 +143,13 @@ export class Dashboard1Component implements OnInit {
     },
   ];
 
-  constructor(public events: Events, public investiments: InvestimentsService,
-    public pacotes: PacoteService, private ngxService: NgxUiLoaderService, private modalService: NgbModal) {
-
-
-  }
+  constructor(
+    public events: Events, 
+    public investiments: InvestimentsService,
+    public pacotes: PacoteService,
+    public ticketService: TicketService, 
+    private ngxService: NgxUiLoaderService, 
+    private modalService: NgbModal) {}
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -169,10 +174,11 @@ export class Dashboard1Component implements OnInit {
     this.totalInvestimentoValor = ((this.user.investimento) ? this.user.investimento.valor : 0 * 2);
     this.totalTicket = this.user.meta.ticket + this.user.meta.ticket_premium;
     this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`;
-    this.dailyChart();
-    // this.pieChart();
+    this.getTicket();
     this.indicatePlans();
     this.campaing();
+    this.dailyChart();
+    // this.pieChart();
   }
 
   pieChart() {
@@ -218,6 +224,18 @@ export class Dashboard1Component implements OnInit {
 
   }
 
+  getTicket() {
+    this.ticketService.getTicket().then(
+      (ticket: Tickets) => {
+        this.tickets = ticket.data;
+        // console.log(this.tickets);
+      }, err => {
+        console.log(err);
+      }
+    )
+    
+  }
+
   indicatePlans() {
     this.pacotes.getIndicatePlans().then(
       (plans: Plans) => {
@@ -242,7 +260,7 @@ export class Dashboard1Component implements OnInit {
     this.events.publish('toast', 'Link copied', null, null, null)
   }
 
-  buyTicket() {
+  buyTicket(ticket: Ticket) {
     Swal.fire({
       title: "Are you sure?",
       text: "Once processed, you will not be able to recover it!",
@@ -251,19 +269,23 @@ export class Dashboard1Component implements OnInit {
       showCancelButton: true
     }).then((willDelete) => {
       if (willDelete.value) {
-        // this.ngxService.start()
-        // this.investiments.Invest({ pacote_id: plan.id }).then((response: InvestmentResponse) => {
-        //   this.ngxService.stop()
-        //   this.qrCode = response.qrcode_url
-        //   this.address = response.address;
-        //   this.amount = response.amount;
-        //   let modalRef = this.openModal();
-        //   modalRef['qrCode'] = response.qrcode_url;
-        //   modalRef['addnbress'] = response.address;
-        // }, err => {
-        //   this.ngxService.stop()
-        //   console.log(err)
-        // })
+        this.ngxService.start()
+        this.ticketService.buyTicket(ticket.id).then((response) => {
+          this.ngxService.stop();
+          Swal.fire(
+            'Great!',
+            'You have new tickets enable',
+            'success'
+          )
+        }, 
+        err => {
+          this.ngxService.stop();
+          Swal.fire(
+            'Opps!',
+            err,
+            'warning'
+          )
+        })
       }
     });
   }
@@ -357,7 +379,7 @@ export class Dashboard1Component implements OnInit {
   }
 
   openModal() {
-    return this.modalService.open(this.modal, { centered: true });
+    return this.modalService.open(this.modal, { centered: true, keyboard: false });
   }
 
 }

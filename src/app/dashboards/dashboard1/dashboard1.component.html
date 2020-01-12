@@ -10,7 +10,7 @@
     <div class="modal-body">
       <img src="{{qrCode}}">
       <span> {{ address }} </span>
-      <h4> {{ amount | currency:true:'BTC ':'1.8-8' }} </h4>
+      <h4> {{ amount | currency:true:'BTC ':'1.8-8'}} </h4>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-success" (click)="c('Close click')">Close</button>
@@ -35,8 +35,11 @@
               <h4> <span class="text-muted">Tickets available : </span>{{totalTicket}}
               </h4>
             </div>
-            <div class="m-l-30">
-              <button class="btn btn-outline-info" type="button">Buy Tickets</button>
+            <div class="m-l-30" *ngFor="let ticket of tickets">
+              <button 
+                (click)='buyTicket(ticket)' 
+                class="btn btn-outline-info" 
+                type="button">Buy {{ticket.quantidade | number:'1.0-0'}} Tickets</button>
             </div>
           </div>
         </div>
