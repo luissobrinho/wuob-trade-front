@@ -64,7 +64,7 @@ export class Dashboard1Component implements OnInit {
   investimentoValor: string | number;
   linkReference: string;
   valueInitial: string = "0.00000000";
-  totalTicket = 0;
+  totalTicket: number = 0;
   public tickets: Ticket[] = [];
 
   video: string = "/clients/assets/video/videodashboard2.mp4";
@@ -172,7 +172,7 @@ export class Dashboard1Component implements OnInit {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.investmentsType = this.user.totalTipoRendimento;
     this.totalRendimentoAcumulado = this.user.totalRendimentoAcumulado;
-    this.totalInvestimentoValor = ((this.user.investimento) ? this.user.investimento.valor : 0 * 2);
+    this.totalInvestimentoValor = ((this.user.investimento) ? this.user.investimento.valor * 2 : 0 * 2);
     this.investimentoValor = (this.user.investimento) ? this.user.investimento.valor : 0;
     this.totalTicket = this.user.meta.ticket + this.user.meta.ticket_premium;
     this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`;
@@ -298,13 +298,15 @@ export class Dashboard1Component implements OnInit {
     }).then((willDelete) => {
       if (willDelete.value) {
         this.ngxService.start()
-        this.ticketService.buyTicket(ticket.id).then((response) => {
-          this.ngxService.stop();
-          Swal.fire(
-            'Great!',
-            'You have new tickets enable',
-            'success'
-          )
+        this.ticketService.buyTicket(ticket.id).then(
+          (response:any) => {
+            this.ngxService.stop();
+            Swal.fire(
+              'Great!',
+              response,
+              'success'
+            )
+            this.totalTicket += +ticket.quantidade;
         }, 
         err => {
           this.ngxService.stop();
@@ -383,7 +385,7 @@ export class Dashboard1Component implements OnInit {
 
   campaing() {
 
-    let totalUncomplete = (this.totalInvestimentoValor - this.totalRendimentoAcumulado) == 0 ? 100 : (this.totalInvestimentoValor - this.totalRendimentoAcumulado);
+    let totalUncomplete = (typeof this.user.investimento == 'undefined') ? 100 : (this.totalInvestimentoValor - this.totalRendimentoAcumulado);
 
     const chart1 = c3.generate({
       bindto: '#campaign',
