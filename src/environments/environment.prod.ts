@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  urlApi: 'http://api.wuob.trade/api/v1/',
+  urlApi: 'https://api.wuob.trade/api/v1/',
   firebaseConfig: {
     apiKey: "AIzaSyC-gsIybRxDiDOmUGFJheHDEOSgHG-6qs4",
     authDomain: "trade-dbbf3.firebaseapp.com",
@@ -10,5 +10,5 @@ export const environment = {
     messagingSenderId: "615076606227",
     appId: "1:615076606227:web:b2dd9ae3a71f8149e3eae6"
   },
-  urlAngular: 'http://wuob.trade/clients/authentication/signup'
+  urlAngular: 'https://wuob.trade/clients/authentication/signup'
 };
