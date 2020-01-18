@@ -7,6 +7,7 @@ import { Wallets } from 'src/app/models/Wallet';
 import { Events } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ColumnMode } from '@swimlane/ngx-datatable';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-walletslist',
@@ -17,6 +18,7 @@ export class WalletslistComponent implements OnInit {
 
   page: Wallets = {per_page: 0, total: 0, current_page: 0};
   rows: Wallet[] = [];
+  wallet: Wallet;
 
   loadingIndicator = true;
   reorderable = true;
@@ -24,6 +26,7 @@ export class WalletslistComponent implements OnInit {
   columns = [
     { prop: 'nome', name: 'Name'},
     { name: 'hash', prop: 'Hash'},
+    { name: 'hash_new', prop: 'HashNew'},
     { prop: 'Action'}
   ];
   @ViewChild(ReportComponent, { static: true }) table: ReportComponent;
@@ -83,5 +86,32 @@ export class WalletslistComponent implements OnInit {
     this.router.navigate([`/loot/wallet-edit/${row.id}`])
   }
 
+  tokenConfirm(row: Wallet){
+    Swal.fire({
+      title: "Enter your token confirmation",
+      input: 'text',
+      showCancelButton: true,
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to write something!'
+        }else{
+          this.ngxService.start();
+          this.loot.activeWallet(row, {token:value}).then(
+            (res) => {
+              this.events.publish('toast', 'Wallet updated with success', 'Success', 10000, 'toast-success')
+        
+              this.loadTable()
+        
+            }, err => {
+              this.ngxService.stop()
+              this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
+            }).catch((err) => {
+              this.ngxService.stop()
+              this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
+            })
+        }
+      }
+    })
+  }
 
 }

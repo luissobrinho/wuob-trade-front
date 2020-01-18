@@ -18,6 +18,8 @@ export interface Wallet {
   nome: string;
   user_id: number;
   hash: string;
+  hash_new: string,
+  token:string,
   created_at: string;
   updated_at: string;
   deleted_at?: any;
