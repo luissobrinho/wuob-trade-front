@@ -6,7 +6,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Wallet } from 'src/app/models/Wallet';
-import { HttpErrorResponse } from '@angular/common/http';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-wallet-edit',
@@ -19,8 +19,10 @@ export class WalletEditComponent implements OnInit {
 
   submitted = false;
   walletForm: FormGroup;
+  hasEdit = false;
   nome: string;
   hash: string;
+  hash_new:string;
   id:number;
   wallet:Wallet;
 
@@ -43,7 +45,12 @@ export class WalletEditComponent implements OnInit {
       hash: ['', Validators.compose([Validators.required])],
     });
     this.loot.getWallet(this.id).then((wallet: Wallet) => {
-      // this.getWallet(this.id);
+      
+      this.hash_new = (wallet.hash_new) ? wallet.hash_new : '';
+      if(this.hash_new.length > 0) {
+        this.hasEdit = true;
+      }
+
       this.walletForm.setValue({
           nome: wallet.nome,
           hash: wallet.hash
@@ -61,24 +68,70 @@ export class WalletEditComponent implements OnInit {
     if (this.walletForm.invalid) {
       return;
     }
-    this.ngxService.start();
 
-    this.loot.updateWallet(this.id, this.walletForm.value).then((response: Wallet) => {
-      // console.log(response);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Once processed, you will not be able to recover it!",
+      icon: "warning",
+      showConfirmButton: true,
+      showCancelButton: true
+    })
+    .then((willDelete) => {
+      if (willDelete.value) {
+        this.ngxService.start()
 
-      this.ngxService.stop();
-      this.nome = response.nome;
-      this.hash = response.hash;
-      this.events.publish('toast', 'Wallet updated with success', 'Success', 10000, 'toast-success');
-      this.router.navigate([`/loot/wallets`]);
-    }).catch((err: HttpErrorResponse) => {
+        this.nome = this.walletForm.value.nome;
+        this.hash_new = this.walletForm.value.hash;
 
-      this.ngxService.stop();
-      this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
-    }), err => {
-      this.ngxService.stop();
-      this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
-    }
+        this.loot.updateWallet(this.id, {nome: this.nome, hash_new: this.hash_new}).then(
+          (response: Wallet) => {
+            this.ngxService.stop();
+            this.loot.getWallet(this.id).then(
+              (wallet: Wallet) => {
+                this.tokenConfirm(wallet);
+              }
+            )
+
+            
+        }, 
+        err => {
+          this.ngxService.stop();
+          Swal.fire(
+            'Opps!',
+            err,
+            'warning'
+          )
+        })
+      }
+    });
+  }
+
+  tokenConfirm(row: Wallet){
+    Swal.fire({
+      title: "Check your email and enter token validation",
+      input: 'text',
+      showCancelButton: true,
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to write something!'
+        }else{
+          this.ngxService.start();
+          this.loot.activeWallet(row, {token:value}).then(
+            (res) => {
+              this.events.publish('toast', 'Wallet updated with success', 'Success', 10000, 'toast-success')
+        
+              this.ngxService.stop()
+        
+            }, err => {
+              this.ngxService.stop()
+              this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
+            }).catch((err) => {
+              this.ngxService.stop()
+              this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
+            })
+        }
+      }
+    })
   }
 
   initValues() {

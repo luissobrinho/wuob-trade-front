@@ -18,11 +18,9 @@ import Swal from 'sweetalert2'
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { InvestmentResponse } from 'src/app/models/InvestmentResponse';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
-import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 import { TicketService } from 'src/app/services/ticket/ticket.service';
 import { Tickets, Ticket } from 'src/app/models/Ticket';
-
+import { LootService } from 'src/app/services/loot/loot.service';
 
 
 declare var require: any;
@@ -144,11 +142,14 @@ export class Dashboard1Component implements OnInit {
     },
   ];
 
+  hash_new: string;
+
   constructor(
     public events: Events, 
     public investiments: InvestimentsService,
     public pacotes: PacoteService,
     public ticketService: TicketService, 
+    private loot: LootService,
     private ngxService: NgxUiLoaderService, 
     private modalService: NgbModal) {}
 
@@ -181,7 +182,20 @@ export class Dashboard1Component implements OnInit {
     this.campaing();
     this.dailyChart();
     // this.pieChart();
+    this.checkWalletNewHash();
   }
+
+
+  checkWalletNewHash() {
+    this.loot.checkNewhashWallets()
+      .then((response: string) => {
+        this.hash_new =  (response) ? response : null; 
+        if(this.hash_new){
+          this.events.publish('toast', 'Pending wallet token verification', 'Warning !', 60000, 'toast-warning')
+        }
+      });  
+  }
+
 
   pieChart() {
     this.user.totalTipoRendimento.forEach(invest => {

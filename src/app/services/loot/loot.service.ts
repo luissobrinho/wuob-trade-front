@@ -38,6 +38,25 @@ export class LootService {
     })
   }
 
+   checkNewhashWallets(): Promise<string> {
+
+    let header = {
+      Authorization: `Bearer ${this._TOKEN}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    }
+
+    return new Promise((resolve, reject) => {
+
+      this.api.get('carteiras', {}, header).subscribe((response: Wallets) => {
+        resolve(response.data[0].hash_new)
+      }, err => {
+        reject(err);
+      })
+
+    })
+  }
+
   getWalletsPages(url: string): Promise<Wallets> {
 
     let header = {
@@ -76,7 +95,7 @@ export class LootService {
     })
   }
 
-  updateWallet(idForm, data): Promise<Wallet> {
+  updateWallet(idForm, data): Promise<any> {
 
     let header = {
       Authorization: `Bearer ${this._TOKEN}`,
@@ -86,7 +105,26 @@ export class LootService {
 
     return new Promise((resolve, reject) => {
 
-      this.api.put(`carteiras/${idForm}`, data, header).subscribe((response: Wallet) => {
+      this.api.put(`carteiras/${idForm}`, data, header).subscribe((response: any) => {
+        resolve(response)
+      }, err => {
+        reject(err);
+      })
+
+    })
+  }
+
+  activeWallet(wallet: Wallet, inputToken: {}): Promise<any> {
+
+    let header = {
+      Authorization: `Bearer ${this._TOKEN}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    }
+
+    return new Promise((resolve, reject) => {
+
+      this.api.put(`carteiras/${wallet.id}/active`, inputToken, header).subscribe((response: any) => {
         resolve(response)
       }, err => {
         reject(err);
