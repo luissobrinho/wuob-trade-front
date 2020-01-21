@@ -18,6 +18,13 @@
   </div>
 </ng-template>
 
+<div *ngIf="accountAlert.show">
+  <ngb-alert [type]="accountAlert.type">
+    <strong>Warning!</strong> {{accountAlert.message}}
+  </ngb-alert>    
+</div>
+
+
 <!-- ============================================================== -->
 <!-- Sales chart -->
 <!-- ============================================================== -->

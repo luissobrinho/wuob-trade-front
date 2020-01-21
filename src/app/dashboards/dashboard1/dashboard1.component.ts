@@ -55,7 +55,7 @@ export class Dashboard1Component implements OnInit {
   dateDataWithRange: any[];
   range = false;
 
-  user: any
+  user: any;
   investmentsType: Array<{}>
   totalInvestimentoValor: any;
   totalRendimentoAcumulado: any;
@@ -143,7 +143,11 @@ export class Dashboard1Component implements OnInit {
   ];
 
   hash_new: string;
-
+  accountAlert = {
+    show:false,
+    type:'success',
+    message:'----'
+  }
   constructor(
     public events: Events, 
     public investiments: InvestimentsService,
@@ -171,6 +175,13 @@ export class Dashboard1Component implements OnInit {
 
   public initValuesDashboard() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
+    if(!this.user.investiments) {
+      this.accountAlert.show = true;
+      this.accountAlert.type = 'danger';
+      this.accountAlert.message = ' Make your investment to start yielding !!! '
+    }
+    
+
     this.investmentsType = this.user.totalTipoRendimento;
     this.totalRendimentoAcumulado = this.user.totalRendimentoAcumulado;
     this.totalInvestimentoValor = ((this.user.investimento) ? this.user.investimento.valor * 2 : 0 * 2);
