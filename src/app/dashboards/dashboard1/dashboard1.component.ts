@@ -175,7 +175,7 @@ export class Dashboard1Component implements OnInit {
 
   public initValuesDashboard() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    if(!this.user.investiments) {
+    if(!this.user.investimento) {
       this.accountAlert.show = true;
       this.accountAlert.type = 'danger';
       this.accountAlert.message = ' Make your investment to start yielding !!! '
