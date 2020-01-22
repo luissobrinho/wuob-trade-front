@@ -4,7 +4,9 @@
         "OPTIONLANG":"Sélectionnez la langue"
     },
     "MENU": {
-        "DASHBOARD": "Tableau de bord",
+        "DASHBOARD": {
+            "TITLE": "Tableau de Bord"
+         },
         "INVESTMENTS": "Investissements",
         "WITHDRAWALS": "Retraits",
         "NETWORK":"Réseau",

@@ -27,6 +27,19 @@
     background: #655f4782 !important;
 }
 
+.topbar .nav-toggler, .topbar .topbartoggler {
+    color: darkgreen !important;
+    padding: 0 15px !important;
+}
+
 .mdi {
     font-size: large !important;
+}
+
+.mailbox .message-center {
+    height: auto !important;
+}
+
+.bg-primary {
+    background-color: #afb5c1;
 }
