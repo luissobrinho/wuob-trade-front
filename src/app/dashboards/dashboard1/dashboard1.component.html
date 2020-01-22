@@ -18,9 +18,9 @@
   </div>
 </ng-template>
 
-<div *ngIf="accountAlert.show">
-  <ngb-alert [type]="accountAlert.type">
-    <strong>Warning!</strong> {{accountAlert.message}}
+<div *ngIf="accountAlert[3].show">
+  <ngb-alert [type]="accountAlert[3].type" (close)="closeAlertAccount(accountAlert[3])">
+    <strong>Warning!</strong> {{accountAlert[3].message}}
   </ngb-alert>    
 </div>
 

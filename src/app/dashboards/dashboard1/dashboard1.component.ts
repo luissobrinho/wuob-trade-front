@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import * as c3 from 'c3';
 import * as d3 from 'd3';
@@ -21,6 +21,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TicketService } from 'src/app/services/ticket/ticket.service';
 import { Tickets, Ticket } from 'src/app/models/Ticket';
 import { LootService } from 'src/app/services/loot/loot.service';
+import { IAlert } from 'src/app/models/alert';
 
 
 declare var require: any;
@@ -44,6 +45,7 @@ export class Dashboard1Component implements OnInit {
   public config: PerfectScrollbarConfigInterface = {};
 
   @ViewChild('modal', { static: true }) modal;
+  @Input() public accountAlert: Array<IAlert> = [];
 
   public plans: Plan[] = [];
   qrCode: string;
@@ -143,11 +145,6 @@ export class Dashboard1Component implements OnInit {
   ];
 
   hash_new: string;
-  accountAlert = {
-    show:false,
-    type:'success',
-    message:'----'
-  }
   constructor(
     public events: Events, 
     public investiments: InvestimentsService,
@@ -155,7 +152,36 @@ export class Dashboard1Component implements OnInit {
     public ticketService: TicketService, 
     private loot: LootService,
     private ngxService: NgxUiLoaderService, 
-    private modalService: NgbModal) {}
+    private modalService: NgbModal) {
+
+      this.accountAlert.push(
+        {
+          id: 1,
+          show: false,
+          type: 'success',
+          message: 'This is an success alert'
+        },
+        {
+          id: 2,
+          show: false,
+          type: 'info',
+          message: 'This is an info alert'
+        },
+        {
+          id: 3,
+          show: false,
+          type: 'warning',
+          message: 'This is a warning alert'
+        },
+        {
+          id: 4,
+          show: false,
+          type: 'danger',
+          message: 'Make your investment to start yielding !!!'
+        }
+      );
+
+    }
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -176,9 +202,7 @@ export class Dashboard1Component implements OnInit {
   public initValuesDashboard() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     if(!this.user.investimento) {
-      this.accountAlert.show = true;
-      this.accountAlert.type = 'danger';
-      this.accountAlert.message = ' Make your investment to start yielding !!! '
+      this.accountAlert[3].show = true;
     }
     
 
@@ -196,7 +220,9 @@ export class Dashboard1Component implements OnInit {
     this.checkWalletNewHash();
   }
 
-
+  public closeAlertAccount(alert: IAlert) {
+    this.accountAlert[3].show = false;
+  }
   checkWalletNewHash() {
     this.loot.checkNewhashWallets()
       .then((response: string) => {
