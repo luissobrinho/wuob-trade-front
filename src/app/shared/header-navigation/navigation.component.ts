@@ -45,7 +45,7 @@ export class NavigationComponent implements AfterViewInit {
       btn: '',
       icon: 'flag-icon flag-icon-us',
       title: 'United States',
-      language: 'us'
+      language: 'en'
     },
     {
       btn: '',
@@ -113,7 +113,7 @@ export class NavigationComponent implements AfterViewInit {
   }
 
   translate(language) {
-    this.translationService.configLang(language);
+    this.translationService.translate.use(language);
   }
 
 }

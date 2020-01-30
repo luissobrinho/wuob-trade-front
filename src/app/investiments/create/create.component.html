@@ -4,8 +4,9 @@
   <div id="modal">
     <div class="modal-header justify-content-center p-15 bg-danger text-white m-b-10 align-items-center"
       style="border-color: grey">
-      <h4 class="modal-title row justify-content-center align-items-center">ATTENTION! Transfer the exact amount of the
-        transaction.</h4>
+      <h4 class="modal-title row justify-content-center align-items-center">{{ 'INVESTIMENTS.CREATE.HTML.MODAL.WARNING' | translate }}
+        {{ 'INVESTIMENTS.CREATE.HTML.MODAL.TITLE' | translate }}
+      </h4>
     </div>
     <div class="modal-body">
       <img src="{{qrCode}}">
@@ -13,7 +14,7 @@
       <h4> {{ amount | currency:true:'BTC ':'1.8-8' }} </h4>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-success" (click)="c('Close click')">Close</button>
+      <button type="button" class="btn btn-success" (click)="c('Close click')">{{ 'INVESTIMENTS.CREATE.HTML.MODAL.CLOSE' | translate }}</button>
     </div>
   </div>
 </ng-template>
@@ -29,14 +30,14 @@
         <div class="d-flex flex-row">
 
           <div class="col-lg-12 text-center">
-            <div class="rounded-circle" style="box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);padding: 10px 12px;width: fit-content;margin: 0 auto;">
+            <div class="rounded-circle" style="box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);padding: 10px 12px;width: 75px;margin: 0 auto;">
               <img src="{{plan.icon}}" class="img-circle" width="50" alt="logo">
             </div>
             <div class="m-t-40 align-self-center">
               <div class="card-yields-values">
                 <h4 id="yields">{{plan.nome}}<br><small>{{plan.valor | currency:'BTC ':true:'1.1-8'}}</small></h4>
               </div>
-              <span class="text-muted"><button (click)='createInvestiment(plan)' class="btn btn-outline-success" type="button" [disabled]="plan.valor <= (investimentoValor)" >Invest</button></span>
+              <span class="text-muted"><button (click)='createInvestiment(plan)' class="btn btn-outline-success" type="button" [disabled]="plan.valor <= (investimentoValor)" >{{ 'INVESTIMENTS.CREATE.HTML.CARDS.PLANS.BUTTON' | translate }}</button></span>
             </div>
           </div>  
 

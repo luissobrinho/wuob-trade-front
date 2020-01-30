@@ -9,7 +9,7 @@
                             <div class="card card-hover">
                                 <div class="box bg-info text-center">
                                     <h1 class="font-light text-white">{{balances?.rendimento | currency:'BTC ':true:'1.1-8'}}</h1>
-                                    <h6 class="text-white">Total Yields</h6>
+                                    <h6 class="text-white">{{ 'YIELD.YIELDREPORT.HTML.CARDS.TOTALYIELDS' | translate }}</h6>
                                 </div>
                             </div>
                         </div>
@@ -18,7 +18,7 @@
                             <div class="card card-hover">
                                 <div class="box bg-primary text-center">
                                     <h1 class="font-light text-white">{{balances?.indicacao | currency:'BTC ':true:'1.1-8'}}</h1>
-                                    <h6 class="text-white">Total Level</h6>
+                                    <h6 class="text-white">{{ 'YIELD.YIELDREPORT.HTML.CARDS.TOTALLEVELS' | translate }}</h6>
                                 </div>
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                             <div class="card card-hover">
                                 <div class="box bg-success text-center">
                                     <h1 class="font-light text-white">{{balances?.residual | currency:'BTC ':true:'1.1-8'}}</h1>
-                                    <h6 class="text-white">Total Residual</h6>
+                                    <h6 class="text-white">{{ 'YIELD.YIELDREPORT.HTML.CARDS.TOTALRESIDUAL' | translate }}</h6>
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                             <div class="card card-hover">
                                 <div class="box bg-dark text-center">
                                     <h1 class="font-light text-white">{{balances?.saldo | currency:'BTC ':true:'1.1-8'}}</h1>
-                                    <h6 class="text-white">Total Withdraw</h6>
+                                    <h6 class="text-white">{{ 'YIELD.YIELDREPORT.HTML.CARDS.TOTALWITHDRAW' | translate }}</h6>
                                 </div>
                             </div>
                         </div>
@@ -55,28 +55,28 @@
         [externalPaging]="true" [count]="page.total || 0"
         [offset]="(page.current_page - 1)" [limit]="page.per_page || 0" (page)="setPage($event)">
 
-        <ngx-datatable-column prop="valor" name="Value">
+        <ngx-datatable-column prop="valor" name="{{'YIELD.YIELDREPORT.HTML.TABLE.COLUMN.VALUE' | translate}}">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span>
                     {{ row.valor | currency:'BTC ':true:'1.2-8' }}
                 </span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Type" prop="tipo">
+        <ngx-datatable-column name="{{'YIELD.YIELDREPORT.HTML.TABLE.COLUMN.TYPE' | translate}}" prop="tipo">
             <ng-template let-row="row" ngx-datatable-cell-template>
-                    <span *ngIf="row.tipo === 'R'" class="label label-success" >Residual</span>
-                    <span *ngIf="row.tipo === 'C'" class="label label-success" >Credit</span>
-                    <span *ngIf="row.tipo === 'D'" class="label label-danger" >Debit</span>
-                    <span *ngIf="row.tipo === 1" class="label label-success" >Direct indication</span>
-                    <span *ngIf="row.tipo > 1" class="label label-success" >Indirect indication - {{row.tipo}} Level</span>
+                    <span *ngIf="row.tipo === 'R'" class="label label-success" >{{ 'YIELD.YIELDREPORT.TABLE.STATUS.RESIDUAL' | translate }}</span>
+                    <span *ngIf="row.tipo === 'C'" class="label label-success" >{{ 'YIELD.YIELDREPORT.TABLE.STATUS.CREDIT' | translate }}</span>
+                    <span *ngIf="row.tipo === 'D'" class="label label-danger" >{{ 'YIELD.YIELDREPORT.TABLE.STATUS.DEBIT' | translate }}</span>
+                    <span *ngIf="row.tipo === 1" class="label label-success" >{{ 'YIELD.YIELDREPORT.TABLE.STATUS.DIRECTINDICATION' | translate }}</span>
+                    <span *ngIf="row.tipo > 1" class="label label-success" >{{ 'YIELD.YIELDREPORT.TABLE.STATUS.INDIRECTINDICATION' | translate:'{indirectvalue: "row.tipo"}' }}</span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="descricao" name="description">
+        <ngx-datatable-column prop="descricao" name="{{'YIELD.YIELDREPORT.HTML.TABLE.COLUMN.DESCRIPTION' | translate}}">
             <ng-template let-row="row" ngx-datatable-cell-template>
                 <span>{{row.descricao}}</span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="created_at" name="Date">
+        <ngx-datatable-column prop="created_at" name="{{'YIELD.YIELDREPORT.HTML.TABLE.COLUMN.DATE' | translate}}">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                         <span  >{{row.created_at | date:'MM/dd/yyyy  hh:mm'}}</span>
                 </ng-template>

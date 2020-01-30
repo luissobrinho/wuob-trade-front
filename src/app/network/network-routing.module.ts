@@ -16,10 +16,10 @@ export const NetworkRoutes: Routes = [
         path: 'team',
         component: TeamComponent,
         data: {
-          title: 'Team',
+          title: 'ROUTES.NETWORK.TEAM',
           urls: [
-            { title: 'Network', url: '/team' },
-            { title: 'Team' }
+            { title: 'ROUTES.NETWORK.TITLE', url: '/team' },
+            { title: 'ROUTES.NETWORK.TEAM' }
           ]
         }
       },

@@ -10,10 +10,10 @@ export const YieldRoutes: Routes = [
         path: 'yieldreport',
         component: YieldreportComponent,
         data: {
-          title: 'Yield',
+          title: 'ROUTES.YIELD.YIELDREPORT',
           urls: [
-            { title: 'Yield Report', url: 'yield' },
-            { title: 'Yield Report' }
+            { title: 'ROUTES.YIELD.TITLE', url: 'yield' },
+            { title: 'ROUTES.YIELD.YIELDREPORT' }
           ]
         }
       },

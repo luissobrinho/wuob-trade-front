@@ -3,9 +3,8 @@
     <div class="modal-header justify-content-center p-15 bg-danger text-white
       m-b-10 align-items-center"
       style="border-color: grey">
-      <h4 class="modal-title row justify-content-center align-items-center">ATTENTION!
-        Transfer the exact amount of the
-        transaction.</h4>
+      <h4 class="modal-title row justify-content-center align-items-center">{{ 'DASHBOARD.HTML.MODAL.WARNING' | translate }}
+        {{ 'DASHBOARD.HTML.MODAL.TITLE' | translate }}</h4>
     </div>
     <div class="modal-body">
       <img src="{{qrCode}}">
@@ -13,14 +12,13 @@
       <h4> {{ amount | currency:true:'BTC ':'1.8-8'}} </h4>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-success" (click)="c('Close click')">Close</button>
+      <button type="button" class="btn btn-success" (click)="c('Close click')">{{ 'DASHBOARD.HTML.MODAL.CLOSE' | translate }}</button>
     </div>
   </div>
 </ng-template>
 
-<div *ngIf="accountAlert[3].show">
-  <ngb-alert [type]="accountAlert[3].type" (close)="closeAlertAccount(accountAlert[3])">
-    <strong>Warning!</strong> {{accountAlert[3].message}}
+<div *ngIf="accountAlert[2].show">
+  <ngb-alert [type]="accountAlert[2].type" (close)="closeAlertAccount(accountAlert[2])" innerHtml="{{ 'DASHBOARD.ACCOUNT.ALERT.WARNING' | translate }}">
   </ngb-alert>    
 </div>
 
@@ -38,29 +36,28 @@
               <i class="mdi mdi-counter"></i>
             </div>
             <div class="m-l-10">
-              <h4> <span class="text-muted">Total score : </span>{{user.scores}}</h4>
-              <h4> <span class="text-muted">Tickets available : </span>{{totalTicket}}
+              <h4> <span class="text-muted">{{ 'DASHBOARD.HTML.SCORE.TOTAL' | translate }} : </span>{{user.scores}}</h4>
+              <h4> <span class="text-muted">{{ 'DASHBOARD.HTML.SCORE.TICKETSAVAILABLE' | translate }} : </span>{{totalTicket}}
               </h4>
             </div>
             <div class="m-l-30" *ngFor="let ticket of tickets">
               <button 
                 (click)='buyTicket(ticket)' 
                 class="btn btn-outline-info" 
-                type="button">Buy {{ticket.quantidade | number:'1.0-0'}} Tickets</button>
+                type="button">{{ 'DASHBOARD.HTML.SCORE.BUY' | translate }} {{ticket.quantidade | number:'1.0-0'}} Tickets</button>
             </div>
           </div>
         </div>
       </div>
       <div class="card col-md-6 ml-auto mr-auto">
         <div class="card-body collapse show" style="padding: 0.85rem">
-          <h4 class="card-title">Invitation link</h4>
-          <p class="card-text">This is your invitation link, copy and send to
-            your investor team.</p>
+          <h4 class="card-title">{{ 'DASHBOARD.HTML.LINKINVITATION.TITLE' | translate }}</h4>
+          <p class="card-text">{{ 'DASHBOARD.HTML.LINKINVITATION.TEXT' | translate }}</p>
           <div class="input-group">
             <input type="text" class="form-control" value="{{linkReference}}">
             <div class="input-group-append">
               <button (click)='copyLink(linkReference)' class="btn
-                btn-outline-success" type="button">Copy link</button>
+                btn-outline-success" type="button">{{ 'DASHBOARD.HTML.LINKINVITATION.BUTTON' | translate }}</button>
             </div>
           </div>
         </div>
@@ -79,7 +76,7 @@
           <div class="m-l-5 align-self-center">
             <h4 id="balance">{{user.totalSaldo | currency:'BTC
               ':true:'1.1-8'}}</h4>
-            <span class="text-muted">Balance available</span>
+            <span class="text-muted">{{ 'DASHBOARD.HTML.CARDS.BALANCEAVAILABLE' | translate }}</span>
           </div>
         </div>
       </div>
@@ -99,7 +96,7 @@
               <h4 id="yields">{{user.totalRendimento || valueInitial |
                 currency:'BTC ':true:'1.1-8'}}</h4>
             </div>
-            <span class="text-muted">yields</span>
+            <span class="text-muted">{{ 'DASHBOARD.HTML.CARDS.YIELDS.TITLE' | translate }}</span>
           </div>
         </div>
       </div>
@@ -117,7 +114,7 @@
           </div>
           <div class="m-l-5 align-self-center">
             <h4 id="investimentos">{{user.totalSaldoIndicacaoDireta | currency:'BTC ':true:'1.1-8'}}</h4>
-            <span class="text-muted">1st level balance</span>
+            <span class="text-muted">{{ 'DASHBOARD.HTML.CARDS.FIRSTLEVEL' | translate }}</span>
           </div>
         </div>
       </div>
@@ -136,7 +133,7 @@
             <div id="teste">
               <h4>{{user.totalBloqueado | currency:'BTC ':true:'1.1-8'}}</h4>
             </div>
-            <span class="text-muted">Balance Locked</span>
+            <span class="text-muted">{{ 'DASHBOARD.HTML.CARDS.BALANCEBLOCK' | translate }}</span>
           </div>
         </div>
       </div>
@@ -148,7 +145,7 @@
 
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Campaign</h4>
+        <h4 class="card-title">{{ 'DASHBOARD.HTML.CARDS.CAMPAING.TITLE' | translate }}</h4>
         <div id="campaign" style="height: 168px; width: 100%;" class="m-t-10"></div>
         <!-- row -->
         <div class="row text-center text-lg-left">
@@ -157,19 +154,19 @@
           <div class="col-4">
             <h4 class="m-b-0 font-medium">{{user.totalRendimentoAcumulado |
               currency:'BTC ':true:'1.1-8'}}</h4>
-            <span class="text-muted">Yields</span>
+            <span class="text-muted">{{ 'DASHBOARD.HTML.CARDS.YIELDS.TITLE' | translate }}</span>
           </div>
           <!-- column -->
           <div class="col-4">
             <h4 class="m-b-0 font-medium">{{(totalInvestimentoValor -
               user.totalRendimentoAcumulado) | currency:'BTC ':true:'1.1-8'}}</h4>
-            <span class="text-muted">Un-completed</span>
+            <span class="text-muted">{{ 'DASHBOARD.HTML.CARDS.CAMPAING.UNCOMPLETED' | translate }}</span>
           </div>
           <!-- column -->
           <div class="col-4">
             <h4 class="m-b-0 font-medium">{{(totalInvestimentoValor) |
               currency:'BTC ':true:'1.1-8'}}</h4>
-            <span class="text-muted">Total</span>
+            <span class="text-muted">{{ 'DASHBOARD.HTML.CARDS.CAMPAING.TOTAL' | translate }}</span>
           </div>
         </div>
       </div>
@@ -181,7 +178,7 @@
           <div class="card-body">
             <div class="d-flex align-items-center">
               <div>
-                <h4 class="card-title">Yields</h4>
+                <h4 class="card-title">{{ 'DASHBOARD.HTML.CARDS.YIELDS.TITLE' | translate }}</h4>
               </div>
             </div>
             <div style="display: block;">
@@ -202,7 +199,7 @@
   <div class="col-lg-6 col-md-12 order-lg-2 order-md-3">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Top Plans</h4>
+        <h4 class="card-title">{{ 'DASHBOARD.HTML.CARDS.TOPPLANS.TITLE' | translate }}</h4>
         <table class="table browser m-t-30 no-border">
           <tbody>
             <tr *ngFor="let plan of plans">
@@ -217,7 +214,7 @@
               <td align="right">
                 <button (click)='createInvestiment(plan)' class="btn
                   btn-outline-success" type="button" [disabled]="plan.valor <=
-                  (investimentoValor)">Invest</button>
+                  (investimentoValor)">{{ 'DASHBOARD.HTML.CARDS.TOPPLANS.BUTTON' | translate }}</button>
               </td>
             </tr>
           </tbody>
@@ -234,7 +231,7 @@
 <!--Embeds-->
 <div class="card">
   <div class="card-body">
-    <h4 class="card-title">Video</h4>
+    <h4 class="card-title">{{ 'DASHBOARD.HTML.CARDS.VIDEO.TITLE' | translate }}</h4>
     <!-- <h6 class="card-subtitle">Quickly manage the layout, alignment, and sizing of grid columns, navigation, components, and more with a full suite of responsive flexbox utilities. For more complex implementations, custom CSS may be necessary.</h6> -->
     <div class="bd-example">
       <div class="embed-responsive embed-responsive-4by3">

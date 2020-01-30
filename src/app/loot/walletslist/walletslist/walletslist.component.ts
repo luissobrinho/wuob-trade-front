@@ -5,9 +5,11 @@ import { LootService } from 'src/app/services/loot/loot.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Wallets } from 'src/app/models/Wallet';
 import { Events } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import Swal from 'sweetalert2'
+import { TranslationService } from 'src/app/services/translation/translation.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-walletslist',
@@ -30,7 +32,14 @@ export class WalletslistComponent implements OnInit {
     { prop: 'Action'}
   ];
   @ViewChild(ReportComponent, { static: true }) table: ReportComponent;
-  constructor(private loot: LootService, private ngxService: NgxUiLoaderService, public events: Events, public router: Router) { }
+
+  constructor(
+    private loot: LootService, 
+    private ngxService: NgxUiLoaderService, 
+    public events: Events, 
+    public router: Router,
+    private translateService: TranslationService,
+    private route: ActivatedRoute,private titleService: Title) { }
 
   setPage($event: {count: number, limit: number, offset: number, pageSize: number}) {
     this.ngxService.start()
@@ -60,25 +69,35 @@ export class WalletslistComponent implements OnInit {
 
   ngOnInit() {
     this.loadTable();
+
+    this.translateService.translate.get(["ROUTES.LOOT"]).subscribe(
+      (text) => {
+        this.titleService.setTitle(text['ROUTES.LOOT']["MYWALLETS"]);
+      }
+    )
   }
 
 
   delete(row) {
 
-    let id = row.id;
-    this.ngxService.start()
-    this.loot.deleteWallet(id).then((res) => {
-      this.events.publish('toast', 'Wallet removed with success', 'Success', 10000, 'toast-success')
-
-      this.loadTable()
-
-    }, err => {
-      this.ngxService.stop()
-      this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
-    }).catch((err) => {
-      this.ngxService.stop()
-      this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
-    })
+    this.translateService.translate.get(["WALLETLIST.DELETEDWALLET"]).subscribe(
+      (text) => {
+        let id = row.id;
+        this.ngxService.start()
+        this.loot.deleteWallet(id).then((res) => {
+          this.events.publish('toast', text["WALLETLIST.DELETEDWALLET"]["TEXT"], text["WALLETLIST.DELETEDWALLET"]["TYPE"], 10000, 'toast-success')
+    
+          this.loadTable()
+    
+        }, err => {
+          this.ngxService.stop()
+          this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
+        }).catch((err) => {
+          this.ngxService.stop()
+          this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
+        })
+      }
+    )
 
   }
 
@@ -87,31 +106,35 @@ export class WalletslistComponent implements OnInit {
   }
 
   tokenConfirm(row: Wallet){
-    Swal.fire({
-      title: "Enter your token confirmation",
-      input: 'text',
-      showCancelButton: true,
-      inputValidator: (value) => {
-        if (!value) {
-          return 'You need to write something!'
-        }else{
-          this.ngxService.start();
-          this.loot.activeWallet(row, {token:value}).then(
-            (res) => {
-              this.events.publish('toast', 'Wallet updated with success', 'Success', 10000, 'toast-success')
-        
-              this.loadTable()
-        
-            }, err => {
-              this.ngxService.stop()
-              this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
-            }).catch((err) => {
-              this.ngxService.stop()
-              this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
-            })
-        }
+    this.translateService.translate.get(["WALLETLIST.TOKENCONFIRM"]).subscribe(
+      (text) => {
+        Swal.fire({
+          title: text["WALLETLIST.TOKENCONFIRM"]["SWAL"]["TITLE"],
+          input: 'text',
+          showCancelButton: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return text["WALLETLIST.TOKENCONFIRM"]["SWAL"]["VALIDATOR"]
+            }else{
+              this.ngxService.start();
+              this.loot.activeWallet(row, {token:value}).then(
+                (res) => {
+                  this.events.publish('toast', text["WALLETLIST.TOKENCONFIRM"]["TOAST"]["TITLE"], 'Success', 10000, 'toast-success')
+            
+                  this.loadTable()
+            
+                }, err => {
+                  this.ngxService.stop()
+                  this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
+                }).catch((err) => {
+                  this.ngxService.stop()
+                  this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
+                })
+            }
+          }
+        })
       }
-    })
+    )
   }
 
 }

@@ -13,10 +13,10 @@ export const LootRoutes: Routes = [
         path: 'withdraw',
         component: WithdrawComponent,
         data: {
-          title: 'Withdraw',
+          title: 'ROUTES.LOOT.WITHDRAW',
           urls: [
-            { title: 'Loot', url: '/withdraw' },
-            { title: 'Withdraw' }
+            { title: 'ROUTES.LOOT.TITLE', url: '/withdraw' },
+            { title: 'ROUTES.LOOT.WITHDRAW' }
           ]
         }
       },
@@ -24,10 +24,10 @@ export const LootRoutes: Routes = [
         path: 'report',
         component: ReportComponent,
         data: {
-          title: 'Withdrawal Report',
+          title: 'ROUTES.LOOT.WITHDRAWALREPORT',
           urls: [
-            { title: 'Loot', url: '/report' },
-            { title: 'Withdrawal Report' }
+            { title: 'ROUTES.LOOT.TITLE', url: '/report' },
+            { title: 'ROUTES.LOOT.WITHDRAWALREPORT' }
           ]
         }
       },
@@ -35,10 +35,10 @@ export const LootRoutes: Routes = [
         path: 'wallet',
         component: WalletComponent,
         data: {
-          title: 'My Wallet',
+          title: 'ROUTES.LOOT.MYWALLET',
           urls: [
-            { title: 'Loot', url: '/wallet' },
-            { title: 'My Wallet' }
+            { title: 'ROUTES.LOOT.TITLE', url: '/wallet' },
+            { title: 'ROUTES.LOOT.MYWALLET' }
           ]
         }
       },
@@ -46,10 +46,10 @@ export const LootRoutes: Routes = [
         path: 'wallet-edit/:id',
         component: WalletEditComponent,
         data: {
-          title: 'Edit Wallet',
+          title: 'ROUTES.LOOT.EDITWALLET',
           urls: [
-            { title: 'Loot', url: '/wallet-edit' },
-            { title: 'wallet-edit' }
+            { title: 'ROUTES.LOOT.TITLE', url: '/wallet-edit' },
+            { title: 'ROUTES.LOOT.EDITWALLET' }
           ]
         }
       },
@@ -57,10 +57,10 @@ export const LootRoutes: Routes = [
         path: 'wallets',
         component: WalletslistComponent,
         data: {
-          title: 'My Wallets',
+          title: 'ROUTES.LOOT.MYWALLETS',
           urls: [
-            { title: 'Loot', url: '/My Wallets' },
-            { title: 'My Wallets' }
+            { title: 'ROUTES.LOOT.TITLE', url: '/My Wallets' },
+            { title: 'ROUTES.LOOT.MYWALLETS' }
           ]
         }
       },

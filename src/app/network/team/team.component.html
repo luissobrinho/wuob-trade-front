@@ -2,12 +2,12 @@
   <div class="col-lg-6">
     <div class="card">
       <div class="card-body collapse show" style="padding: 0.85rem">
-        <h4 class="card-title">Invitation link</h4>
-        <p class="card-text">This is your invitation link, copy and send to your investor team.</p>
+        <h4 class="card-title">{{ 'NETWORK.TEAM.HTML.CARDS.INVITATIONLINK.TITLE' | translate }}</h4>
+        <p class="card-text">{{ 'NETWORK.TEAM.HTML.CARDS.INVITATIONLINK.TEXT' | translate }}</p>
         <div class="input-group">
           <input type="text" class="form-control" value="{{linkReference}}">
           <div class="input-group-append">
-            <button (click)='copyLink(linkReference)' class="btn btn-outline-success" type="button">Copy link</button>
+            <button (click)='copyLink(linkReference)' class="btn btn-outline-success" type="button">{{ 'NETWORK.TEAM.HTML.CARDS.INVITATIONLINK.BUTTON' | translate }}</button>
           </div>
         </div>
       </div>

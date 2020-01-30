@@ -18,21 +18,21 @@
               [offset]="(page.current_page - 1)" 
               [limit]="page.per_page || 0" 
               (page)="setPage($event)">
-              <ngx-datatable-column prop="nome" name="Name"></ngx-datatable-column>
-              <ngx-datatable-column prop="hash" name="Hash"></ngx-datatable-column>
-              <ngx-datatable-column name="Action" [width]="150">
+              <ngx-datatable-column prop="nome" name="{{'LOOT.WALLETLIST.HTML.TABLE.COLUMN.NAME' | translate}}"></ngx-datatable-column>
+              <ngx-datatable-column prop="hash" name="{{'LOOT.WALLETLIST.HTML.TABLE.COLUMN.HASH' | translate}}"></ngx-datatable-column>
+              <ngx-datatable-column name="{{'LOOT.WALLETLIST.HTML.TABLE.COLUMN.ACTION' | translate}}" [width]="150">
                 <ng-template 
                   let-row="row" ngx-datatable-cell-template>
                   <button 
                     *ngIf="(row)" 
                     (click)="redirectEdit(row)" 
                     class="btn btn-small btn-outline-warning">
-                    <i class="mdi mdi-pencil"></i> Edit</button>
+                    <i class="mdi mdi-pencil"></i> {{ 'LOOT.WALLETLIST.HTML.TABLE.EDITBUTTON' | translate }}</button>
                   <button
                     [hidden]="(!row.hash_new)" 
                     (click)="tokenConfirm(row)"
                     class="btn btn-small btn-outline-info">
-                      <i class="mdi mdi-check"></i> Confirm Token</button>
+                      <i class="mdi mdi-check"></i> {{ 'LOOT.WALLETLIST.HTML.TABLE.CHECKBUTTON' | translate }}</button>
                 </ng-template>
               </ngx-datatable-column>
             </ngx-datatable>

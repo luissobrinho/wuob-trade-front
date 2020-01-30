@@ -5,6 +5,9 @@ import { Events } from '@ionic/angular';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { environment } from 'src/environments/environment';
+import { TranslationService } from 'src/app/services/translation/translation.service';
+import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-team',
@@ -22,13 +25,21 @@ export class TeamComponent implements OnInit {
     private network: NetworkService,
     public events: Events,
     public ngxService: NgxUiLoaderService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private translateService: TranslationService,
+    private route: ActivatedRoute,private titleService: Title
   ) { }
 
   ngOnInit() {
 
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`
+    this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`;
+
+    this.translateService.translate.get(["ROUTES.NETWORK"]).subscribe(
+      (text) => {
+        this.titleService.setTitle(text['ROUTES.NETWORK']["TEAM"]);
+      }
+    )
 
     this.network.getNetwork()
       .then((res: UserNetwork) => {
@@ -46,7 +57,7 @@ export class TeamComponent implements OnInit {
         }]
         this.rows = this.mountNetwork(res.network_down);
         this.cd.detectChanges();
-        console.log(this.rows);
+        // console.log(this.rows);
 
       }, err => {
         this.events.publish('toast', err, 'Erro', 5000, 'toast-error')
@@ -92,18 +103,23 @@ export class TeamComponent implements OnInit {
   }
 
   copyLink(text) {
-    let selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = text;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
-    this.events.publish('toast', 'Link copied', null, null, null)
+    this.translateService.translate.get(["NETWORK.TEAM"]).subscribe(
+      (text) => {
+        let selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';
+        selBox.value = text;
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
+        this.events.publish('toast', text["NETWORK.TEAM"]["COPYLINK"]["MESSAGE"], null, null, null)
+      }
+    )
+    
   }
 
 }

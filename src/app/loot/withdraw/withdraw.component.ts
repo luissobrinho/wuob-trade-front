@@ -2,12 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Events } from '@ionic/angular';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LootService } from 'src/app/services/loot/loot.service';
 import { Wallet, Wallets } from 'src/app/models/Wallet';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { movement } from 'src/app/models/movement';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Title } from '@angular/platform-browser';
+import { TranslationService } from 'src/app/services/translation/translation.service';
 
 @Component({
   selector: 'app-withdraw',
@@ -25,12 +27,22 @@ export class WithdrawComponent implements OnInit {
   valor: string;
   status_text: string;
 
-  constructor(public loot:LootService,public events:Events,private ngxService: NgxUiLoaderService,
-    private formBuilder: FormBuilder, public router: Router, private modalService: NgbModal) { }
+  constructor(
+    public loot:LootService,public events:Events,
+    private ngxService: NgxUiLoaderService,private formBuilder: FormBuilder, 
+    public router: Router, private modalService: NgbModal,
+    private translateService: TranslationService,
+    private route: ActivatedRoute,private titleService: Title) { }
 
   ngOnInit() {
       this.initForm()
       this.initValues()
+
+      this.translateService.translate.get(["ROUTES.LOOT"]).subscribe(
+        (text) => {
+          this.titleService.setTitle(text['ROUTES.LOOT']["WITHDRAW"]);
+        }
+      )
   }
 
   initForm(){

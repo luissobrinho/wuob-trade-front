@@ -13,6 +13,7 @@ import { ReportComponent } from './report/report.component';
 import { WalletComponent } from './wallet/wallet.component';
 import { WalletEditComponent } from './wallet-edit/wallet-edit.component';
 import { WalletslistComponent } from './walletslist/walletslist/walletslist.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -26,7 +27,8 @@ import { WalletslistComponent } from './walletslist/walletslist/walletslist.comp
     NgbModule,
     BrMaskerModule,
     NgxDatatableModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    TranslateModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

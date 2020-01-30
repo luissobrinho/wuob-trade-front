@@ -22,6 +22,9 @@ import { TicketService } from 'src/app/services/ticket/ticket.service';
 import { Tickets, Ticket } from 'src/app/models/Ticket';
 import { LootService } from 'src/app/services/loot/loot.service';
 import { IAlert } from 'src/app/models/alert';
+import { TranslationService } from 'src/app/services/translation/translation.service';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
 
 declare var require: any;
@@ -152,34 +155,39 @@ export class Dashboard1Component implements OnInit {
     public ticketService: TicketService, 
     private loot: LootService,
     private ngxService: NgxUiLoaderService, 
-    private modalService: NgbModal) {
-
-      this.accountAlert.push(
-        {
-          id: 1,
-          show: false,
-          type: 'success',
-          message: 'This is an success alert'
-        },
-        {
-          id: 2,
-          show: false,
-          type: 'info',
-          message: 'This is an info alert'
-        },
-        {
-          id: 3,
-          show: false,
-          type: 'warning',
-          message: 'This is a warning alert'
-        },
-        {
-          id: 4,
-          show: false,
-          type: 'danger',
-          message: 'Make your investment to start yielding !!!'
-        }
-      );
+    private modalService: NgbModal,
+    private translateService: TranslationService,
+    private route: ActivatedRoute,
+    private titleService: Title) {
+    
+    this.translateService.translate.get(["DASHBOARD.ACCOUNT.ALERT.WARNING"]).subscribe((texts) => {    
+        this.accountAlert.push(
+          {
+            id: 1,
+            show: false,
+            type: 'success',
+            message: texts["DASHBOARD.ACCOUNT.ALERT.SUCESS"]
+          },
+          {
+            id: 2,
+            show: false,
+            type: 'info',
+            message: texts["DASHBOARD.ACCOUNT.ALERT.INFO"]
+          },
+          {
+            id: 3,
+            show: false,
+            type: 'warning',
+            message: texts["DASHBOARD.ACCOUNT.ALERT.WARNING"]
+          },
+          {
+            id: 4,
+            show: false,
+            type: 'danger',
+            message: texts["DASHBOARD.ACCOUNT.ALERT.DANGER"]
+          }
+        );
+      });
 
     }
 
@@ -196,13 +204,19 @@ export class Dashboard1Component implements OnInit {
     this.events.subscribe('update:user', (user: any) => {
       this.user = user;
     });
+    
+    this.translateService.translate.get(["ROUTES.DASHBOARD"]).subscribe(
+      (text) => {
+        this.titleService.setTitle(text['ROUTES.DASHBOARD']["TITLE"]);
+      }
+    )
 
   }
 
   public initValuesDashboard() {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     if(!this.user.investimento) {
-      this.accountAlert[3].show = true;
+      this.accountAlert[2].show = true;
     }
     
 
@@ -228,7 +242,11 @@ export class Dashboard1Component implements OnInit {
       .then((response: string) => {
         this.hash_new =  (response) ? response : null; 
         if(this.hash_new){
-          this.events.publish('toast', 'Pending wallet token verification', 'Warning !', 60000, 'toast-warning')
+          this.translateService.translate.get(["DASHBOARD.WALLET.TOAST.WARNING"]).subscribe(
+            (text) => {
+              this.events.publish('toast', text["DASHBOARD.WALLET.TOAST.WARNING"], text["DASHBOARD.WALLET.TOAST.TITLE"], 60000, 'toast-warning')
+            }
+          )
         }
       });  
   }
@@ -271,7 +289,11 @@ export class Dashboard1Component implements OnInit {
           }, []);
         
           for (let index = 1; index <= tamanho; index++) {
-            this.lineChartLabels.push(index.toString() + ' Days');
+            this.translateService.translate.get(["DASHBOARD.LINECHART.DAYS"]).subscribe(
+              (text) => {
+                this.lineChartLabels.push(index.toString() + text["DASHBOARD.LINECHART.DAYS"]);
+              }
+            )
           }
 
           this.lineChartData.push({ data: this.dataValor, label: rendimento[0].valor + ' BTC' });
@@ -281,7 +303,11 @@ export class Dashboard1Component implements OnInit {
           this.dataValor = [];
           let tamanho = 0;
           for (let index = 1; index <= tamanho; index++) {
-            this.lineChartLabels.push(index.toString() + ' Days');
+            this.translateService.translate.get(["DASHBOARD.LINECHART.DAYS"]).subscribe(
+              (text) => {
+                this.lineChartLabels.push(index.toString() + text["DASHBOARD.LINECHART.DAYS"]);
+              }
+            )
           }
 
           this.lineChartData.push({ data: this.dataValor, label: 0 + ' BTC' });
@@ -293,7 +319,11 @@ export class Dashboard1Component implements OnInit {
         this.dataValor = [];
         let tamanho = 0;
         for (let index = 1; index <= tamanho; index++) {
-          this.lineChartLabels.push(index.toString() + ' Days');
+          this.translateService.translate.get(["DASHBOARD.LINECHART.DAYS"]).subscribe(
+            (text) => {
+              this.lineChartLabels.push(index.toString() + text["DASHBOARD.LINECHART.DAYS"]);
+            }
+          )
         }
 
         this.lineChartData.push({ data: this.dataValor, label: 0 + ' BTC' });
@@ -336,130 +366,151 @@ export class Dashboard1Component implements OnInit {
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
-    this.events.publish('toast', 'Link copied', null, null, null)
+    this.translateService.translate.get(["DASHBOARD.COPYLINK.MESSAGE"]).subscribe(
+      (text) => {
+        this.events.publish('toast', text["DASHBOARD.COPYLINK.MESSAGE"], null, null, null);
+      }
+    )
   }
 
   buyTicket(ticket: Ticket) {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "Once processed, you will not be able to recover it!",
-      icon: "warning",
-      showConfirmButton: true,
-      showCancelButton: true
-    }).then((willDelete) => {
-      if (willDelete.value) {
-        this.ngxService.start()
-        this.ticketService.buyTicket(ticket.id).then(
-          (response:any) => {
-            this.ngxService.stop();
-            Swal.fire(
-              'Great!',
-              response,
-              'success'
-            )
-            this.totalTicket += +ticket.quantidade;
-        }, 
-        err => {
-          this.ngxService.stop();
-          Swal.fire(
-            'Opps!',
-            err,
-            'warning'
-          )
-        })
-      }
-    });
-  }
-
-  createInvestiment(plan: Plan) {
-    if (this.user.investimento) {
-      if (plan.valor > this.user.investimento.valor) {
+    this.translateService.translate.get(["DASHBOARD.BUYTICKET"]).subscribe(
+      (text) => {
         Swal.fire({
-          title: "Are you sure?",
-          text: "Once processed, you will not be able to recover it!",
-          icon: "warning",
+          title: text["DASHBOARD.BUYTICKET.TITLE"],
+          text: text["DASHBOARD.BUYTICKET.TEXT"],
+          icon: text["DASHBOARD.BUYTICKET.ICON"],
           showConfirmButton: true,
           showCancelButton: true
         }).then((willDelete) => {
           if (willDelete.value) {
             this.ngxService.start()
-            this.investiments.Invest({ pacote_id: plan.id }).then((response: InvestmentResponse) => {
-              this.ngxService.stop()
-              this.qrCode = response.qrcode_url
-              this.address = response.address;
-              this.amount = response.amount;
-              let modalRef = this.openModal();
-              modalRef['qrCode'] = response.qrcode_url;
-              modalRef['addnbress'] = response.address;
-            }, err => {
-              this.ngxService.stop()
-              console.log(err)
+            this.ticketService.buyTicket(ticket.id).then(
+              (response:any) => {
+                this.ngxService.stop();
+                Swal.fire(
+                  text["DASHBOARD.BUYTICKET.SUCCESS.MESSAGE"],
+                  response,
+                  text["DASHBOARD.BUYTICKET.SUCCESS.TYPE"]
+                )
+                this.totalTicket += +ticket.quantidade;
+            }, 
+            err => {
+              this.ngxService.stop();
+              Swal.fire(
+                text["DASHBOARD.BUYTICKET.FAIL.MESSAGE"],
+                err,
+                text["DASHBOARD.BUYTICKET.FAIL.TYPE"]
+              )
             })
           }
         });
-      } else {
-
-        Swal.fire({
-          title: "Opps!",
-          text: "You selecetd a plan smaller than your investiment",
-          icon: "warning",
-          showConfirmButton: true,
-        })
       }
-    } else {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "Once processed, you will not be able to recover it!",
-        icon: "warning",
-        showConfirmButton: true,
-        showCancelButton: true
-      }).then((willDelete) => {
-        if (willDelete.value) {
-          this.ngxService.start()
-          this.investiments.Invest({ pacote_id: plan.id }).then((response: InvestmentResponse) => {
-            this.ngxService.stop()
-            this.qrCode = response.qrcode_url
-            this.address = response.address;
-            this.amount = response.amount;
-            let modalRef = this.openModal();
-            modalRef['qrCode'] = response.qrcode_url;
-            modalRef['addnbress'] = response.address;
-          }, err => {
-            this.ngxService.stop()
-            console.log(err)
-          })
+    )
+    
+  }
+
+  createInvestiment(plan: Plan) {
+    this.translateService.translate.get(["DASHBOARD.CREATEINVESTIMENT"]).subscribe(
+      (text) => {
+        // console.log(text["DASHBOARD.CREATEINVESTIMENT"]["FAIL"]["MESSAGE"]);
+        
+        if (this.user.investimento) {
+          if (plan.valor > this.user.investimento.valor) {
+            Swal.fire({
+              title: text["DASHBOARD.CREATEINVESTIMENT"]["TITLE"],
+              text: text["DASHBOARD.CREATEINVESTIMENT"]["TEXT"],
+              icon: text["DASHBOARD.CREATEINVESTIMENT"]["ICON"],
+              showConfirmButton: true,
+              showCancelButton: true
+            }).then((willDelete) => {
+              if (willDelete.value) {
+                this.ngxService.start()
+                this.investiments.Invest({ pacote_id: plan.id }).then((response: InvestmentResponse) => {
+                  this.ngxService.stop()
+                  this.qrCode = response.qrcode_url
+                  this.address = response.address;
+                  this.amount = response.amount;
+                  let modalRef = this.openModal();
+                  modalRef['qrCode'] = response.qrcode_url;
+                  modalRef['addnbress'] = response.address;
+                }, err => {
+                  this.ngxService.stop()
+                  console.log(err)
+                })
+              }
+            });
+          } else {
+    
+            Swal.fire({
+              title: text["DASHBOARD.CREATEINVESTIMENT"]["FAIL"]["MESSAGE"],
+              text: text["DASHBOARD.CREATEINVESTIMENT"]["FAIL"]["TEXT"],
+              icon: text["DASHBOARD.CREATEINVESTIMENT"]["FAIL"]["TYPE"],
+              showConfirmButton: true,
+            })
+          }
+        } else {
+          Swal.fire({
+            title: text["DASHBOARD.CREATEINVESTIMENT"]["TITLE"],
+            text: text["DASHBOARD.CREATEINVESTIMENT"]["TEXT"],
+            icon: text["DASHBOARD.CREATEINVESTIMENT"]["ICON"],
+            showConfirmButton: true,
+            showCancelButton: true
+          }).then((willDelete) => {
+            if (willDelete.value) {
+              this.ngxService.start()
+              this.investiments.Invest({ pacote_id: plan.id }).then((response: InvestmentResponse) => {
+                this.ngxService.stop()
+                this.qrCode = response.qrcode_url
+                this.address = response.address;
+                this.amount = response.amount;
+                let modalRef = this.openModal();
+                modalRef['qrCode'] = response.qrcode_url;
+                modalRef['addnbress'] = response.address;
+              }, err => {
+                this.ngxService.stop()
+                console.log(err)
+              })
+            }
+          });
         }
-      });
-    }
+      }
+    )
+    
 
   }
 
   campaing() {
 
-    let totalUncomplete = (typeof this.user.investimento == 'undefined') ? 100 : (this.totalInvestimentoValor - this.totalRendimentoAcumulado);
-
-    const chart1 = c3.generate({
-      bindto: '#campaign',
-      data: {
-        columns: [
-          ['Yields', this.totalRendimentoAcumulado],
-          ['Un-complete', totalUncomplete]
-        ],
-        type: 'donut'
-      },
-      donut: {
-        label: {
-          show: false,
-          format: (v, r, i) => {
-            return d3.format('BTC')(v);
+    this.translateService.translate.get(["DASHBOARD.CAMPAING"]).subscribe(
+      (text) => {
+        let totalUncomplete = (typeof this.user.investimento == 'undefined') ? 100 : (this.totalInvestimentoValor - this.totalRendimentoAcumulado);
+        
+        const chart1 = c3.generate({
+          bindto: '#campaign',
+          data: {
+            columns: [
+              [text["DASHBOARD.CAMPAING"]["COLUMNS"]["YIELDS"], this.totalRendimentoAcumulado],
+              [text["DASHBOARD.CAMPAING"]["COLUMNS"]["UNCOMPLETED"], totalUncomplete]
+            ],
+            type: 'donut'
+          },
+          donut: {
+            label: {
+              show: false,
+              format: (v, r, i) => {
+                return d3.format('BTC')(v);
+              }
+            },
+            width: 15,
+          },
+          color: {
+            pattern: ['#51b64e', '#f5f5f5']
           }
-        },
-        width: 15,
-      },
-      color: {
-        pattern: ['#51b64e', '#f5f5f5']
+        });
       }
-    });
+    )
+
   }
 
   openModal() {

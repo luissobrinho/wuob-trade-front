@@ -12,10 +12,10 @@ export const InvestimentsRoutes: Routes = [
         path: 'create',
         component: CreateComponent,
         data: {
-          title: 'Create Investiments',
+          title: 'ROUTES.INVESTIMENTS.CREATEINVESTIMENTS',
           urls: [
-            { title: 'Investiments', url: '/create' },
-            { title: 'Create Investiments' }
+            { title: 'ROUTES.INVESTIMENTS.TITLE', url: '/create' },
+            { title: 'ROUTES.INVESTIMENTS.CREATEINVESTIMENTS' }
           ]
         }
       },
@@ -23,10 +23,10 @@ export const InvestimentsRoutes: Routes = [
         path: 'historic',
         component: HistoricComponent,
         data: {
-          title: 'Historic Investiments',
+          title: 'ROUTES.INVESTIMENTS.HISTORICINVESTIMENTS',
           urls: [
-            { title: 'Investiments', url: '/historic' },
-            { title: 'Historic Investiments' }
+            { title: 'ROUTES.INVESTIMENTS.TITLE', url: '/historic' },
+            { title: 'ROUTES.INVESTIMENTS.HISTORICINVESTIMENTS' }
           ]
         }
       },

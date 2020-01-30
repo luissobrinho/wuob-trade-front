@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { Dashboard1Component } from './dashboard1/dashboard1.component';
 
+
 export const DashboardRoutes: Routes = [
   {
     path: '',
@@ -10,10 +11,10 @@ export const DashboardRoutes: Routes = [
         path: 'classic',
         component: Dashboard1Component,
         data: {
-          title: 'Dashboard',
+          title: 'ROUTES.DASHBOARD.TITLE',
           urls: [
-            { title: 'Home Page', url: '/dashboard' },
-            { title: 'Dashboard' }
+            { title: 'ROUTES.DASHBOARD.HOMEPAGE', url: '/dashboard/classic' },
+            { title: 'ROUTES.DASHBOARD.TITLE' }
           ]
         }
       },

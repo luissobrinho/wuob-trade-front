@@ -4,6 +4,9 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Events } from '@ionic/angular';
 import { InvestmentResponse, Investments } from 'src/app/models/InvestmentResponse';
 import { ColumnMode } from '@swimlane/ngx-datatable';
+import { TranslationService } from 'src/app/services/translation/translation.service';
+import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-historic',
@@ -26,7 +29,13 @@ export class HistoricComponent implements OnInit {
     { name: 'Action', prop:'address' }
   ];
   @ViewChild(HistoricComponent, { static: true }) table:HistoricComponent;
-  constructor(public investiments:InvestimentsService,public ngxService: NgxUiLoaderService,public events:Events) {}
+
+  constructor(
+    public investiments:InvestimentsService,
+    public ngxService: NgxUiLoaderService,
+    public events:Events,
+    private translateService: TranslationService,
+    private route: ActivatedRoute,private titleService: Title) {}
 
   setPage($event: {count: number, limit: number, offset: number, pageSize: number}) {
     this.ngxService.start()
@@ -44,6 +53,12 @@ export class HistoricComponent implements OnInit {
 
   ngOnInit() {
     this.loadTable()
+
+    this.translateService.translate.get(["ROUTES.INVESTIMENTS"]).subscribe(
+      (text) => {
+        this.titleService.setTitle(text['ROUTES.INVESTIMENTS']["HISTORICINVESTIMENTS"]);
+      }
+    )
   }
 
   loadTable(){
@@ -61,18 +76,22 @@ export class HistoricComponent implements OnInit {
   }
 
   copyLink(row){
-    let selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = row.address;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
-    this.events.publish('toast','Link copied', null, null,null)
+    this.translateService.translate.get(["INVESTIMENTS.HISTORIC"]).subscribe(
+      (text) => {
+        let selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';
+        selBox.value = row.address;
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
+        this.events.publish('toast',text["INVESTIMENTS.HISTORIC"]["COPYLINK"]["MESSAGE"], null, null,null)
+      }
+    )
   }
 
 }

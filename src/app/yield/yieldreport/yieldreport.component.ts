@@ -6,6 +6,9 @@ import { Events } from '@ionic/angular';
 import { Yield, Yields } from 'src/app/models/Yield';
 import { BalanceService } from 'src/app/services/balance/balance.service';
 import { Balance } from 'src/app/models/balance';
+import { TranslationService } from 'src/app/services/translation/translation.service';
+import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-yieldreport',
@@ -34,7 +37,13 @@ export class YieldreportComponent implements OnInit {
     {name:'Date',prop:'created_at'}
   ];
   @ViewChild(YieldreportComponent, { static: true }) table:YieldreportComponent;
-  constructor(public yields:YieldService, public balance:BalanceService,public ngxService: NgxUiLoaderService,public events:Events) { }
+  constructor(
+    public yields:YieldService, 
+    public balance:BalanceService,
+    public ngxService: NgxUiLoaderService,
+    public events:Events,
+    private translateService: TranslationService,
+    private route: ActivatedRoute,private titleService: Title) { }
 
   ngOnInit() {
     
@@ -50,8 +59,11 @@ export class YieldreportComponent implements OnInit {
       }
     );
 
-    // console.log(this.balances);
-    
+    this.translateService.translate.get(["ROUTES.YIELD"]).subscribe(
+      (text) => {
+        this.titleService.setTitle(text['ROUTES.YIELD']["YIELDREPORT"]);
+      }
+    )
     
   }
 

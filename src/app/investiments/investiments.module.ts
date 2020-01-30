@@ -11,6 +11,7 @@ import { ComponentModule } from './component/component.module';
 import { BrMaskerModule } from 'br-mask';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [CreateComponent, HistoricComponent],
@@ -24,7 +25,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     BrMaskerModule,
     NgbModalModule,
     NgxDatatableModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    TranslateModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

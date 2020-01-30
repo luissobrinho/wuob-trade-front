@@ -1,15 +1,362 @@
 {   
     "DASHBOARD": {
-        "FILTER": "Recherche",
-        "OPTIONLANG":"Sélectionnez la langue"
+        "TITLE":"Tableau de bord",
+        "FILTER": "Chercher",
+        "OPTIONLANG":"Choisir la langue",
+        "HTML":{
+            "MODAL":{
+                "WARNING":"ATTENTION!",
+                "TITLE":"Transférez le montant exact de la transaction.",
+                "CLOSE":"Fermer"
+            },
+            "LINKINVITATION":{
+                "TITLE":"Lien d'invitation",
+                "TEXT":"Ceci est votre lien d'invitation, copiez et envoyez à votre équipe d'investisseurs.",
+                "BUTTON":"Copier le lien"
+            },
+            "SCORE":{
+                "TOTAL":"Score total",
+                "TICKETSAVAILABLE":"Billets disponibles",
+                "BUY":"Acheter"
+            },
+            "CARDS":{
+                "BALANCEAVAILABLE":"Balance available",
+                "YIELDS":{
+                    "TITLE":"Rendements"
+                },
+                "FIRSTLEVEL":"Balance de 1er niveau",
+                "BALANCEBLOCK":"Balance Locked",
+                "CAMPAING":{
+                    "TITLE":"Campaign",
+                    "YIELDS":"Rendements",
+                    "UNCOMPLETED":"Non terminé",
+                    "TOTAL":"Total"
+                },
+                "TOPPLANS":{
+                    "TITLE":"Top Plans",
+                    "BUTTON":"Investir"
+                },
+                "VIDEO":{
+                    "TITLE":"Vidéo"
+                }
+            }
+        },
+        "ACCOUNT": {
+            "ALERT":{
+                "DANGER":"<strong>Danger!</strong> Cela ne peut pas être fait !!!",
+                "SUCCESS":"<strong>Succès!</strong> Vous gagnez !!!",
+                "INFO":"<strong>Info!</strong> Changez votre vie !!!",
+                "WARNING":"<strong>Attention!</strong> Faites votre investissement pour commencer à céder !!!"
+            },
+            "TOAST":{
+                "DANGER":"Cela ne peut pas être fait !!!",
+                "SUCCESS":"Vous gagnez !!!",
+                "INFO":"Changez votre vie !!!",
+                "WARNING":"Faites votre investissement pour commencer à céder !!!"
+            }
+        },
+        "WALLET":{
+            "ALERT":{
+                "DANGER":"<strong>Danger!</strong> Cela ne peut pas être fait !!!",
+                "SUCCESS":"<strong>Succès!</strong> Vous gagnez !!!",
+                "INFO":"<strong>Info!</strong> Changez votre vie !!!",
+                "WARNING":"<strong>Attention!</strong> Faites votre investissement pour commencer à céder !!!"
+            },
+            "TOAST":{
+                "DANGER":"This cannot be done !!!",
+                "SUCCESS":"Vous gagnez !!!",
+                "INFO":"Changez votre vie !!!",
+                "WARNING":"Vérification des jetons de portefeuille en attente !!!",
+                "TITLE":"Attention !"
+            }
+        },
+        "LINECHART":{
+            "DAYS":"Jours"
+        },
+        "COPYLINK":{
+            "MESSAGE":"Lien copié"
+        },
+        "BUYTICKET":{
+            "TITLE":"Êtes-vous sûr ?",
+            "TEXT":"Une fois traité, vous ne pourrez pas le récupérer!",
+            "ICON":"warning",
+            "SUCCESS":{
+                "MESSAGE":"Great!",
+                "TYPE":"success"
+            },
+            "FAIL":{
+                "MESSAGE":"Opps",
+                "TYPE":"warning"
+            }
+        },
+        "CREATEINVESTIMENT":{
+            "TITLE":"Êtes-vous sûr ?",
+            "TEXT":"Une fois traité, vous ne pourrez pas le récupérer!",
+            "ICON":"warning",
+            "SUCCESS":{
+                "MESSAGE":"Génial!",
+                "TYPE":"success"
+            },
+            "FAIL":{
+                "MESSAGE":"Opps",
+                "TEXT":"Vous avez sélectionné un plan plus petit que votre investissement",
+                "TYPE":"warning"
+            }
+        },
+        "CAMPAING":{
+            "COLUMNS":{
+                "YIELDS":"Rendements",
+                "UNCOMPLETED":"Non terminé"
+            }
+        }
+    },
+    "INVESTIMENTS":{
+        "CREATE":{
+            "HTML":{
+                "CARDS":{
+                    "PLANS":{
+                        "BUTTON":"Investir"
+                    }
+                },
+                "MODAL":{
+                    "WARNING":"ATTENTION!",
+                    "TITLE":"Transférez le montant exact de la transaction.",
+                    "CLOSE":"Fermer"
+                }
+            },
+            "CREATEINVESTIMENT":{
+                "TITLE":"Êtes-vous sûr ?",
+                "TEXT":"Une fois traité, vous ne pourrez pas le récupérer!",
+                "ICON":"warning",
+                "SUCCESS":{
+                    "MESSAGE":"Génial!",
+                    "TYPE":"success"
+                },
+                "FAIL":{
+                    "MESSAGE":"Opps",
+                    "TEXT":"Vous avez sélectionné un plan plus petit que votre investissement",
+                    "TYPE":"warning"
+                }
+            }
+        },
+        "HISTORIC":{
+            "HTML":{
+                "TABLE":{
+                    "STATUS":{
+                        "CANCEL":"Annulé",
+                        "PENDING":"Enattente",
+                        "COMPLETE":"Terminé"
+                    },
+                    "COLUMN":{
+                        "VALUE":"Valuer",
+                        "COIN":"Pièce de monnaie",
+                        "STATUS":"Statut",
+                        "ACTION":"Action"
+                    },
+                    "ACTION":"Copier le hachage"
+                }   
+            },
+            "COPYLINK":{
+                "MESSAGE":"Lien copié"
+            }
+        }
+    },
+    "LOOT":{
+        "WITHDRAW":{
+            "HTML":{
+                "CARDS":{
+                    "FIRSTLEVEL":"Solde disponible 1er niveau",
+                    "FORM":{
+                        "WALLET":"portefeuille",
+                        "SELECTWALLET":"Sélectionnez un portefeuille",
+                        "VALUE":"valeur",
+                        "VALUEREQUIRED":"Une valeur est requise",
+                        "WITHDRAWMONEY":"Retirer de l'argent"
+                    }
+                }
+            }
+        },
+        "REPORT":{
+            "HTML":{
+                "TABLE":{
+                    "STATUS":{
+                        "CANCEL":"Annulé",
+                        "PENDING":"Enattente",
+                        "COMPLETE":"Terminé"
+                    },
+                    "COLUMN":{
+                        "VALUE":"Valuer",
+                        "COIN":"Pièce de monnaie",
+                        "STATUS":"Statut"
+                    },
+                    "ACTION":"Copier le hachage"
+                }   
+            },
+            "COPYLINK":{
+                "MESSAGE":"Lien copié"
+            }
+        },
+        "WALLETLIST":{
+            "HTML":{
+                "TABLE":{
+                    "COLUMN":{
+                        "NAME":"Nom",
+                        "HASH":"Hacher",
+                        "ACTION":"Action"
+                    },
+                    "EDITBUTTON":"Modifier",
+                    "CHECKBUTTON":"Confirmer le jeton"
+                }
+            },
+            "DELETEDWALLET":{
+                "TEXT":"Wallet supprimé avec succès",
+                "TYPE":"success"
+            },
+            "TOKENCONFIRM":{
+                "SWAL":{
+                    "TITLE":"Entrez votre confirmation de jeton envoyée à votre e-mail",
+                    "VALIDATOR":"Vous devez écrire quelque chose!"
+                },
+                "TOAST":{
+                    "TITLE":"Le portefeuille mis à jour avec succès"
+                }
+            }
+        },
+        "WALLETEDIT":{
+            "HTML":{
+                "CARDS":{
+                    "FORM":{
+                        "TITLE":"Modifier le portefeuille",
+                        "DESCRIPTION":"La description",
+                        "PLACEHOLDERDESCRIPTION":"Créez un descripton pour votre portefeuille",
+                        "ADDRESS":"Adresse",
+                        "PLACEHOLDERADDRESS":"Votre adresse (hachage)"    
+                    },
+                    "CHECKBUTTON":"Enregistrer",
+                    "BACKBUTTON":"Retour"
+                }
+            },
+            "UPDATEWALLET":{
+                "SWAL":{
+                    "TITLE":"Êtes-vous sûr ?",
+                    "TEXT":"Une fois traité, vous ne pourrez pas le récupérer!",
+                    "ICON":"warning"
+                }
+            },
+            "TOKENCONFIRM":{
+                "SWAL":{
+                    "TITLE":"Vérifiez votre e-mail et entrez la validation du jeton",
+                    "VALIDATOR":"Vous devez écrire quelque chose!"
+                },
+                "TOAST":{
+                    "TITLE":"Portefeuille mis à jour avec succès",
+                    "TYPE":"Success"
+                }
+            }
+        }
+    },
+    "NETWORK":{
+        "TEAM":{
+            "HTML":{
+                "CARDS":{
+                    "INVITATIONLINK":{
+                        "TITLE":"Lien d'invitation",
+                        "TEXT":"Ceci est votre lien d'invitation, copiez et envoyez à votre équipe d'investisseurs.",
+                        "BUTTON":"Copier le lien"
+                    }
+                }
+            },
+            "COPYLINK":{
+                "MESSAGE":"Lien copié"
+            }
+        }
+    },
+    "YIELD":{
+        "YIELDREPORT":{
+            "HTML":{
+                "CARDS":{
+                    "TOTALYIELDS":"Rendements totaux",
+                    "TOTALLEVELS":"Niveau total",
+                    "TOTALRESIDUAL":"Total résiduel",
+                    "TOTALWITHDRAW":"Retrait total"
+                },
+                "TABLE":{
+                    "STATUS":{
+                        "RESIDUAL":"Résiduel",
+                        "CREDIT":"Crédit",
+                        "DEBIT":"Débit",
+                        "DIRECTINDICATION":"Indication directe",
+                        "INDIRECTINDICATION":"Indication indirecte {{indirectvalue}} Niveau"
+                    },
+                    "COLUMN":{
+                        "VALUE":"Valeur",
+                        "TYPE":"Type",
+                        "DESCRIPTION":"La description",
+                        "DATE":"Date"
+                    }
+                }
+            }
+        }
     },
     "MENU": {
         "DASHBOARD": {
-            "TITLE": "Tableau de Bord"
-         },
-        "INVESTMENTS": "Investissements",
-        "WITHDRAWALS": "Retraits",
-        "NETWORK":"Réseau",
-        "CONFIG":"Configuration"
-    }
+            "TITLE": "Page d'accueil"
+        },
+        "INVESTMENTS": {
+            "TITLE": "Investments",
+            "SUBMENU": {
+                "CREATE": "Créer",
+                "HISTORIC": "Historique"
+            }
+        },
+        "WITHDRAWALS": {
+            "TITLE":"Butin",
+            "SUBMENU": {
+                "WITHDRAW": "Retirer",
+                "WITHDRAWALREPORT": "Rapport de retrait",
+                "WALLET": "Wallet"
+            }
+        },
+        "NETWORK": {
+            "TITLE":"Réseau",
+            "SUBMENU": {
+                "TEAM": "Équipe",
+                "RESIDUAL": "Résiduel",
+                "BONUS": "Prime"    
+            }
+        },
+        "YIELD": {
+            "TITLE":"Rendements"
+        },
+        "CONFIG": {
+            "TITLE":"Configuration"
+        }
+    },
+    "ROUTES":{
+        "DASHBOARD":{
+            "HOMEPAGE":"Page d'accueil",
+            "TITLE":"Tableau de bord"
+        },
+        "INVESTIMENTS":{
+            "CREATEINVESTIMENTS":"Créer des investissements",
+            "HISTORICINVESTIMENTS":"Historique des investissements",
+            "TITLE":"Investissements"
+        },
+        "LOOT":{
+            "WITHDRAW":"Retrait",
+            "WITHDRAWALREPORT":"Rapport de retrait",
+            "MYWALLET":"Mon portefeuille",
+            "EDITWALLET":"Modifier le portefeuille",
+            "MYWALLETS":"Mes portefeuilles",
+            "TITLE":"Butin"
+        },
+        "NETWORK":{
+            "TITLE":"Réseau",
+            "TEAM":"Équipe"
+        },
+        "YIELD":{
+            "TITLE":"Rendement",
+            "YIELDREPORT":"Rapport de rendement"
+        }
+    }    
 }

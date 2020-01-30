@@ -12,17 +12,17 @@
                     [footerHeight]="50" [rowHeight]="'auto'" [rows]='rows' [columnMode]="ColumnMode.force"
                     [externalPaging]="true" [count]="page.total || 0"
                     [offset]="(page.current_page - 1)" [limit]="page.per_page || 0" (page)="setPage($event)">
-                        <ngx-datatable-column prop="valor" name="Value"></ngx-datatable-column>
-                        <ngx-datatable-column  prop="coin" name="Coin">
+                        <ngx-datatable-column prop="valor" name="{{'LOOT.REPORT.HTML.TABLE.COLUMN.VALUE' | translate}}"></ngx-datatable-column>
+                        <ngx-datatable-column  prop="coin" name="{{'LOOT.REPORT.HTML.TABLE.COLUMN.COIN' | translate}}">
                             <!-- <ng-template let-row="row" ngx-datatable-cell-template >
                                     <span *ngIf="row.coin === null || row.coin === undefined " class="text-center" >-</span>
                             </ng-template> -->
                         </ngx-datatable-column>
-                        <ngx-datatable-column name="Status">
+                        <ngx-datatable-column name="{{'LOOT.REPORT.HTML.TABLE.COLUMN.STATUS' | translate}}">
                                 <ng-template let-row="row" ngx-datatable-cell-template >
-                                        <span *ngIf="row.status === -1" class="text-danger" >Cancel</span>
-                                        <span *ngIf="row.status === 0 || row.status === null" class="text-warning" >Pending</span>
-                                        <span *ngIf="row.status === 2" class="text-success" >Complete</span>
+                                        <span *ngIf="row.status === -1" class="text-danger" >{{ 'LOOT.REPORT.HTML.TABLE.STATUS.CANCEL' | translate }}</span>
+                                        <span *ngIf="row.status === 0 || row.status === null" class="text-warning" >{{ 'LOOT.REPORT.HTML.TABLE.STATUS.PENDING' | translate }}</span>
+                                        <span *ngIf="row.status === 2" class="text-success" >{{ 'LOOT.REPORT.HTML.TABLE.STATUS.COMPLETE' | translate }}</span>
                                 </ng-template>
                         </ngx-datatable-column>
                     </ngx-datatable>

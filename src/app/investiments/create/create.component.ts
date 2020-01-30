@@ -3,7 +3,7 @@ import { InvestimentsService } from 'src/app/services/investiments/investiments.
 import { Events } from '@ionic/angular';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InvestmentResponse } from 'src/app/models/InvestmentResponse';
 import { Plan, Plans } from 'src/app/models/plans';
@@ -11,6 +11,8 @@ import { PacoteService } from 'src/app/services/pacote/pacote.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { Profile } from 'src/app/models/Profile';
+import { TranslationService } from 'src/app/services/translation/translation.service';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -37,9 +39,12 @@ export class CreateComponent implements OnInit {
   valor_investimento: number;
   investimentoValor: string | number;
 
-  constructor(public investiments: InvestimentsService, public events: Events, private ngxService: NgxUiLoaderService,
-    private formBuilder: FormBuilder, public router: Router, private modalService: NgbModal,
-    public pacotes: PacoteService) { }
+  constructor(
+    public investiments: InvestimentsService, public events: Events, 
+    private ngxService: NgxUiLoaderService,private formBuilder: FormBuilder, 
+    public router: Router, private modalService: NgbModal,
+    public pacotes: PacoteService, private translateService: TranslationService,
+    private route: ActivatedRoute,private titleService: Title) { }
 
   ngOnInit() {
     this.user = <Profile>JSON.parse(localStorage.getItem('currentUser'));
@@ -51,6 +56,12 @@ export class CreateComponent implements OnInit {
     this.initForm();
     this.investimentTypes();
     this.Plans();
+
+    this.translateService.translate.get(["ROUTES.INVESTIMENTS"]).subscribe(
+      (text) => {
+        this.titleService.setTitle(text['ROUTES.INVESTIMENTS']["CREATEINVESTIMENTS"]);
+      }
+    )
   }
 
   initForm() {
@@ -71,64 +82,68 @@ export class CreateComponent implements OnInit {
 
   createInvestiment(plan: Plan) {
 
-    if (this.user.investimento) {
-      if (plan.valor > this.user.investimento.valor) {
-        Swal.fire({
-          title: "Are you sure?",
-          text: "Once processed, you will not be able to recover it!",
-          icon: "warning",
-          showConfirmButton: true,
-          showCancelButton: true
-        }).then((willDelete) => {
-          if (willDelete.value) {
-            this.ngxService.start()
-            this.investiments.Invest({ pacote_id: plan.id }).then((response: InvestmentResponse) => {
-              this.ngxService.stop()
-              this.qrCode = response.qrcode_url
-              this.address = response.address;
-              this.amount = response.amount;
-              let modalRef = this.openModal();
-              modalRef['qrCode'] = response.qrcode_url;
-              modalRef['addnbress'] = response.address;
-            }, err => {
-              this.ngxService.stop()
-              console.log(err)
+    this.translateService.translate.get(["INVESTIMENTS.CREATE"]).subscribe(
+      (text) => {
+        if (this.user.investimento) {
+          if (plan.valor > this.user.investimento.valor) {
+            Swal.fire({
+              title: text["INVESTIMENTS.CREATE"]["CREATEINVESTIMENT"]["TITLE"],
+              text: text["INVESTIMENTS.CREATE"]["CREATEINVESTIMENT"]["TEXT"],
+              icon: text["INVESTIMENTS.CREATE"]["CREATEINVESTIMENT"]["ICON"],
+              showConfirmButton: true,
+              showCancelButton: true
+            }).then((willDelete) => {
+              if (willDelete.value) {
+                this.ngxService.start()
+                this.investiments.Invest({ pacote_id: plan.id }).then((response: InvestmentResponse) => {
+                  this.ngxService.stop()
+                  this.qrCode = response.qrcode_url
+                  this.address = response.address;
+                  this.amount = response.amount;
+                  let modalRef = this.openModal();
+                  modalRef['qrCode'] = response.qrcode_url;
+                  modalRef['addnbress'] = response.address;
+                }, err => {
+                  this.ngxService.stop()
+                  console.log(err)
+                })
+              }
+            });
+          } else {
+            Swal.fire({
+              title: text["INVESTIMENTS.CREATE"]["CREATEINVESTIMENT"]["FAIL"]["MESSAGE"],
+              text: text["INVESTIMENTS.CREATE"]["CREATEINVESTIMENT"]["FAIL"]["TEXT"],
+              icon: text["INVESTIMENTS.CREATE"]["CREATEINVESTIMENT"]["FAIL"]["TYPE"],
+              showConfirmButton: true,
             })
           }
-        });
-      } else {
-        Swal.fire({
-          title: "Opps!",
-          text: "You selecetd a plan smaller than your investiment",
-          icon: "warning",
-          showConfirmButton: true,
-        })
-      }
-    } else {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "Once processed, you will not be able to recover it!",
-        icon: "warning",
-        showConfirmButton: true,
-        showCancelButton: true
-      }).then((willDelete) => {
-        if (willDelete.value) {
-          this.ngxService.start()
-          this.investiments.Invest({ pacote_id: plan.id }).then((response: InvestmentResponse) => {
-            this.ngxService.stop()
-            this.qrCode = response.qrcode_url
-            this.address = response.address;
-            this.amount = response.amount;
-            let modalRef = this.openModal();
-            modalRef['qrCode'] = response.qrcode_url;
-            modalRef['addnbress'] = response.address;
-          }, err => {
-            this.ngxService.stop()
-            console.log(err)
-          })
+        } else {
+          Swal.fire({
+            title: text["INVESTIMENTS.CREATE"]["CREATEINVESTIMENT"]["TITLE"],
+            text: text["INVESTIMENTS.CREATE"]["CREATEINVESTIMENT"]["TEXT"],
+            icon: text["INVESTIMENTS.CREATE"]["CREATEINVESTIMENT"]["ICON"],
+            showConfirmButton: true,
+            showCancelButton: true
+          }).then((willDelete) => {
+            if (willDelete.value) {
+              this.ngxService.start()
+              this.investiments.Invest({ pacote_id: plan.id }).then((response: InvestmentResponse) => {
+                this.ngxService.stop()
+                this.qrCode = response.qrcode_url
+                this.address = response.address;
+                this.amount = response.amount;
+                let modalRef = this.openModal();
+                modalRef['qrCode'] = response.qrcode_url;
+                modalRef['addnbress'] = response.address;
+              }, err => {
+                this.ngxService.stop()
+                console.log(err)
+              })
+            }
+          });
         }
-      });
-    }
+      }
+    )
 
   }
 
@@ -144,29 +159,6 @@ export class CreateComponent implements OnInit {
   }
 
   get f() { return this.investimentForm.controls; }
-
-  // createInvestiment(plan: Plan){
-
-  //   this.submitted = true
-
-  //   if(this.investimentForm.invalid){
-  //     return;
-  //   }
-  //   this.ngxService.start()
-  //   this.investiments.Invest({pacote_id: plan.id}).then((response: InvestmentResponse)=>{
-  //       this.ngxService.stop()
-  //       this.qrCode = response.qrcode_url
-  //       this.address = response.address;
-  //       this.amount = response.amount;
-  //       let modalRef = this.openModal();
-  //       modalRef['qrCode'] = response.qrcode_url;
-  //       modalRef['addnbress'] = response.address;
-  //   },err=>{
-  //       this.ngxService.stop()
-  //       console.log(err)
-  //   })
-
-  // }
 
   openModal() {
     return this.modalService.open(this.modal, { centered: true });

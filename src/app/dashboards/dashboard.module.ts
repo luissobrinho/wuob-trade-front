@@ -16,6 +16,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { DashboardRoutes } from './dashboard.routing';
 
 import { Dashboard1Component } from './dashboard1/dashboard1.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { Dashboard1Component } from './dashboard1/dashboard1.component';
       useFactory: adapterFactory
     }),
     NgxChartsModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    TranslateModule
   ],
   declarations: [
     Dashboard1Component,

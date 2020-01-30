@@ -1,41 +1,362 @@
 {   
     "DASHBOARD": {
+        "TITLE":"Dashboard",
         "FILTER": "Search",
-        "OPTIONLANG":"Select language"
+        "OPTIONLANG":"Select language",
+        "HTML":{
+            "MODAL":{
+                "WARNING":"ATTENTION!",
+                "TITLE":"Transfer the exact amount of the transaction.",
+                "CLOSE":"Close"
+            },
+            "LINKINVITATION":{
+                "TITLE":"Invitation link",
+                "TEXT":"This is your invitation link, copy and send to your investor team.",
+                "BUTTON":"Copy link"
+            },
+            "SCORE":{
+                "TOTAL":"Total score",
+                "TICKETSAVAILABLE":"Tickets available",
+                "BUY":"Buy"
+            },
+            "CARDS":{
+                "BALANCEAVAILABLE":"Balance available",
+                "YIELDS":{
+                    "TITLE":"Yields"
+                },
+                "FIRSTLEVEL":"1st level balance",
+                "BALANCEBLOCK":"Balance Locked",
+                "CAMPAING":{
+                    "TITLE":"Campaign",
+                    "YIELDS":"Yields",
+                    "UNCOMPLETED":"Un-completed",
+                    "TOTAL":"Total"
+                },
+                "TOPPLANS":{
+                    "TITLE":"Top Plans",
+                    "BUTTON":"Invest"
+                },
+                "VIDEO":{
+                    "TITLE":"Video"
+                }
+            }
+        },
+        "ACCOUNT": {
+            "ALERT":{
+                "DANGER":"<strong>Danger!</strong> This cannot be done !!!",
+                "SUCCESS":"<strong>Success!</strong> You win !!!",
+                "INFO":"<strong>Info!</strong> Change your life !!!",
+                "WARNING":"<strong>Warning!</strong> Make your investment to start yielding !!!"
+            },
+            "TOAST":{
+                "DANGER":"This cannot be done !!!",
+                "SUCCESS":"You win !!!",
+                "INFO":"Change your life !!!",
+                "WARNING":"Make your investment to start yielding !!!"
+            }
+        },
+        "WALLET":{
+            "ALERT":{
+                "DANGER":"<strong>Danger!</strong> This cannot be done !!!",
+                "SUCCESS":"<strong>Success!</strong> You win !!!",
+                "INFO":"<strong>Info!</strong> Change your life !!!",
+                "WARNING":"<strong>Warning!</strong> Make your investment to start yielding !!!"
+            },
+            "TOAST":{
+                "DANGER":"This cannot be done !!!",
+                "SUCCESS":"You win !!!",
+                "INFO":"Change your life !!!",
+                "WARNING":"Pending wallet token verification !!!",
+                "TITLE":"Warning !"
+            }
+        },
+        "LINECHART":{
+            "DAYS":"Days"
+        },
+        "COPYLINK":{
+            "MESSAGE":"Link copied"
+        },
+        "BUYTICKET":{
+            "TITLE":"Are you sure ?",
+            "TEXT":"Once processed, you will not be able to recover it!",
+            "ICON":"warning",
+            "SUCCESS":{
+                "MESSAGE":"Great!",
+                "TYPE":"success"
+            },
+            "FAIL":{
+                "MESSAGE":"Opps",
+                "TYPE":"warning"
+            }
+        },
+        "CREATEINVESTIMENT":{
+            "TITLE":"Are you sure ?",
+            "TEXT":"Once processed, you will not be able to recover it!",
+            "ICON":"warning",
+            "SUCCESS":{
+                "MESSAGE":"Great!",
+                "TYPE":"success"
+            },
+            "FAIL":{
+                "MESSAGE":"Opps",
+                "TEXT":"You selecetd a plan smaller than your investiment",
+                "TYPE":"warning"
+            }
+        },
+        "CAMPAING":{
+            "COLUMNS":{
+                "YIELDS":"Yields",
+                "UNCOMPLETED":"Un-completed"
+            }
+        }
+    },
+    "INVESTIMENTS":{
+        "CREATE":{
+            "HTML":{
+                "CARDS":{
+                    "PLANS":{
+                        "BUTTON":"Invest"
+                    }
+                },
+                "MODAL":{
+                    "WARNING":"ATTENTION!",
+                    "TITLE":"Transfer the exact amount of the transaction.",
+                    "CLOSE":"Close"
+                }
+            },
+            "CREATEINVESTIMENT":{
+                "TITLE":"Are you sure ?",
+                "TEXT":"Once processed, you will not be able to recover it!",
+                "ICON":"warning",
+                "SUCCESS":{
+                    "MESSAGE":"Great!",
+                    "TYPE":"success"
+                },
+                "FAIL":{
+                    "MESSAGE":"Opps",
+                    "TEXT":"You selecetd a plan smaller than your investiment",
+                    "TYPE":"warning"
+                }
+            }
+        },
+        "HISTORIC":{
+            "HTML":{
+                "TABLE":{
+                    "STATUS":{
+                        "CANCEL":"Cancel",
+                        "PENDING":"Pending",
+                        "COMPLETE":"Complete"
+                    },
+                    "COLUMN":{
+                        "VALUE":"Value",
+                        "COIN":"Coin",
+                        "STATUS":"Status",
+                        "ACTION":"Action"
+                    },
+                    "ACTION":"Copy Hash"
+                }   
+            },
+            "COPYLINK":{
+                "MESSAGE":"Link copied"
+            }
+        }
+    },
+    "LOOT":{
+        "WITHDRAW":{
+            "HTML":{
+                "CARDS":{
+                    "FIRSTLEVEL":"Balance available 1st level",
+                    "FORM":{
+                        "WALLET":"Wallet",
+                        "SELECTWALLET":"Select a wallet",
+                        "VALUE":"Value",
+                        "VALUEREQUIRED":"Value is required",
+                        "WITHDRAWMONEY":"Withdraw Money"
+                    }
+                }
+            }
+        },
+        "REPORT":{
+            "HTML":{
+                "TABLE":{
+                    "STATUS":{
+                        "CANCEL":"Cancel",
+                        "PENDING":"Pending",
+                        "COMPLETE":"Complete"
+                    },
+                    "COLUMN":{
+                        "VALUE":"Value",
+                        "COIN":"Coin",
+                        "STATUS":"Status"
+                    },
+                    "ACTION":"Copy Hash"
+                }   
+            },
+            "COPYLINK":{
+                "MESSAGE":"Link copied"
+            }
+        },
+        "WALLETLIST":{
+            "HTML":{
+                "TABLE":{
+                    "COLUMN":{
+                        "NAME":"Name",
+                        "HASH":"Hash",
+                        "ACTION":"Action"
+                    },
+                    "EDITBUTTON":"Edit",
+                    "CHECKBUTTON":"Confirm token"
+                }
+            },
+            "DELETEDWALLET":{
+                "TEXT":"Wallet removed with success",
+                "TYPE":"success"
+            },
+            "TOKENCONFIRM":{
+                "SWAL":{
+                    "TITLE":"Enter your token confirmation sent to your email",
+                    "VALIDATOR":"You need to write something!"
+                },
+                "TOAST":{
+                    "TITLE":"Wallet updated with success"
+                }
+            }
+        },
+        "WALLETEDIT":{
+            "HTML":{
+                "CARDS":{
+                    "FORM":{
+                        "TITLE":"Edit Wallet",
+                        "DESCRIPTION":"Description",
+                        "PLACEHOLDERDESCRIPTION":"Create a descripton for your wallet",
+                        "ADDRESS":"Address",
+                        "PLACEHOLDERADDRESS":"Your Address (hash)"    
+                    },
+                    "CHECKBUTTON":"Save",
+                    "BACKBUTTON":"Back"
+                }
+            },
+            "UPDATEWALLET":{
+                "SWAL":{
+                    "TITLE":"Are you sure ?",
+                    "TEXT":"Once processed, you will not be able to recover it!",
+                    "ICON":"warning"
+                }
+            },
+            "TOKENCONFIRM":{
+                "SWAL":{
+                    "TITLE":"Check your email and enter token validation",
+                    "VALIDATOR":"You need to write something!"
+                },
+                "TOAST":{
+                    "TITLE":"Wallet updated with success",
+                    "TYPE":"Success"
+                }
+            }
+        }
+    },
+    "NETWORK":{
+        "TEAM":{
+            "HTML":{
+                "CARDS":{
+                    "INVITATIONLINK":{
+                        "TITLE":"Invitation link",
+                        "TEXT":"This is your invitation link, copy and send to your investor team.",
+                        "BUTTON":"Copy link"
+                    }
+                }
+            },
+            "COPYLINK":{
+                "MESSAGE":"Link copied"
+            }
+        }
+    },
+    "YIELD":{
+        "YIELDREPORT":{
+            "HTML":{
+                "CARDS":{
+                    "TOTALYIELDS":"Total Yields",
+                    "TOTALLEVELS":"Total Level",
+                    "TOTALRESIDUAL":"Total Residual",
+                    "TOTALWITHDRAW":"Total Withdraw"
+                },
+                "TABLE":{
+                    "STATUS":{
+                        "RESIDUAL":"Residual",
+                        "CREDIT":"Credit",
+                        "DEBIT":"Debit",
+                        "DIRECTINDICATION":"Direct indication",
+                        "INDIRECTINDICATION":"Indirect indication {{indirectvalue}} Level"
+                    },
+                    "COLUMN":{
+                        "VALUE":"Value",
+                        "TYPE":"Type",
+                        "DESCRIPTION":"Description",
+                        "DATE":"Date"
+                    }
+                }
+            }
+        }
     },
     "MENU": {
         "DASHBOARD": {
-           "TITLE": "Home Page"
+            "TITLE": "Home Page"
         },
-        "INVESTMENTS":{
-            "TITLE": "Investments",
-            "SUBMENU":{
+        "INVESTMENTS": {
+            "TITLE": "Investiments",
+            "SUBMENU": {
                 "CREATE": "Create",
                 "HISTORIC": "Historic"
             }
         },
-        "WITHDRAWALS":{
+        "WITHDRAWALS": {
             "TITLE":"Loot",
-            "SUBMENU":{
+            "SUBMENU": {
                 "WITHDRAW": "Withdraw",
                 "WITHDRAWALREPORT": "Withdrawal Report",
                 "WALLET": "Wallet"
             }
         },
-        "NETWORK":{
+        "NETWORK": {
             "TITLE":"Network",
-            "SUBMENU":{
+            "SUBMENU": {
                 "TEAM": "Team",
                 "RESIDUAL": "Residual",
-                "BONUS": "Bonus"
+                "BONUS": "Bonus"    
             }
         },
-        "YIELD":{
+        "YIELD": {
             "TITLE":"Yield"
         },
-        "CONFIG":{
+        "CONFIG": {
             "TITLE":"Configuration"
         }
-    }
-    
+    }, 
+    "ROUTES":{
+        "DASHBOARD":{
+            "HOMEPAGE":"Home Page",
+            "TITLE":"Dashboard"
+        },
+        "INVESTIMENTS":{
+            "CREATEINVESTIMENTS":"Create Investiments",
+            "HISTORICINVESTIMENTS":"Historic Investiments",
+            "TITLE":"Investiments"
+        },
+        "LOOT":{
+            "WITHDRAW":"Withdraw",
+            "WITHDRAWALREPORT":"Withdrawal Report",
+            "MYWALLET":"My Wallet",
+            "EDITWALLET":"Edit Wallet",
+            "MYWALLETS":"My Wallets",
+            "TITLE":"Loot"
+        },
+        "NETWORK":{
+            "TITLE":"Network",
+            "TEAM":"Team"
+        },
+        "YIELD":{
+            "TITLE":"Yield",
+            "YIELDREPORT":"Yield Report"
+        }
+    }   
 }

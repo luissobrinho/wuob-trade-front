@@ -7,6 +7,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Wallet } from 'src/app/models/Wallet';
 import Swal from 'sweetalert2'
+import { TranslationService } from 'src/app/services/translation/translation.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-wallet-edit',
@@ -26,8 +28,12 @@ export class WalletEditComponent implements OnInit {
   id:number;
   wallet:Wallet;
 
-  constructor(public loot: LootService, public events: Events, private ngxService: NgxUiLoaderService,
-    private formBuilder: FormBuilder, public router: Router, private modalService: NgbModal, public routeactive:ActivatedRoute) {
+  constructor(
+    public loot: LootService, public events: Events, 
+    private ngxService: NgxUiLoaderService,private formBuilder: FormBuilder, 
+    public router: Router, private modalService: NgbModal, 
+    public routeactive:ActivatedRoute, private translateService: TranslationService,
+    private route: ActivatedRoute,private titleService: Title) {
     ngxService.start();
       this.id = this.routeactive.snapshot.params.id;
       // console.log(this.id);
@@ -37,6 +43,12 @@ export class WalletEditComponent implements OnInit {
    ngOnInit() {
      this.initForm();
      this.initValues();
+
+     this.translateService.translate.get(["ROUTES.LOOT"]).subscribe(
+      (text) => {
+        this.titleService.setTitle(text['ROUTES.LOOT']["EDITWALLET"]);
+      }
+    )
   }
 
   initForm() {
@@ -63,75 +75,89 @@ export class WalletEditComponent implements OnInit {
   }
 
   updateWallet() {
-    this.submitted = true
 
-    if (this.walletForm.invalid) {
-      return;
-    }
+    this.translateService.translate.get(["WALLETEDIT.UPDATEWALLET"]).subscribe(
+      (text) => {
+        this.submitted = true
 
-    Swal.fire({
-      title: "Are you sure?",
-      text: "Once processed, you will not be able to recover it!",
-      icon: "warning",
-      showConfirmButton: true,
-      showCancelButton: true
-    })
-    .then((willDelete) => {
-      if (willDelete.value) {
-        this.ngxService.start()
+        if (this.walletForm.invalid) {
+          return;
+        }
 
-        this.nome = this.walletForm.value.nome;
-        this.hash_new = this.walletForm.value.hash;
-
-        this.loot.updateWallet(this.id, {nome: this.nome, hash_new: this.hash_new}).then(
-          (response: Wallet) => {
-            this.ngxService.stop();
-            this.loot.getWallet(this.id).then(
-              (wallet: Wallet) => {
-                this.tokenConfirm(wallet);
-              }
-            )
-
-            
-        }, 
-        err => {
-          this.ngxService.stop();
-          Swal.fire(
-            'Opps!',
-            err,
-            'warning'
-          )
+        Swal.fire({
+          title: text["WALLETEDIT.UPDATEWALLET"]["SWAL"]["TITLE"],
+          text: text["WALLETEDIT.UPDATEWALLET"]["SWAL"]["TEXT"],
+          icon: text["WALLETEDIT.UPDATEWALLET"]["SWAL"]["ICON"],
+          showConfirmButton: true,
+          showCancelButton: true
         })
+        .then((willDelete) => {
+          if (willDelete.value) {
+            this.ngxService.start()
+
+            this.nome = this.walletForm.value.nome;
+            this.hash_new = this.walletForm.value.hash;
+
+            this.loot.updateWallet(this.id, {nome: this.nome, hash_new: this.hash_new}).then(
+              (response: Wallet) => {
+                this.ngxService.stop();
+                this.loot.getWallet(this.id).then(
+                  (wallet: Wallet) => {
+                    this.tokenConfirm(wallet);
+                  }
+                )
+
+                
+            }, 
+            err => {
+              this.ngxService.stop();
+              Swal.fire(
+                'Opps!',
+                err,
+                'warning'
+              )
+            })
+          }
+        });
       }
-    });
+    )
+
+    
   }
 
   tokenConfirm(row: Wallet){
-    Swal.fire({
-      title: "Check your email and enter token validation",
-      input: 'text',
-      showCancelButton: true,
-      inputValidator: (value) => {
-        if (!value) {
-          return 'You need to write something!'
-        }else{
-          this.ngxService.start();
-          this.loot.activeWallet(row, {token:value}).then(
-            (res) => {
-              this.events.publish('toast', 'Wallet updated with success', 'Success', 10000, 'toast-success')
-        
-              this.ngxService.stop()
-        
-            }, err => {
-              this.ngxService.stop()
-              this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
-            }).catch((err) => {
-              this.ngxService.stop()
-              this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
-            })
-        }
+
+    this.translateService.translate.get(["WALLETEDIT.TOKENCONFIRM"]).subscribe(
+      (text) => {
+        Swal.fire({
+          title: text["WALLETEDIT.TOKENCONFIRM"]["SWAL"]["TITLE"],
+          input: 'text',
+          showCancelButton: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return text["WALLETEDIT.TOKENCONFIRM"]["SWAL"]["VALIDATOR"]
+            }else{
+              this.ngxService.start();
+              this.loot.activeWallet(row, {token:value}).then(
+                (res) => {
+                  this.events.publish('toast', text["WALLETEDIT.TOKENCONFIRM"]["TOAST"]["TITLE"], text["WALLETEDIT.TOKENCONFIRM"]["TOAST"]["TYPE"], 10000, 'toast-success')
+            
+                  this.ngxService.stop()
+            
+                }, err => {
+                  this.ngxService.stop()
+                  this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
+                }).catch((err) => {
+                  this.ngxService.stop()
+                  this.events.publish('toast', err, 'Erro', 10000, 'toast-error')
+                })
+            }
+          }
+        })
       }
-    })
+    )
+
+   
   }
 
   initValues() {

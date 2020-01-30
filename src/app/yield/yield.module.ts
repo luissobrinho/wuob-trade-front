@@ -6,6 +6,7 @@ import { YieldRoutes } from './yield-routing.module';
 import { YieldreportComponent } from './yieldreport/yieldreport.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -15,7 +16,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     CommonModule,
     RouterModule.forChild(YieldRoutes),
     NgxDatatableModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    TranslateModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

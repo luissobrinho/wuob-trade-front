@@ -3,6 +3,9 @@ import { Events } from '@ionic/angular';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { LootService } from 'src/app/services/loot/loot.service';
 import { ColumnMode } from '@swimlane/ngx-datatable';
+import { TranslationService } from 'src/app/services/translation/translation.service';
+import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-report',
@@ -23,10 +26,21 @@ export class ReportComponent implements OnInit {
     { name: 'Status', prop:'status' }
   ];
   @ViewChild(ReportComponent, { static: true }) table:ReportComponent;
-  constructor(private loot:LootService,public ngxService: NgxUiLoaderService,public events:Events) { }
+  constructor(
+    private loot:LootService,
+    public ngxService: NgxUiLoaderService,
+    public events:Events,
+    private translateService: TranslationService,
+    private route: ActivatedRoute,private titleService: Title) { }
 
   ngOnInit() {
-     this.loaderTable()
+     this.loaderTable();
+
+     this.translateService.translate.get(["ROUTES.LOOT"]).subscribe(
+      (text) => {
+        this.titleService.setTitle(text['ROUTES.LOOT']["WITHDRAWALREPORT"]);
+      }
+    )
   }
 
   loaderTable(){

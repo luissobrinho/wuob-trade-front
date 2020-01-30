@@ -11,7 +11,7 @@
               </div>
               <div class="m-l-5 align-self-center">
                 <h4 id="investimentos">{{balance | currency:'BTC ':true:'1.1-8'}}</h4>
-                <span class="text-muted">Balance available 1st level</span>
+                <span class="text-muted">{{ 'LOOT.WITHDRAW.HTML.CARDS.FIRSTLEVEL' | translate }}</span>
               </div>
             </div>
           </div>
@@ -41,12 +41,12 @@
                                 <!--/span-->
                                 <div class="col-md-6">
                                         <div class="form-group has-success">
-                                                <label class="control-label">Wallet</label>
+                                                <label class="control-label">{{ 'LOOT.WITHDRAW.HTML.CARDS.FORM.WALLET' | translate }}</label>
                                                 <select formControlName="wallet" [ngClass]="{ 'is-invalid': submitted && f.wallet.errors }" class="form-control custom-select">
                                                     <option *ngFor='let c of wallets' value="{{c.id}}" >{{c.nome}}</option>
                                                 </select>
                                                 <div *ngIf="submitted && f.wallet.errors" class="invalid-feedback">
-                                                    <div *ngIf="f.wallet.errors.required">Select a wallet</div>
+                                                    <div *ngIf="f.wallet.errors.required">{{ 'LOOT.WITHDRAW.HTML.CARDS.FORM.SELECTWALLET' | translate }}</div>
                                                 </div>
                                         </div>
                                 </div>
@@ -54,12 +54,12 @@
 
                                 <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">Value</label>
+                                            <label class="control-label">{{ 'LOOT.WITHDRAW.HTML.CARDS.FORM.VALUE' | translate }}</label>
                                             <input formControlName="value" [ngClass]="{ 'is-invalid': submitted && f.value.errors }" [brmasker]="{money: true, thousand: ',',  decimalCaracter: '.', decimal: '3'}" type="text" id="value" class="form-control" placeholder="0.00">
                                             <!-- <small class="form-control-feedback"> Value minimium 0,005 </small> -->
                                         </div>
                                         <div *ngIf="submitted && f.value.errors" class="invalid-feedback">
-                                            <div *ngIf="f.value.errors.required">Value is required</div>
+                                            <div *ngIf="f.value.errors.required">{{ 'LOOT.WITHDRAW.HTML.CARDS.FORM.VALUEREQUIRED' | translate }}</div>
                                             <!-- <div *ngIf="f.value.errors.min">Entered value is less than 0.005</div> -->
                                         </div>
                                 </div>
@@ -67,7 +67,7 @@
 
                             <div class="form-actions col-12">
                                 <div class="card-body float-right col-4">
-                                    <button type="submit" [disabled]="(_parseFloat(balance) < 0.0005)" class="btn btn-block btn-outline-success float-right">Withdraw Money</button>
+                                    <button type="submit" [disabled]="(_parseFloat(balance) < 0.005)" class="btn btn-block btn-outline-success float-right">{{ 'LOOT.WITHDRAW.HTML.CARDS.FORM.WITHDRAWMONEY' | translate }}</button>
                                 </div>
                             </div>
 

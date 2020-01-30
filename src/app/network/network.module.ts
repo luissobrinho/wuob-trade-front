@@ -10,6 +10,7 @@ import { ResidualComponent } from './residual/residual.component';
 import { BonusComponent } from './bonus/bonus.component';
 import { NetworkRoutes } from './network-routing.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -24,6 +25,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     NgbModule,
     TreeviewModule.forRoot(),
     NgxDatatableModule,
+    TranslateModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
