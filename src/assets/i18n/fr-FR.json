@@ -298,6 +298,19 @@
             }
         }
     },
+    "CONFIRMEMAIL":{
+        "TITLE":"Confirmez votre email",
+        "MESSAGE":"Nous voulons nous assurer que vous êtes un être humain, pas un robot. Veuillez vérifier votre adresse e-mail pour activer votre compte."
+    },
+    "PROFILE":{
+        "NAME":"Nom",
+        "EMAIL":"Email",
+        "PHONE":"Téléphone",
+        "NAMEREQUIRED":"Le nom est requis",
+        "EMAILREQUIRED":"L'email est obligatoire",
+        "PHONEREQUIRED":"Le téléphone est requis",
+        "SAVE":"Sauvegarder"
+    },
     "MENU": {
         "DASHBOARD": {
             "TITLE": "Page d'accueil"
@@ -357,6 +370,14 @@
         "YIELD":{
             "TITLE":"Rendement",
             "YIELDREPORT":"Rapport de rendement"
+        },
+        "PROFILE":{
+            "TITLE":"Profil"
+        },
+        "NAVIGATION":{
+            "PROFILE":"Mon profil",
+            "WALLET":"Mon portefeuille",
+            "LOGOUT":"Se déconnecter"
         }
     }    
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslationService } from '../services/translation/translation.service';
 
 @Component({
   selector: 'app-confirmemail',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfirmemailComponent implements OnInit {
 
-  constructor() { }
+  constructor(private translateService: TranslationService) { }
 
   ngOnInit() {
   }

@@ -20,11 +20,11 @@
                             <div class="col-md-6">
                                     <div class="form-group has-success">
                                             <div class="form-group">
-                                                <label class="control-label">Name</label>
+                                                <label class="control-label">{{ 'PROFILE.NAME' | translate }}</label>
                                                 <input formControlName="name" [ngClass]="{ 'is-invalid': submitted && profileForm['controls'].name.errors }" type="text" id="firstName" class="form-control" >
                                             </div>
                                             <div *ngIf="submitted && profileForm['controls'].name.errors" class="invalid-feedback">
-                                                <div *ngIf="profileForm['controls'].name.errors.required">Name is required</div>
+                                                <div *ngIf="profileForm['controls'].name.errors.required">{{ 'PROFILE.NAMEREQUIRED' | translate }}</div>
                                             </div>
                                     </div>
                             </div>
@@ -32,49 +32,37 @@
 
                             <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Email</label>
+                                        <label class="control-label">{{ 'PROFILE.EMAIL' | translate }}</label>
                                         <input formControlName="email" [ngClass]="{ 'is-invalid': submitted && profileForm['controls'].email.errors }" type="email" id="firstName" class="form-control" >                                    </div>
                                     <div *ngIf="submitted && profileForm['controls'].email.errors" class="invalid-feedback">
-                                        <div *ngIf="profileForm['controls'].email.errors.required">Email is required</div>
+                                        <div *ngIf="profileForm['controls'].email.errors.required">{{ 'PROFILE.EMAILREQUIRED' | translate }}</div>
                                     </div>
                             </div>
 
 
                         </div>
 
-                        <div class="row p-t-20" formGroupName="meta" >
+                        <div class="row p-t-20 justify-content-center" formGroupName="meta" >
 
                                 <div class="col-md-6">
                                         <div class="form-group has-success">
                                                 <div class="form-group">
-                                                    <label class="control-label">Phone</label>
+                                                    <label class="control-label">{{ 'PROFILE.PHONE' | translate }}</label>
                                                     <input (keypress)="onlynumber($event);" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f['meta']['controls'].phone.errors }" type="text" id="phone" class="form-control" >
                                                 </div>
                                                 <div *ngIf="submitted && f['meta']['controls'].phone.errors" class="invalid-feedback">
-                                                    <div *ngIf="f['meta']['controls'].phone.errors.required">Phone is required</div>
+                                                    <div *ngIf="f['meta']['controls'].phone.errors.required">{{ 'PROFILE.PHONEREQUIRED' | translate }}</div>
                                                 </div>
                                         </div>
                                 </div>
                                 <!--/span-->
-        
-                                <div class="col-md-6" >
-                                        <div class="form-group has-success">
-                                                <label class="control-label">Language</label>
-                                                <select formControlName="pais" [ngClass]="{ 'is-invalid': submitted && f['meta']['controls'].pais.errors }" class="form-control custom-select">
-                                                    <option *ngFor='let l of langs' value="{{l.value}}" >{{l.name}}</option>
-                                                </select>
-                                                <div *ngIf="submitted && f['meta']['controls'].pais.errors" class="invalid-feedback">
-                                                    <div *ngIf="f['meta']['controls'].pais.errors.required">Language is required</div>
-                                                </div>
-                                        </div>
-                                </div>
 
                         </div>
                     
                         <div class="form-actions col-12">
                             <div class="card-body float-right col-4">
                                 <button type="submit" class="btn btn-create btn-block btn-outline-success">
-                                    <i class="fa fa-check"></i> Save</button>
+                                    <i class="fa fa-check"></i> {{ 'PROFILE.SAVE' | translate }}</button>
                             </div>
                         </div>
 

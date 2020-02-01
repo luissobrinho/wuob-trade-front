@@ -298,6 +298,19 @@
             }
         }
     },
+    "CONFIRMEMAIL":{
+        "TITLE":"Confirm your email",
+        "MESSAGE":"We want to make sure that you are a human being, not a robot. Please check your email address to activate your account."
+    },
+    "PROFILE":{
+        "NAME":"Name",
+        "EMAIL":"Email",
+        "PHONE":"Phone",
+        "NAMEREQUIRED":"Name is required",
+        "EMAILREQUIRED":"Email is required",
+        "PHONEREQUIRED":"Phone is required",
+        "SAVE":"Save"
+    },
     "MENU": {
         "DASHBOARD": {
             "TITLE": "Home Page"
@@ -357,6 +370,14 @@
         "YIELD":{
             "TITLE":"Yield",
             "YIELDREPORT":"Yield Report"
+        },
+        "PROFILE":{
+            "TITLE":"Profile"
+        },
+        "NAVIGATION":{
+            "PROFILE":"My Profile",
+            "WALLET":"My Wallet",
+            "LOGOUT":"Logout"
         }
     }   
 }

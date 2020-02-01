@@ -298,6 +298,19 @@
             }
         }
     },
+    "CONFIRMEMAIL":{
+        "TITLE":"Confirme seu email",
+        "MESSAGE":"Queremos ter certeza de que você é um ser humano, não um robô. Verifique seu endereço de e-mail para ativar sua conta."
+    },
+    "PROFILE":{
+        "NAME":"Nome",
+        "EMAIL":"Email",
+        "PHONE":"Telefone",
+        "NAMEREQUIRED":"Nome é obrigatório",
+        "EMAILREQUIRED":"Email é obrigatório",
+        "PHONEREQUIRED":"Telefone é obrigatório",
+        "SAVE":"Salvar"
+    },
     "MENU": {
         "DASHBOARD": {
             "TITLE": "Página inicial"
@@ -357,6 +370,14 @@
         "YIELD":{
             "TITLE":"Rendimento",
             "YIELDREPORT":"Relatório de rendimento"
+        },
+        "PROFILE":{
+            "TITLE":"Perfil"
+        },
+        "NAVIGATION":{
+            "PROFILE":"Meu Perfil",
+            "WALLET":"Minha Carteira",
+            "LOGOUT":"Sair"
         }
     }     
 }
