@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   submitted = false;
   profileForm:FormGroup;
   public user:{name:'',email:'',meta:{phone:'',pais:''}}
-  public langs = [{'name':'Portuguese','value':'pt'},{'name':'English','value':'en'},{'name':'French','value':'fr'}]
+  public langs = [{'name':'Portuguese','value':'pt-PT'},{'name':'English','value':'en-US'},{'name':'French','value':'fr-FR'}]
 
   constructor(
     public formBuilder:FormBuilder,
@@ -43,13 +43,14 @@ export class ProfileComponent implements OnInit {
       email: [{value:this.user.email,disabled:true},Validators.compose([Validators.required])],
       meta: this.formBuilder.group({
         phone: [this.user.meta.phone,Validators.compose([Validators.required])],
+        pais: [this.user.meta.pais,Validators.compose([Validators.required])],
         terms_and_cond:['1'],
       })
     });
   }
 
   initValues(){
-      this.user = JSON.parse(localStorage.getItem('currentUser'))
+      this.user = JSON.parse(sessionStorage.getItem('currentUser'))
   }
 
   get f() { return this.profileForm.controls; }

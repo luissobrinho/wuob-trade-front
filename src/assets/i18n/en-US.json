@@ -306,9 +306,11 @@
         "NAME":"Name",
         "EMAIL":"Email",
         "PHONE":"Phone",
+        "LANGUAGE":"Language",
         "NAMEREQUIRED":"Name is required",
         "EMAILREQUIRED":"Email is required",
         "PHONEREQUIRED":"Phone is required",
+        "LANGUAGEREQUIRED":"Language is required",
         "SAVE":"Save"
     },
     "MENU": {

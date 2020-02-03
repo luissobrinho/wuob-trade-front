@@ -214,7 +214,7 @@ export class Dashboard1Component implements OnInit {
   }
 
   public initValuesDashboard() {
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
     if(!this.user.investimento) {
       this.accountAlert[2].show = true;
     }

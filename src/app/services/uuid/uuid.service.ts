@@ -11,7 +11,7 @@ export class UuidService {
   }
 
   getUuid(): string {
-    return localStorage.getItem('HashAppSecurytWeb')
+    return sessionStorage.getItem('HashAppSecurytWeb')
   }
 
   generateUuid(version = 'v1') {
@@ -33,11 +33,11 @@ export class UuidService {
         id = uuid.v5()
         break;
     }
-    localStorage.setItem('HashAppSecurytWeb', id);
+    sessionStorage.setItem('HashAppSecurytWeb', id);
   }
 
   checkExistUuid() {
-    if (!localStorage.getItem('HashAppSecurytWeb')) {
+    if (!sessionStorage.getItem('HashAppSecurytWeb')) {
       return false;
     }
     return true;

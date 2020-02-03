@@ -3,6 +3,7 @@ import { ApiService } from '../api/api.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Events } from '@ionic/angular';
 import { Profile } from 'src/app/models/Profile';import { AuthenticationService } from '../authentication/authentication.service';
+import { TranslationService } from '../translation/translation.service';
 ;
 
 @Injectable({
@@ -12,15 +13,21 @@ export class ProfileService {
 
   private _TOKEN:string;
 
-  constructor(private api:ApiService,private ngxService: NgxUiLoaderService,public events:Events,private auth:AuthenticationService) { 
-     this._TOKEN = localStorage.getItem('Authorization')
+  constructor(
+    private api:ApiService,
+    private ngxService: NgxUiLoaderService,
+    public events:Events,
+    private auth:AuthenticationService,
+    public translation: TranslationService
+    ) { 
+     this._TOKEN = sessionStorage.getItem('Authorization')
       events.subscribe('token',(token)=>{
         this._TOKEN = token;
       })
   }
 
   updateProfile(user){
-      console.log(user);
+      this.translation.translate.use(user.meta.pais);
       let header = {
         Authorization: `Bearer ${this._TOKEN}`,
         'Content-Type': 'application/json',

@@ -11,7 +11,7 @@ export class NetworkService {
   private _TOKEN: string;
 
   constructor(private api: ApiService, public events: Events,private ngxService:NgxUiLoaderService) {
-      this._TOKEN = localStorage.getItem('Authorization')
+      this._TOKEN = sessionStorage.getItem('Authorization')
       events.subscribe('token',(token)=>{
         this._TOKEN = token;
       })

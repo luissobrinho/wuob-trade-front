@@ -47,7 +47,7 @@ export class CreateComponent implements OnInit {
     private route: ActivatedRoute,private titleService: Title) { }
 
   ngOnInit() {
-    this.user = <Profile>JSON.parse(localStorage.getItem('currentUser'));
+    this.user = <Profile>JSON.parse(sessionStorage.getItem('currentUser'));
     this.investmentsType = this.user.totalTipoRendimento;
     this.totalQtdInvestiments = this.user.totalInvestimento;
     this.valor_investimento = parseFloat((this.user.investimento) ? this.user.investimento.valor : '0');
