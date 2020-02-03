@@ -10,5 +10,5 @@ export const environment = {
     messagingSenderId: "615076606227",
     appId: "1:615076606227:web:b2dd9ae3a71f8149e3eae6"
   },
-  urlAngular: 'https://wuobgames/clients/authentication/signup'
+  urlAngular: 'https://wuobgames.com/clients/authentication/signup'
 };

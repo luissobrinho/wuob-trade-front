@@ -35,7 +35,7 @@ export class NavigationComponent implements AfterViewInit {
   }
 
   ngOnInit(){
-      let User = JSON.parse(localStorage.getItem('currentUser'))
+      let User = JSON.parse(sessionStorage.getItem('currentUser'))
       this.user.name = User.name
       this.user.email = User.email
       this.user.photo = './assets/images/users/1.jpg'
@@ -48,19 +48,19 @@ export class NavigationComponent implements AfterViewInit {
       btn: '',
       icon: 'flag-icon flag-icon-us',
       title: 'United States',
-      language: 'en'
+      language: 'en-US'
     },
     {
       btn: '',
       icon: 'flag-icon flag-icon-pt',
       title: 'Portuguese',
-      language: 'pt'
+      language: 'pt-PT'
     },
     {
       btn: '',
       icon: 'flag-icon flag-icon-fr',
       title: 'French',
-      language: 'fr'
+      language: 'fr-FR'
     },
   ];
 

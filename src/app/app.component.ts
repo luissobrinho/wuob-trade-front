@@ -6,6 +6,7 @@ import { TranslationService } from './services/translation/translation.service';
 import { Events } from '@ionic/angular';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
+import { Profile } from './models/Profile';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { Location } from '@angular/common';
 })
 export class AppComponent {
   title = 'app';
-  currentUser: User;
+  currentUser: Profile;
 
   constructor(
     private router: Router,
@@ -25,7 +26,7 @@ export class AppComponent {
     private toastr: ToastrService,
     private location: Location
   ) {
-    let token = localStorage.getItem('Authorization');
+    let token = sessionStorage.getItem('Authorization');
     events.subscribe('toast', (message?: string, title?: string, override?: any, type?: string) => {
       this.toastr.show(message, title, override, type)
     });
@@ -35,7 +36,10 @@ export class AppComponent {
     if (token) {
       this.authenticationService.getProfile(token).then(() => {
         //Subscribe user 
-        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+        this.authenticationService.currentUser.subscribe(x => {
+          this.currentUser = x;
+          this.translation.translate.use(this.currentUser.meta.pais);
+        });
         //redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
           this.router.navigate(['/dashboard/classic']);

@@ -32,7 +32,7 @@ export class TeamComponent implements OnInit {
 
   ngOnInit() {
 
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
     this.linkReference = `${environment.urlAngular}/${this.user.meta.referencia}`;
 
     this.translateService.translate.get(["ROUTES.NETWORK"]).subscribe(
